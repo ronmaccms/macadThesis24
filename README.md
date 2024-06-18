@@ -128,14 +128,14 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <div style="width:100%;" width=100%>
     <div>
         <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/">
-            <img src="https://via.placeholder.com/200" style="filter: grayscale(100%);" alt="Andres Roncal" height=200px>
+            <img src="src\img\andres.png" style="filter: grayscale(100%);" alt="Andres Roncal" height=200px style="filter: grayscale(100%);">
         </a>
     </div>
   <h3>Thesis Advisor</h3>
   <br />
     <div style="display:flex; flex-direction: row; flex-wrap; justify-content:space-around;">
-        <a href="https://www.linkedin.com/in/david-andres-leon/">
-          <img src="https://via.placeholder.com/200" style="filter: grayscale(100%);" alt="David Andres Leon" height=200px>
+        <a href="https://es.linkedin.com/in/davidandresleon">
+          <img src="src\img\davidProfilePic.png" style="filter: grayscale(100%);" alt="David Andres Leon" height=200px>
         </a>
     </div>
 </div>
