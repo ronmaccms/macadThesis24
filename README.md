@@ -32,9 +32,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-<!-- ![Project image](assets/img/project-img.png)
+<!-- ![Project image](assets/img/project-img.png) -->
 
-Project developed under the course IAAC: AI 2023-24 in [IAAC](https://iaac.net/). -->
+Project developed under the course IAAC: AI 2023-24 in [IAAC](https://iaac.net/).
 
 __Project Breakdown__
 
