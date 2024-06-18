@@ -14,7 +14,7 @@
 </div>
 
 <!-- TABLE OF CONTENTS -->
-<details>
+<!-- <details> -->
   <summary>Our goal is to develop a web-based platform that integrates real-time GIS data with advanced simulations to enhance architectural visualization and decision-making processes in the AEC industry. The platform will provide access to site-specific data and visualizations, facilitating informed decision-making during architectural discussions.</summary>
   <!-- <ol>
     <li>
@@ -28,7 +28,7 @@
     <li><a href="#license">License</a></li>
     <li><a href="#team">Team</a></li>
   </ol> -->
-</details>
+<!-- </details> -->
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
