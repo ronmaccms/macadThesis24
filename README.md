@@ -15,7 +15,7 @@
 
 <!-- TABLE OF CONTENTS -->
 <details>
-  <summary>Our goal is to develop a web-based platform that integrates real-time GIS data with advanced simulations to enhance architectural visualization and decision-making processes in the AEC industry. The platform will provide efficient access to site-specific data and visualizations, facilitating informed decision-making during architectural discussions.</summary>
+  <summary>Our goal is to develop a web-based platform that integrates real-time GIS data with advanced simulations to enhance architectural visualization and decision-making processes in the AEC industry. The platform will provide access to site-specific data and visualizations, facilitating informed decision-making during architectural discussions.</summary>
   <ol>
     <li>
       <a href="#about-the-project">About the Project</a>
@@ -32,9 +32,9 @@
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-![Project image](assets/img/project-img.png)
+<!-- ![Project image](assets/img/project-img.png)
 
-Project developed under the course IAAC: AI 2023-24 in [IAAC](https://iaac.net/).
+Project developed under the course IAAC: AI 2023-24 in [IAAC](https://iaac.net/). -->
 
 __Project Breakdown__
 
@@ -52,12 +52,6 @@ __Task:__ Develop a web scraping script to collect historical topography data.
 __Implementation:__ Use the provided GitHub script skeleton to scrape relevant websites and databases.  
 __Outcome:__ Clean, structured dataset for topographical data.
 
-Real-Time Environmental Data:
-
-__Task:__ Extend the data collection process to include real-time environmental conditions such as weather and vegetation cover.  
-__Implementation:__ Adapt the initial script for each new data source.  
-__Outcome:__ Clean datasets for real-time environmental data.
-
 GIS Data:
 
 __Task:__ Gather GIS data from reliable sources.  
@@ -67,10 +61,6 @@ __Outcome:__ Clean dataset for GIS data.
 __Workflow__
 
 __Model Selection:__ Identifying the most appropriate AI model for the task requires extensive experimentation and validation. Different algorithms might perform variably based on the nature of the data.
-
-__Model Training:__ Training a robust model requires substantial computational resources, especially when dealing with large datasets and complex algorithms.
-
-__Handling Imbalanced Data:__ Environmental data might be imbalanced, with some conditions (e.g., extreme weather events) being rare. This can affect the model’s ability to generalize.
 
 __Scalability:__ Ensuring that the tool can scale to handle multiple locations and large datasets without compromising performance.
 
@@ -89,30 +79,10 @@ __Scalability:__ Ensuring that the tool can scale to handle multiple locations a
 * [Colab](https://colab.research.google.com/)
 
 
-## Challenges
-While working on the project the following challenges were encountered:
+<!-- ## Challenges -->
 
-__Web Scraping and Data Preparation:__
-
-- Use Python and libraries like BeautifulSoup, Scrapy, and Pandas.
-- Clean and structure the data using Python scripts.
-- Store the data in a format suitable for AI training (e.g., CSV, JSON).
-
-__Model Training:__
-
-- Use the collected datasets to train an AI model.
-- Evaluate different algorithms (e.g., regression models, neural networks) to determine the best fit.
-- Validate the model using cross-validation techniques.
-
-__Model Deployment:__
-
-- Integrate the trained model into the platform.
-- Develop a user-friendly interface for stakeholders to interact with the platform.
-- Provide detailed reports and visualizations of the data and analyses.
-
-
-## Future Work
-Description coming soon...
+<!-- ## Future Work
+Description coming soon... -->
 <!-- 
 <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
