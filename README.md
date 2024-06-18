@@ -125,6 +125,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Team & Contacts
 <br />
+<h3>Student</h3>
 <h4>Andres Roncal</h4>
 <div style="width:100%;" width=100%>
     <div>
