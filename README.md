@@ -74,7 +74,7 @@ __Handling Imbalanced Data:__ Environmental data might be imbalanced, with some 
 
 __Scalability:__ Ensuring that the tool can scale to handle multiple locations and large datasets without compromising performance.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ### Built With
 * [Vue.js](https://vuejs.org/)
@@ -88,7 +88,6 @@ __Scalability:__ Ensuring that the tool can scale to handle multiple locations a
 * [FastAPI](https://fastapi.tiangolo.com/)
 * [Colab](https://colab.research.google.com/)
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Challenges
 While working on the project the following challenges were encountered:
@@ -111,17 +110,16 @@ __Model Deployment:__
 - Develop a user-friendly interface for stakeholders to interact with the platform.
 - Provide detailed reports and visualizations of the data and analyses.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## Future Work
 Description coming soon...
+<!-- 
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-## License
+<!-- ## License
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
 
 ## Team & Contacts
 <br />
