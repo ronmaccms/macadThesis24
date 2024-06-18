@@ -125,7 +125,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Team & Contacts
 <br />
-<h1>Andres Roncal</h1>
+<h4>Andres Roncal</h4>
 <div style="width:100%;" width=100%>
     <div>
         <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/" target="_blank">
@@ -133,7 +133,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
         </a>
     </div>
   <h3>Thesis Advisor</h3>
-  <h1>David Andres Leon</h1>
+  <h4>David Andres Leon</h4>
   <br />
     <div style="display:flex; flex-direction: row; flex-wrap; justify-content:space-around;">
         <a href="https://es.linkedin.com/in/davidandresleon" target="_blank">
