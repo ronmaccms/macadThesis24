@@ -38,19 +38,7 @@ Research Methodology:
    * Implement basic visualization features like zooming, panning, and selecting data points.
    * Use QGIS for detailed desktop-based analysis.
 
-
-
-
-
-
-
-
-
-
-
-
 Timeline for 2.5 Months
-
 
 Week 1-2: Initial Setup and Data Acquisition
 * Finalize project scope and objectives david.
