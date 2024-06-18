@@ -5,18 +5,18 @@
     <img src="https://github.com/ronmaccms/macadThesis24/assets/logos/project-logo.jpg" alt="Logo" width="450">
   <h3 align="center"> Enhancing Architectural Visualization and GIS Feedback </h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
-    <a href="https://colab.research.google.com/github/ronmaccms/macadThesis24/blob/main/src/notebook.ipynb">View Demo</a>
+    <!-- <a href="https://colab.research.google.com/github/ronmaccms/macadThesis24/blob/main/src/notebook.ipynb">View Demo</a>
+    · -->
+    <a href="andres.roncal@students.iaac.net">Report Bug</a>
     ·
-    <a href="https://github.com/ronmaccms/macadThesis24/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/ronmaccms/macadThesis24/issues">Request Feature</a>
+    <a href="andres.roncal@students.iaac.net">Request Feature</a>
   </p>
 </div>
 
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Our goal is to develop a web-based platform that integrates real-time GIS data with advanced simulations to enhance architectural visualization and decision-making processes in the AEC industry. The platform will provide access to site-specific data and visualizations, facilitating informed decision-making during architectural discussions.</summary>
-  <ol>
+  <!-- <ol>
     <li>
       <a href="#about-the-project">About the Project</a>
       <ul>
@@ -27,7 +27,7 @@
     <li><a href="#challenges">Challenges</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#team">Team</a></li>
-  </ol>
+  </ol> -->
 </details>
 
 <!-- ABOUT THE PROJECT -->
