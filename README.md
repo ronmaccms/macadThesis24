@@ -125,16 +125,18 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## Team & Contacts
 <br />
+<h1>Andres Roncal</h1>
 <div style="width:100%;" width=100%>
     <div>
-        <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/">
+        <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/" target="_blank">
             <img src="src\img\andres.png" style="filter: grayscale(100%);" alt="Andres Roncal" height=200px style="filter: grayscale(100%);">
         </a>
     </div>
   <h3>Thesis Advisor</h3>
+  <h1>David Andres Leon</h1>
   <br />
     <div style="display:flex; flex-direction: row; flex-wrap; justify-content:space-around;">
-        <a href="https://es.linkedin.com/in/davidandresleon">
+        <a href="https://es.linkedin.com/in/davidandresleon" target="_blank">
           <img src="src\img\davidProfilePic.png" style="filter: grayscale(100%);" alt="David Andres Leon" height=200px>
         </a>
     </div>
