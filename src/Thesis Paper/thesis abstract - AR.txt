@@ -1,47 +1,52 @@
 ﻿WIP
-Research Paper: Enhancing Architectural Visualization and GIS Feedback through Real-Time Data Integration and Advanced Simulations
+Optimizing Building Facades for Cooling Using Wind Direction and Strength
+
+
 https://github.com/ronmaccms/macadThesis24
-Traditional architectural tools often fall short in providing real-time, site-specific data, which hampers informed decision-making. This research proposes to develop a web-based platform that integrates real-time GIS data with advanced simulations to enhance architectural visualization and decision-making processes in the AEC industry. 
-The objective is to develop a web-based platform to enhance architectural visualization and GIS feedback using real-time data and advanced simulations. This platform will provide efficient access to site-specific data and visualizations, facilitating informed decision-making during architectural discussions.
-We aim to develop a comprehensive web-based platform integrating real-time GIS data with advanced simulations, providing valuable tools for architects, urban planners, and other stakeholders. The project seeks to bridge the gap between traditional architectural visualization tools and the need for real-time, detailed site-specific information, ultimately improving decision-making processes in the AEC industry.
-Platform
-To address the challenges faced in the AEC industry by providing a tool that enhances the accuracy and accessibility of site-specific data, thereby improving the quality of architectural and urban planning decisions.
-Functions:
-1. Real-Time Integration:
-   * Integrates GIS data provide detailed, site-specific information.
-   * Tools to analyze the topography of a site, including elevation, slope, and landform features.
-   * Real-time environmental data such as weather conditions, vegetation cover, and soil types.
-2. Advanced Simulations:
-   * Uses GNNs to simulate various scenarios, such as land use classification, environmental impact assessments, and urban growth predictions.
-   * Allow users to interact with and analyze the integrated data in a meaningful way.
-3. Architectural Visualization:
-   * Compares latest LIDAr google earth topography with GIS data. 
-   * Allows architects and planners to run different scenarios to understand potential impacts and outcomes (maybe - flood?).
-Why:
-* By providing accurate open source, and comprehensive data, the platform helps stakeholders make more informed decisions.
-* Streamlines the process of gathering and analyzing site-specific information, saving time and resources.
-* Supports sustainable development practices by enabling detailed environmental impact assessments and promoting data-driven decisions.
-Research Methodology:
-1. Data Acquisition and Processing:
-   * data sources relevant to the project (e.g., OSM, government databases, google tiles).
-   * Ensure data accuracy and relevance through processing?
-2. Platform Development:
-   * Develop a prototype focusing on data integration, real-time updates, and basic visualization tools.
-   * Use Vue.js for the front-end and serverless architecture for the backend.
-3. Integration of Real-Time Data:
-   * Start with one or two real-time data sources (e.g., Google Maps tiles and LiDAR).
-   * Develop APIs for data fetching and updating?.
-4. AI Model and Advanced Simulations Deployment:
-   * Begin with a single AI model for a specific task and integrate MeshGraphNet for simulations.
-   * Deploy the model as a REST API and integrate it into the platform.
-5. Data Visualization:
-   * Implement basic visualization features like zooming, panning, and selecting data points.
-   * Use QGIS for detailed desktop-based analysis.
 
+
+This thesis aims to design and optimize building facades to enhance cooling efficiency by leveraging data on wind direction and strength. The study will utilize AI-driven simulations, including Physics-Informed Neural Networks (PINNs), to create adaptive facade designs that respond dynamically to environmental conditions, thereby reducing energy consumption and improving indoor comfort.
+By developing a comprehensive web-based platform that integrates GIS data with simulations, this project seeks to improve decision-making processes in the AEC industry. The platform will allow architects, urban planners, and other stakeholders to input specific parameters such as location coordinates (latitude and longitude) and building geometry to assess current conditions and optimize facade designs accordingly. This approach facilitates more efficient and informed architectural planning and development by providing geospatial data.
+Introduction
+* Discuss the importance of passive cooling strategies in architecture and the potential of adaptive facade systems.
+* Highlight the environmental and economic benefits of optimizing building facades for cooling.
+* Outline the goals of the study, including developing adaptive facade designs and validating their performance through simulations and real-world data.
+Methodology
+* Collect data on wind patterns, building orientations, and existing facade designs.
+* Develop AI models using PINNs to simulate the interaction between facade designs and environmental conditions.
+* Create adaptive facade prototypes that can adjust based on wind direction and strength.
+* Use simulations to test and optimize the facade designs for different environmental scenarios.
+* Validate the designs through computational models and, if possible, small-scale physical prototypes.
+Implementation
+Use software such as CFD tools, TensorFlow or PyTorch for AI models, and NVIDIA GPUs for simulations.
+Design and describe the adaptive facade systems, including materials and mechanisms for adjustment.
+Apply the designs to specific building types or locations to demonstrate their effectiveness.
+Project Milestones and Issues
+Milestone 1: Thesis Abstract Submission
+* Draft the abstract and review it with peers or advisors.
+* Finalize the abstract and submit it.
+Milestone 2: Research and Data Collection
+* Review existing research on passive cooling, adaptive facades, and AI in architecture.
+* Gather data on wind patterns, building orientations, and existing facade designs.
+Milestone 3: Initial Model Development and Simulation
+* Start developing AI models using Physics-Informed Neural Networks (PINNs).
+* Run initial simulations to test the models.
+Milestone 4: Design and Optimization
+* Create adaptive facade designs that adjust based on wind data.
+* Use simulations to optimize the facade designs for cooling efficiency.
+Milestone 5: Analysis and Documentation
+* Analyze the results of the simulations.
+* Document the findings and prepare them for the thesis report.
+Milestone 6: Final Thesis Preparation and Submission
+* Draft the thesis report based on the documented findings.
+* Review and revise the thesis report with input from advisors.
+* Finalize the thesis report and submit it.
+Milestone 7: Thesis Presentation Preparation
+* Create presentation slides summarizing the thesis work.
+* Practice the presentation and deliver it.
 Timeline for 2.5 Months
-
 Week 1-2: Initial Setup and Data Acquisition
-* Finalize project scope and objectives david.
+* Finalize project scope and objectives.
 * Identify and acquire relevant geospatial datasets.
 * Set up the development environment (Vue.js, AWS Lambda/Google Cloud Functions).
 Week 3-4: Core Platform Prototype
@@ -63,28 +68,16 @@ Week 11-12: Data Visualization and Testing
 Week 13-14: Finalization and Documentation
 * Finalize the platform with integrated features.
 * Prepare documentation and a proof of concept.
-
-
-Expected Deliverables
-* A functional web-based platform prototype.
-* Demonstration of real-time data integration, advanced simulations, and visualization capabilities.
-* A case study or proof of concept showcasing the platform's effectiveness in a real-world scenario.
-Conclusion
-This research outlines the development of a comprehensive web-based platform integrating real-time GIS data with advanced simulations. The project aims to improve decision-making processes in the AEC industry. The platform will allow architects, urban planners, and other stakeholders, enhancing the accuracy and accessibility of geospatial data to provide more efficient and informed architectural planning and development.
-
-
 Research Papers
-1. Trends and Opportunities of BIM-GIS Integration in the Architecture, Engineering and Construction Industry: A Review from a Spatio-Temporal Statistical Perspective:
-   * This paper reviews the integration of Building Information Modeling (BIM) and Geographic Information Systems (GIS) in the AEC industry, highlighting evolution, challenges, and future opportunities.
-   * https://www.mdpi.com/2220-9964/6/12/397
-2. Towards Effective BIM/GIS Data Integration for Smart City by Integrating Computer Graphics Technique:
-   * This study addresses challenges in integrating BIM models into GIS environments, essential for smart city and digital twin applications.
-   * https://www.mdpi.com/2072-4292/13/10/1889
-3. Integration of BIM and GIS in sustainable built environment: A review and bibliometric analysis:
-   * This review explores BIM-GIS integration in sustainable development, discussing benefits, challenges, and potential solutions.
-   * https://www.researchgate.net/publication/334140690_Integration_of_BIM_and_GIS_in_sustainable_built_environment_A_review_and_bibliometric_analysis
-4. An Integrated GIS Platform Architecture for Spatiotemporal Big Data:
-   * Discusses the design and implementation of a GIS platform for spatiotemporal big data, offering insights into architecture and methodologies.
-   * https://www.sciencedirect.com/science/article/pii/S0169204618303613
-5. LEARNING MESH-BASED SIMULATION WITH GRAPH NETWORKS
-   * https://arxiv.org/pdf/2010.03409
+Physics-Informed Machine Learning with NVIDIA Modulus
+* NVIDIA Modulus
+Scientific Machine Learning Through Physics-Informed Neural Networks
+* https://link.springer.com/article/10.1007/s10915-022-01939-z
+GPT-PINN: Generative Pre-Trained Physics-Informed Neural Networks
+* GPT-PINN
+Using Hybrid Physics-Informed Neural Networks for Complex Engineering Simulations
+* Hybrid PINNs
+Architectural Strategies for PINN Optimization
+* Architectural Strategies
+Scientific Machine Learning through PINNs
+* Scientific Machine Learning Review
