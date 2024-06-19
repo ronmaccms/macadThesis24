@@ -3,7 +3,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="https://github.com/ronmaccms/macadThesis24/assets/logos/project-logo.jpg" alt="Logo" width="450">
+    <img src="https://github.com/ronmaccms/macadThesis24/assets/logos/project-logo.jpg" alt="Logo" width="150">
   <h3 align="center">Optimizing Building Facades for Cooling Using Wind Direction and Strength</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
     <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
