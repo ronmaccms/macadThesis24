@@ -26,7 +26,6 @@ This thesis aims to design and optimize building facades to enhance cooling effi
 <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/" target="_blank">
     <img src="src/img/andres.png" alt="Andres Roncal" width="100">
 </a>
-- [LinkedIn](https://www.linkedin.com/in/andres-roncal-1b148a132/)
 
 ### Thesis Advisor
 **David Andres Leon**
@@ -34,6 +33,5 @@ This thesis aims to design and optimize building facades to enhance cooling effi
 <a href="https://es.linkedin.com/in/davidandresleon" target="_blank">
     <img src="src/img/davidProfilePic.png" alt="David Andres Leon" width="100">
 </a>
-- [LinkedIn](https://es.linkedin.com/in/davidandresleon)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
