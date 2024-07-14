@@ -64,14 +64,14 @@ This project focuses on developing a comprehensive platform that integrates geos
 **Andres Roncal**
 
 <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/" target="_blank">
-    <img src="src/img/andres.png" alt="Andres Roncal" width="100">
+    <img src="./doc/img/andres.png" alt="Andres Roncal" width="100">
 </a>
 
 ### Thesis Advisor
 **David Andres Leon**
 
 <a href="https://es.linkedin.com/in/davidandresleon" target="_blank">
-    <img src="src/img/davidProfilePic.png" alt="David Andres Leon" width="100">
+    <img src="./doc/img/davidProfilePic.png" alt="David Andres Leon" width="100">
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
