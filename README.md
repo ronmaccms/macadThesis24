@@ -4,7 +4,7 @@
 <br />
 <div align="center">
     <img src="https://github.com/ronmaccms/macadThesis24/assets/logos/project-logo.jpg" alt="Logo" width="150">
-  <h3 align="center">Optimizing Building Facades for Cooling Using Wind Direction and Strength</h3>
+  <h3 align="center">Simulation of Wind Flow Around Buildings Using Physics-Informed Neural Networks</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
     <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
     ·
@@ -16,12 +16,49 @@
 
 Project developed under the course IAAC: AI 2023-24 in [IAAC](https://iaac.net/).
 
-This research aims to design and optimize building facades to enhance cooling efficiency by leveraging data on wind direction and strength. The study will utilize AI-driven simulations, including Physics-Informed Neural Networks (PINNs), to create adaptive facade designs that respond to environmental conditions, reducing energy consumption and improving indoor comfort.
-The objective is to address the critical need for energy-efficient buildings by optimizing building facades to improve cooling efficiency. Traditional passive cooling strategies, such as natural ventilation, shading, and thermal mass, often fall short in dynamically adapting to changing environmental conditions. This research proposes the development of adaptive facade systems that can respond in real-time to variations in wind direction and strength.
-Optimizing building facades for cooling has significant environmental and economic benefits. By reducing reliance on mechanical cooling systems, these adaptive facades can lower greenhouse gas emissions and contribute to more sustainable building practices. Economically, the reduced energy consumption translates to lower operating costs, making buildings more cost-effective over their lifecycle.
-This research will develop a comprehensive web-based platform that integrates GIS data with advanced simulations. The platform will provide architects, urban planners, and other stakeholders with accessible geospatial data, facilitating more efficient and informed architectural planning and development. AI-driven simulations, particularly using PINNs, will be employed to design adaptive facades that can adjust in real-time to environmental conditions, enhancing cooling efficiency and indoor comfort.
-We aim to support the design of building facades by integrating advanced AI-driven simulations and environmental data. The resulting facades will enhance cooling efficiency, reduce energy consumption, and improve indoor comfort, contributing to the development of more sustainable and cost-effective buildings in the AEC industry.
+### Overview
 
+This research project aims to develop a web application for simulating wind flow around buildings using Physics-Informed Neural Networks (PINNs). By leveraging data from Ladybug Tools, NOAA, and OpenWeatherMap, this project integrates real-time wind data and 3D building models to optimize building designs for enhanced pedestrian comfort and energy efficiency.
+
+### Objectives
+
+The primary objective of this research is to design and implement a web-based platform that utilizes PINNs to simulate wind flow and assess pedestrian comfort in urban environments. The platform will:
+- Collect and preprocess data from various sources, including historical wind data from NOAA, real-time wind conditions from OpenWeatherMap, and 3D building models from OpenStreetMap.
+- Develop and train a PINN model using DeepXDE to simulate wind flow.
+- Integrate the trained model into a Vue.js application for real-time user interaction and visualization.
+- Provide insights and visualizations to architects and urban planners to enhance urban design and pedestrian comfort.
+
+### Significance
+
+Optimizing urban design for pedestrian comfort and energy efficiency has significant environmental and economic benefits. By reducing reliance on mechanical cooling systems and improving outdoor conditions, this project aims to:
+- Lower greenhouse gas emissions.
+- Enhance the sustainability of urban environments.
+- Reduce energy consumption and operational costs.
+- Improve the overall quality of life in urban areas.
+
+### Methodology
+
+The development process includes the following stages:
+1. **Planning and Data Collection**: Set up the project repository and collect synthetic and real-time wind data.
+2. **PINN Model Development**: Train and develop the PINN model using DeepXDE.
+3. **Backend Development**: Implement the backend using Flask or FastAPI to handle data and integrate the PINN model.
+4. **Frontend Development**: Develop the user interface using Vue.js for user input and visualization.
+5. **System Integration and Testing**: Connect the frontend and backend, conduct thorough testing, and fix bugs.
+6. **Deployment and Documentation**: Deploy the application on a cloud platform and document the project for future use.
+
+### Data Sources
+
+- **Historical Wind Data**: NOAA historical wind speed and direction data.
+- **Real-Time Wind Data**: OpenWeatherMap wind conditions.
+- **3D Building Models**: OpenStreetMap (OSM).
+- **Synthetic Data**: Ladybug Tools.
+
+### Project Scope
+
+This project focuses on developing a comprehensive platform that integrates geospatial data with advanced simulations. The scope includes:
+- Implementing a user-friendly web application for simulating wind flow.
+- Providing real-time visualization and interaction capabilities.
+- Supporting urban planners and architects with actionable insights for better urban design.
 
 ## Team & Contacts
 
