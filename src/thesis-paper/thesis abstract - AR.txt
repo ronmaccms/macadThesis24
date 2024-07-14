@@ -1,0 +1,88 @@
+﻿WIP
+Optimizing Building Facades for Cooling Using Wind Direction and Strength
+
+
+https://github.com/ronmaccms/macadThesis24
+
+
+This research aims to design and optimize building facades to enhance cooling efficiency by leveraging data on wind direction and strength. The study will utilize AI-driven simulations, including Physics-Informed Neural Networks (PINNs), to create adaptive facade designs that respond to environmental conditions, reducing energy consumption and improving indoor comfort.
+The objective is to address the critical need for energy-efficient buildings by optimizing building facades to improve cooling efficiency. Traditional passive cooling strategies, such as natural ventilation, shading, and thermal mass, often fall short in dynamically adapting to changing environmental conditions. This research proposes the development of adaptive facade systems that can respond in real-time to variations in wind direction and strength.
+Optimizing building facades for cooling has significant environmental and economic benefits. By reducing reliance on mechanical cooling systems, these adaptive facades can lower greenhouse gas emissions and contribute to more sustainable building practices. Economically, the reduced energy consumption translates to lower operating costs, making buildings more cost-effective over their lifecycle.
+This research will develop a comprehensive web-based platform that integrates GIS data with advanced simulations. The platform will provide architects, urban planners, and other stakeholders with accessible geospatial data, facilitating more efficient and informed architectural planning and development. AI-driven simulations, particularly using PINNs, will be employed to design adaptive facades that can adjust in real-time to environmental conditions, enhancing cooling efficiency and indoor comfort.
+We aim to support the design of building facades by integrating advanced AI-driven simulations and environmental data. The resulting facades will enhance cooling efficiency, reduce energy consumption, and improve indoor comfort, contributing to the development of more sustainable and cost-effective buildings in the AEC industry.
+
+
+Introduction
+* Discuss the importance of passive cooling strategies in architecture and the potential of adaptive facade systems.
+* Highlight the environmental and economic benefits of optimizing building facades for cooling.
+* Outline the goals of the study, including developing adaptive facade designs and validating their performance through simulations and real-world data.
+Methodology
+* Collect data on wind patterns, building orientations, and existing facade designs.
+* Develop AI models using PINNs to simulate the interaction between facade designs and environmental conditions.
+* Create adaptive facade prototypes that can adjust based on wind direction and strength.
+* Use simulations to test and optimize the facade designs for different environmental scenarios.
+* Validate the designs through computational models and, if possible, small-scale physical prototypes.
+Implementation
+Use software such as CFD tools, TensorFlow or PyTorch for AI models, and NVIDIA GPUs for simulations.
+Design and describe the adaptive facade systems, including materials and mechanisms for adjustment.
+Apply the designs to specific building types or locations to demonstrate their effectiveness.
+Project Milestones and Issues
+Milestone 1: Thesis Abstract Submission
+* Draft the abstract and review it with peers or advisors.
+* Finalize the abstract and submit it.
+Milestone 2: Research and Data Collection
+* Review existing research on passive cooling, adaptive facades, and AI in architecture.
+* Gather data on wind patterns, building orientations, and existing facade designs.
+Milestone 3: Initial Model Development and Simulation
+* Start developing AI models using Physics-Informed Neural Networks (PINNs).
+* Run initial simulations to test the models.
+Milestone 4: Design and Optimization
+* Create adaptive facade designs that adjust based on wind data.
+* Use simulations to optimize the facade designs for cooling efficiency.
+Milestone 5: Analysis and Documentation
+* Analyze the results of the simulations.
+* Document the findings and prepare them for the thesis report.
+Milestone 6: Final Thesis Preparation and Submission
+* Draft the thesis report based on the documented findings.
+* Review and revise the thesis report with input from advisors.
+* Finalize the thesis report and submit it.
+Milestone 7: Thesis Presentation Preparation
+* Create presentation slides summarizing the thesis work.
+* Practice the presentation and deliver it.
+Timeline for 2.5 Months
+Week 1-2: Initial Setup and Data Acquisition
+* Finalize project scope and objectives.
+* Identify and acquire relevant geospatial datasets.
+* Set up the development environment (Vue.js, AWS Lambda/Google Cloud Functions).
+Week 3-4: Core Platform Prototype
+* Develop the front-end using Vue.js.
+* Implement the backend for basic data handling.
+Week 5-6: Real-Time Data Integration
+* Develop APIs for one real-time data source.
+* Implement data fetching and updating mechanisms.
+Week 7-8: AI Model Deployment
+* Train and deploy a simple AI model for a specific geospatial analysis task.
+* Integrate the AI model as a REST API.
+Week 9-10: Simulation Integration
+* Implement MeshGraphNet for a basic simulation use case.
+* Ensure simulation results are integrated into the platform.
+Week 11-12: Data Visualization and Testing
+* Develop basic visualization tools.
+* Ensure compatibility with QGIS.
+* Test and refine the platform.
+Week 13-14: Finalization and Documentation
+* Finalize the platform with integrated features.
+* Prepare documentation and a proof of concept.
+Research Papers
+Physics-Informed Machine Learning with NVIDIA Modulus
+* NVIDIA Modulus
+Scientific Machine Learning Through Physics-Informed Neural Networks
+* https://link.springer.com/article/10.1007/s10915-022-01939-z
+GPT-PINN: Generative Pre-Trained Physics-Informed Neural Networks
+* GPT-PINN
+Using Hybrid Physics-Informed Neural Networks for Complex Engineering Simulations
+* Hybrid PINNs
+Architectural Strategies for PINN Optimization
+* Architectural Strategies
+Scientific Machine Learning through PINNs
+* Scientific Machine Learning Review
