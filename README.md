@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="./doc/img/logo.jpg" alt="Logo" width="150">
+    <img src="./web-app/src/assets/logo.jpg" alt="Logo" width="150">
   <h3 align="center">Simulation of Wind Flow Around Buildings Using Physics-Informed Neural Networks</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
     <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
@@ -64,14 +64,14 @@ This project focuses on developing a comprehensive platform that integrates geos
 **Andres Roncal**
 
 <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/" target="_blank">
-    <img src="./doc/img/andres.png" alt="Andres Roncal" width="100">
+    <img src="./web-app/src/assets/img/andres.png" alt="Andres Roncal" width="100">
 </a>
 
 ### Thesis Advisor
 **David Andres Leon**
 
 <a href="https://es.linkedin.com/in/davidandresleon" target="_blank">
-    <img src="./doc/img/davidProfilePic.png" alt="David Andres Leon" width="100">
+    <img src="./web-app/src/assets/img/davidProfilePic.png" alt="David Andres Leon" width="100">
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
