@@ -1,0 +1,21 @@
+
+.definition-input {
+  padding: 10px 0px;
+	width: 300px;
+}
+
+.input-title {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 1.2rem;
+  text-align: left;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+h3 {
+  color: white;
+}
+
+p {
+  color:white;
+}
