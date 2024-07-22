@@ -16,11 +16,12 @@ export default {
       camera: null,
       controls: null,
       MAT_BUILDING: null,
-      center: [-3.188822, 55.943686], // Center point
+      latitude: 40.708759, // Latitude 40.702940, -73.987619 40.708759, -74.009195
+      longitude: -74.009195, // Longitude 34.050250, -118.250558
       radius: 1000, // Radius in meters
       iR: null,
-      api: "https://gistcdn.githack.com/isjeffcom/a611e99aa888534f67cc2f6273a8d594/raw/9dbb086197c344c860217826c59d8a70d33dcb54/gistfile1.txt",
-      accessToken: 'pk.eyJ1Ijoicm9ubWFjY21zIiwiYSI6ImNseXhoNTIwZjF3d3gyanB1a2VrNXUzaDQifQ.yqT0-g27iPtNGDp-4_GbdQ', // Replace with your Mapbox access token
+      nodes: {}, // Store nodes by their ID
+      ways: {}, // Store ways by their ID
     };
   },
   mounted() {
@@ -39,7 +40,7 @@ export default {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
       }
     },
-    async awake() {
+    awake() {
       console.log("scene");
       let cont = document.getElementById("cont");
 
@@ -94,11 +95,7 @@ export default {
 
       this.update();
       this.getGeoJson();
-      try {
-        await this.getTerrain();
-      } catch (error) {
-        console.error('Error fetching terrain data:', error);
-      }
+      this.addFlatTerrain();
     },
     update() {
       requestAnimationFrame(this.update);
@@ -106,59 +103,134 @@ export default {
       this.controls.update();
     },
     async getGeoJson() {
-      const res = await fetch(this.api);
-      const data = await res.json();
-      this.loadBuildings(data);
+      const query = `
+        [out:json];
+        (
+          node["building"](around:${this.radius},${this.latitude},${this.longitude});
+          way["building"](around:${this.radius},${this.latitude},${this.longitude});
+          relation["building"](around:${this.radius},${this.latitude},${this.longitude});
+        );
+        out body;
+        >;
+        out skel qt;
+      `;
+      const url = 'https://overpass-api.de/api/interpreter?data=' + encodeURIComponent(query);
+
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+        const data = await response.json();
+        console.log('GeoJSON data:', data);
+        this.storeElements(data.elements);
+        this.loadBuildings(data);
+      } catch (error) {
+        console.error('Fetch error: ', error);
+      }
+    },
+    storeElements(elements) {
+      elements.forEach(el => {
+        if (el.type === 'node') {
+          this.nodes[el.id] = el;
+        } else if (el.type === 'way') {
+          this.ways[el.id] = el;
+        }
+      });
     },
     loadBuildings(data) {
-      let features = data.features;
+      let features = data.elements;
+      console.log('Number of features:', features.length);
       for (let i = 0; i < features.length; i++) {
         let fel = features[i];
-        if (!fel['properties']) return;
-        if (fel.properties['building']) {
+        if (!fel.tags) continue;
+        if (fel.tags['building']) {
           // Calculate the distance from the center to the building
-          let buildingCenter = this.calculateBuildingCenter(fel.geometry.coordinates[0]);
+          let buildingCenter;
+          if (fel.type === 'node') {
+            buildingCenter = [fel.lon, fel.lat];
+          } else if (fel.type === 'way') {
+            buildingCenter = this.calculateBuildingCenter(fel.nodes);
+          } else if (fel.type === 'relation') {
+            let nodes = this.extractNodesFromRelation(fel.members);
+            buildingCenter = this.calculateBuildingCenter(nodes);
+          }
+          if (!buildingCenter) {
+            console.error('Building center not found for element:', fel);
+            continue;
+          }
           let distance = getDistance(
             { latitude: buildingCenter[1], longitude: buildingCenter[0] },
-            { latitude: this.center[1], longitude: this.center[0] }
+            { latitude: this.latitude, longitude: this.longitude }
           );
-          
+          console.log('Building center:', buildingCenter, 'Distance:', distance);
           // Only add the building if it is within the specified radius
           if (distance <= this.radius) {
-            this.addBuilding(fel.geometry.coordinates, fel.properties, fel.properties["building:levels"]);
+            if (fel.type === 'relation') {
+              this.addBuilding(this.extractNodesFromRelation(fel.members), fel.tags, fel.tags["building:levels"]);
+            } else {
+              this.addBuilding(fel.nodes, fel.tags, fel.tags["building:levels"]);
+            }
           }
         }
       }
     },
-    calculateBuildingCenter(coordinates) {
+    extractNodesFromRelation(members) {
+      let nodes = [];
+      members.forEach(member => {
+        if (member.type === 'node') {
+          nodes.push(member.ref);
+        } else if (member.type === 'way' && this.ways[member.ref]) {
+          nodes = nodes.concat(this.ways[member.ref].nodes);
+        }
+      });
+      return nodes;
+    },
+    calculateBuildingCenter(nodes) {
+      let validNodes = nodes.map(id => this.nodes[id]).filter(node => node && node.lat && node.lon);
+      if (validNodes.length === 0) {
+        return null;
+      }
       let sumLat = 0;
       let sumLon = 0;
-      for (let i = 0; i < coordinates.length; i++) {
-        sumLat += coordinates[i][1];
-        sumLon += coordinates[i][0];
+      for (let i = 0; i < validNodes.length; i++) {
+        let node = validNodes[i];
+        sumLat += node.lat;
+        sumLon += node.lon;
       }
-      return [sumLon / coordinates.length, sumLat / coordinates.length];
+      return [sumLon / validNodes.length, sumLat / validNodes.length];
+    },
+    findNodeById(id) {
+      return this.nodes[id] || null;
     },
     addBuilding(data, info, height = 1) {
-      height = height ? height : 1;
-      for (let i = 0; i < data.length; i++) {
-        let el = data[i];
-        let shape = this.genShape(el, this.center);
-        let geometry = this.genGeometry(shape, {
-          curveSegments: 1,
-          depth: 0.05 * height,
-          bevelEnabled: false
-        });
-        geometry.rotateX(Math.PI / 2);
-        geometry.rotateZ(Math.PI);
-        let mesh = new THREE.Mesh(geometry, this.MAT_BUILDING);
-        this.scene.add(mesh);
+      if (!data || data.length === 0) {
+        console.error('Invalid building data:', data);
+        return;
       }
+      height = height ? height : 1;
+      let points = data.map(id => this.nodes[id]).filter(node => node && node.lat && node.lon);
+      if (points.length === 0) {
+        console.error('No valid points for building');
+        return;
+      }
+      let shape = this.genShape(points, [this.longitude, this.latitude]);
+      let geometry = this.genGeometry(shape, {
+        curveSegments: 1,
+        depth: 0.05 * height,
+        bevelEnabled: false
+      });
+      geometry.rotateX(Math.PI / 2);
+      geometry.rotateZ(Math.PI);
+      let mesh = new THREE.Mesh(geometry, this.MAT_BUILDING);
+      this.scene.add(mesh);
+      console.log('Building added:', mesh);
     },
     genShape(points, center) {
       let shape = new THREE.Shape();
       for (let i = 0; i < points.length; i++) {
-        let elp = points[i];
+        let point = points[i];
+        let elp = [point.lon, point.lat];
         elp = this.GPSRelativePosition(elp, center);
         if (i === 0) {
           shape.moveTo(elp[0], elp[1]);
@@ -180,56 +252,12 @@ export default {
       let y = centerPosi[1] + (dis * Math.sin(bearing * Math.PI / 180));
       return [-x / 100, y / 100];
     },
-    async getTerrain() {
-      const tileSize = 512;
-      const zoom = 12; // Adjust zoom level as needed
-      const { center, accessToken } = this;
-
-      const [lng, lat] = center;
-      const [x, y] = this.lngLatToTile(lng, lat, zoom);
-
-      const url = `https://api.mapbox.com/v4/mapbox.terrain-rgb/${zoom}/${x}/${y}@2x.pngraw?access_token=${accessToken}`;
-
-      try {
-        const response = await fetch(url);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        const blob = await response.blob();
-        const imageBitmap = await createImageBitmap(blob);
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-
-        canvas.width = tileSize;
-        canvas.height = tileSize;
-        context.drawImage(imageBitmap, 0, 0);
-
-        const { data } = context.getImageData(0, 0, tileSize, tileSize);
-        const geometry = new THREE.PlaneGeometry(tileSize, tileSize, tileSize - 1, tileSize - 1);
-
-        for (let i = 0; i < geometry.attributes.position.count; i++) {
-          const ix = i % tileSize;
-          const iy = Math.floor(i / tileSize);
-          const index = (iy * tileSize + ix) * 4;
-          const [r, g, b] = [data[index], data[index + 1], data[index + 2]];
-          const elevation = (r * 256 * 256 + g * 256 + b) * 0.1 - 10000; // Adjust the formula based on Mapbox's Terrain-RGB spec
-          geometry.attributes.position.array[i * 3 + 2] = elevation / 100; // Adjust elevation scale as needed
-        }
-
-        geometry.computeVertexNormals();
-
-        const material = new THREE.MeshPhongMaterial({ color: 0x888888, wireframe: false });
-        const terrain = new THREE.Mesh(geometry, material);
-        terrain.rotation.x = -Math.PI / 2;
-        this.scene.add(terrain);
-      } catch (error) {
-        console.error('Error loading terrain data:', error);
-      }
-    },
-    lngLatToTile(lng, lat, zoom) {
-      const x = Math.floor((lng + 180) / 360 * Math.pow(2, zoom));
-      const y = Math.floor((1 - Math.log(Math.tan(lat * Math.PI / 180) + 1 / Math.cos(lat * Math.PI / 180)) / Math.PI) / 2 * Math.pow(2, zoom));
-      return [x, y];
+    addFlatTerrain() {
+      const geometry = new THREE.PlaneGeometry(200, 200); // Increase the plane size
+      const material = new THREE.MeshBasicMaterial({ color: 0x228B22, side: THREE.DoubleSide });
+      const plane = new THREE.Mesh(geometry, material);
+      plane.rotation.x = -Math.PI / 2;
+      this.scene.add(plane);
     }
   }
 };
