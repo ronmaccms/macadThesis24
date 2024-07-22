@@ -1,14 +1,21 @@
 <template>
-  <div id="cont"></div>
+  <div>
+    <AppSidebar @update-coordinates="handleUpdateCoordinates" />
+    <div id="cont"></div>
+  </div>
 </template>
 
 <script>
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { getDistance, getRhumbLineBearing } from 'geolib';
+import AppSidebar from './AppSidebar.vue';
 
 export default {
   name: 'ThreeJSMap',
+  components: {
+    AppSidebar,
+  },
   data() {
     return {
       scene: null,
@@ -16,12 +23,13 @@ export default {
       camera: null,
       controls: null,
       MAT_BUILDING: null,
-      latitude: 40.708759, // Latitude 40.702940, -73.987619 40.708759, -74.009195
-      longitude: -74.009195, // Longitude 34.050250, -118.250558
-      radius: 1000, // Radius in meters
+      latitude: 40.709193,
+      longitude: -74.010387,
+      radius: 1000,
       iR: null,
-      nodes: {}, // Store nodes by their ID
-      ways: {}, // Store ways by their ID
+      nodes: {},
+      ways: {},
+      buildingMeshes: [],
     };
   },
   mounted() {
@@ -41,7 +49,6 @@ export default {
       }
     },
     awake() {
-      console.log("scene");
       let cont = document.getElementById("cont");
 
       // Init scene
@@ -122,8 +129,9 @@ export default {
           throw new Error('Network response was not ok ' + response.statusText);
         }
         const data = await response.json();
-        console.log('GeoJSON data:', data);
+        // console.log('GeoJSON data:', data);
         this.storeElements(data.elements);
+        this.clearBuildings(); // Clear previous buildings
         this.loadBuildings(data);
       } catch (error) {
         console.error('Fetch error: ', error);
@@ -138,9 +146,17 @@ export default {
         }
       });
     },
+    clearBuildings() {
+      this.buildingMeshes.forEach(mesh => {
+        this.scene.remove(mesh);
+        mesh.geometry.dispose();
+        mesh.material.dispose();
+      });
+      this.buildingMeshes = [];
+    },
     loadBuildings(data) {
       let features = data.elements;
-      console.log('Number of features:', features.length);
+      // console.log('Number of features:', features.length);
       for (let i = 0; i < features.length; i++) {
         let fel = features[i];
         if (!fel.tags) continue;
@@ -163,7 +179,7 @@ export default {
             { latitude: buildingCenter[1], longitude: buildingCenter[0] },
             { latitude: this.latitude, longitude: this.longitude }
           );
-          console.log('Building center:', buildingCenter, 'Distance:', distance);
+          // console.log('Building center:', buildingCenter, 'Distance:', distance);
           // Only add the building if it is within the specified radius
           if (distance <= this.radius) {
             if (fel.type === 'relation') {
@@ -224,7 +240,8 @@ export default {
       geometry.rotateZ(Math.PI);
       let mesh = new THREE.Mesh(geometry, this.MAT_BUILDING);
       this.scene.add(mesh);
-      console.log('Building added:', mesh);
+      this.buildingMeshes.push(mesh); // Track the building mesh
+      // console.log('Building added:', mesh);
     },
     genShape(points, center) {
       let shape = new THREE.Shape();
@@ -258,6 +275,16 @@ export default {
       const plane = new THREE.Mesh(geometry, material);
       plane.rotation.x = -Math.PI / 2;
       this.scene.add(plane);
+    },
+    handleUpdateCoordinates({ latitude, longitude, radius }) {
+      if (latitude && longitude && radius) {
+        this.latitude = parseFloat(latitude);
+        this.longitude = parseFloat(longitude);
+        this.radius = parseInt(radius);
+        this.getGeoJson(); // Refresh the buildings based on the new coordinates and radius
+      } else {
+        console.error('Invalid coordinates or radius received');
+      }
     }
   }
 };
@@ -272,6 +299,6 @@ export default {
 #cont {
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: calc(100% - 200px); /* Adjust for sidebar width */
 }
 </style>
