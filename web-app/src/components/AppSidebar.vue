@@ -19,12 +19,25 @@
       </div>
       <button type="submit">Update</button>
     </form>
+
+    <div class="weather-data" v-if="typeof weather.main !== 'undefined'">
+      <div class="location"> {{ weather.name }}, {{ weather.sys.country }} </div>
+      <div class="temp"> {{ Math.round(weather.main.temp) }} °C</div>
+      <div class="weather"> {{ weather.weather[0].main }} </div>
+      <div class="wind">
+        <div class="wind-speed">Wind Speed: {{ weather.wind.speed }} m/s</div>
+        <div class="wind-direction">Wind Direction: {{ windDirection(weather.wind.deg) }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'AppSidebar',
+  props: {
+    weather: Object,
+  },
   data() {
     return {
       latitude: 40.709193,
@@ -36,6 +49,11 @@ export default {
     updateCoordinates() {
       this.$emit('update-coordinates', { latitude: this.latitude, longitude: this.longitude, radius: this.radius });
     },
-  },
+    windDirection(deg) {
+      const directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW"];
+      const index = Math.round(deg / 22.5) % 16;
+      return directions[index];
+    }
+  }
 };
 </script>

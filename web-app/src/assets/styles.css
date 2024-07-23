@@ -1,4 +1,4 @@
-/* src/assets/styles.css */
+/* main.css */
 body {
   margin: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -12,8 +12,8 @@ html, body, #app {
 
 .sidebar {
   background-color: #f4f4f4;
-  padding: 10px;
-  width: 200px;
+  padding: 20px;
+  width: 300px;
   height: calc(100vh - 50px); /* Ensure the sidebar fills the height below the header */
   position: fixed;
   top: 50px; /* Start below the header */
@@ -21,19 +21,85 @@ html, body, #app {
   overflow-y: auto;
 }
 
+.sidebar h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 form {
   display: flex;
   flex-direction: column;
+  align-items: center; /* Center the form elements horizontally */
 }
 
 form > div {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  width: 100%; /* Ensure the divs take the full width */
+}
+
+form label {
+  margin-bottom: 5px;
+  display: block; /* Make labels block elements for better alignment */
+}
+
+form input,
+form select {
+  width: calc(100% - 40px); /* Adjust width to fit within the sidebar */
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
 button {
-  align-self: flex-start;
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: center; /* Center the button */
 }
 
+button:hover {
+  background-color: #0056b3;
+}
+
+.search-box {
+  margin-top: 20px;
+  width: 100%; /* Ensure the search box takes the full width */
+}
+
+.search-bar {
+  width: calc(100% - 40px); /* Adjust width to fit within the sidebar */
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.weather-data {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center; /* Center the text */
+}
+
+.weather-data .location,
+.weather-data .temp,
+.weather-data .weather,
+.weather-data .wind-speed,
+.weather-data .wind-direction {
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+/* Header styles */
 .header {
   background-color: black;
   color: white;
@@ -61,10 +127,16 @@ button {
   padding-top: 50px; /* Adjust based on header height */
 }
 
+#space {
+  display: flex;
+  height: calc(100% - 50px); /* Account for header height */
+  margin-top: 50px; /* Account for header height */
+}
+
 #cont {
   position: absolute;
   top: 50px; /* Start below the header */
-  left: 200px; /* Start next to the sidebar */
+  left: 300px; /* Adjust for the new sidebar width */
   height: calc(100vh - 50px); /* Adjust height to fill remaining space */
-  width: calc(100% - 200px); /* Adjust width to fill remaining space */
+  width: calc(100% - 300px); /* Adjust width to fill remaining space */
 }
