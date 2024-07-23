@@ -39,26 +39,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.sidebar {
-  background-color: #f4f4f4;
-  padding: 10px;
-  width: 200px;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  overflow-y: auto;
-}
-form {
-  display: flex;
-  flex-direction: column;
-}
-form > div {
-  margin-bottom: 10px;
-}
-button {
-  align-self: flex-start;
-}
-</style>
