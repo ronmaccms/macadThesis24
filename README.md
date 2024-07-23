@@ -87,12 +87,6 @@
 
 <h2>Setup Instructions</h2>
 
-<h3>Prerequisites</h3>
-<ul>
-  <li>Node.js (version X.X.X)</li>
-  <li>npm (version X.X.X)</li>
-</ul>
-
 <h3>Clone the Repository</h3>
 <pre><code>git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
