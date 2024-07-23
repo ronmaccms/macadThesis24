@@ -115,14 +115,6 @@ cd your-repo-name
 <pre><code>npm run serve
 </code></pre>
 
-<h3>Build the Project</h3>
-<pre><code>npm run build
-</code></pre>
-
-<h3>Lint the Project</h3>
-<pre><code>npm run lint
-</code></pre>
-
 <h2>Project Structure</h2>
 
 <ul>
