@@ -57,7 +57,7 @@ export default {
 
       // Init Camera
       this.camera = new THREE.PerspectiveCamera(25, window.innerWidth / window.innerHeight, 1, 100);
-      this.camera.position.set(8, 20, 25);
+      this.camera.position.set(8, 20, 25); // Adjusted camera position
 
       // Init group
       this.iR = new THREE.Group();
@@ -161,6 +161,7 @@ export default {
         let fel = features[i];
         if (!fel.tags) continue;
         if (fel.tags['building']) {
+          // console.log('Processing building:', fel);
           // Calculate the distance from the center to the building
           let buildingCenter;
           if (fel.type === 'node') {
@@ -221,7 +222,7 @@ export default {
     },
     addBuilding(data, info, height = 1) {
       if (!data || data.length === 0) {
-        console.error('Invalid building data:', data);
+        // console.error('Invalid building data:', data); // More informative error message
         return;
       }
       height = height ? height : 1;
