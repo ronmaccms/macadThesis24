@@ -25,7 +25,7 @@ export default {
       MAT_BUILDING: null,
       latitude: 40.709193,
       longitude: -74.010387,
-      radius: 1000,
+      radius: 500,
       iR: null,
       nodes: {},
       ways: {},
