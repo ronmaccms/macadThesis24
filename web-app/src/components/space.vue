@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="space">
     <AppSidebar @update-coordinates="handleUpdateCoordinates" />
     <div id="cont"></div>
   </div>
@@ -12,7 +12,7 @@ import { getDistance, getRhumbLineBearing } from 'geolib';
 import AppSidebar from './AppSidebar.vue';
 
 export default {
-  name: 'ThreeJSMap',
+  name: 'SpaceMap',
   components: {
     AppSidebar,
   },
@@ -57,7 +57,7 @@ export default {
 
       // Init Camera
       this.camera = new THREE.PerspectiveCamera(25, window.innerWidth / window.innerHeight, 1, 100);
-      this.camera.position.set(8, 4, 0);
+      this.camera.position.set(8, 20, 25); // Adjusted camera position
 
       // Init group
       this.iR = new THREE.Group();
@@ -129,7 +129,6 @@ export default {
           throw new Error('Network response was not ok ' + response.statusText);
         }
         const data = await response.json();
-        // console.log('GeoJSON data:', data);
         this.storeElements(data.elements);
         this.clearBuildings(); // Clear previous buildings
         this.loadBuildings(data);
@@ -156,7 +155,6 @@ export default {
     },
     loadBuildings(data) {
       let features = data.elements;
-      // console.log('Number of features:', features.length);
       for (let i = 0; i < features.length; i++) {
         let fel = features[i];
         if (!fel.tags) continue;
@@ -179,7 +177,6 @@ export default {
             { latitude: buildingCenter[1], longitude: buildingCenter[0] },
             { latitude: this.latitude, longitude: this.longitude }
           );
-          // console.log('Building center:', buildingCenter, 'Distance:', distance);
           // Only add the building if it is within the specified radius
           if (distance <= this.radius) {
             if (fel.type === 'relation') {
@@ -221,7 +218,7 @@ export default {
     },
     addBuilding(data, info, height = 1) {
       if (!data || data.length === 0) {
-        console.error('Invalid building data:', data);
+        // console.error('Invalid building data:', data); // More informative error message
         return;
       }
       height = height ? height : 1;
@@ -241,7 +238,6 @@ export default {
       let mesh = new THREE.Mesh(geometry, this.MAT_BUILDING);
       this.scene.add(mesh);
       this.buildingMeshes.push(mesh); // Track the building mesh
-      // console.log('Building added:', mesh);
     },
     genShape(points, center) {
       let shape = new THREE.Shape();
@@ -290,15 +286,16 @@ export default {
 };
 </script>
 
-<style scoped>
-* {
-  margin: 0;
-  padding: 0;
+<style>
+#space {
+  display: flex;
+  height: calc(100% - 50px); /* Account for header height */
+  margin-top: 50px; /* Account for header height */
 }
 
 #cont {
-  position: absolute;
+  position: relative;
   height: 100%;
-  width: calc(100% - 200px); /* Adjust for sidebar width */
+  width: calc(100% - 200px);
 }
 </style>
