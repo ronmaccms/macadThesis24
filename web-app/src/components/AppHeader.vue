@@ -1,7 +1,7 @@
-<!-- src/components/AppHeader.vue -->
 <template>
   <div class="header">
-    <h1>Project Title</h1>
+    <img src="@/assets/logo.jpg" alt="Logo" class="logo" />
+    <h1>WindFlowSim</h1>
   </div>
 </template>
 
@@ -10,12 +10,3 @@ export default {
   name: 'AppHeader',
 };
 </script>
-
-<style scoped>
-.header {
-  background-color: black;
-  color: white;
-  padding: 10px;
-  text-align: center;
-}
-</style>
