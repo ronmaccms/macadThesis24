@@ -14,9 +14,9 @@ html, body, #app {
   background-color: #f4f4f4;
   padding: 10px;
   width: 200px;
-  height: 100vh; /* Ensure the sidebar fills the height */
+  height: calc(100vh - 50px); /* Ensure the sidebar fills the height below the header */
   position: fixed;
-  top: 0;
+  top: 50px; /* Start below the header */
   left: 0;
   overflow-y: auto;
 }
@@ -32,4 +32,39 @@ form > div {
 
 button {
   align-self: flex-start;
+}
+
+.header {
+  background-color: black;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  z-index: 1000; /* Ensure it is on top of other elements */
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the content horizontally */
+}
+
+.logo {
+  height: 40px; /* Adjust the height of the logo as needed */
+  position: absolute;
+  left: 10px; /* Space between logo and title */
+}
+
+/* Add space for the header */
+#app {
+  padding-top: 50px; /* Adjust based on header height */
+}
+
+#cont {
+  position: absolute;
+  top: 50px; /* Start below the header */
+  left: 200px; /* Start next to the sidebar */
+  height: calc(100vh - 50px); /* Adjust height to fill remaining space */
+  width: calc(100% - 200px); /* Adjust width to fill remaining space */
 }
