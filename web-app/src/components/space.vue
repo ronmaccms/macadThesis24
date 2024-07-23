@@ -129,7 +129,6 @@ export default {
           throw new Error('Network response was not ok ' + response.statusText);
         }
         const data = await response.json();
-        // console.log('GeoJSON data:', data);
         this.storeElements(data.elements);
         this.clearBuildings(); // Clear previous buildings
         this.loadBuildings(data);
@@ -156,12 +155,10 @@ export default {
     },
     loadBuildings(data) {
       let features = data.elements;
-      // console.log('Number of features:', features.length);
       for (let i = 0; i < features.length; i++) {
         let fel = features[i];
         if (!fel.tags) continue;
         if (fel.tags['building']) {
-          // console.log('Processing building:', fel);
           // Calculate the distance from the center to the building
           let buildingCenter;
           if (fel.type === 'node') {
@@ -180,7 +177,6 @@ export default {
             { latitude: buildingCenter[1], longitude: buildingCenter[0] },
             { latitude: this.latitude, longitude: this.longitude }
           );
-          // console.log('Building center:', buildingCenter, 'Distance:', distance);
           // Only add the building if it is within the specified radius
           if (distance <= this.radius) {
             if (fel.type === 'relation') {
@@ -242,7 +238,6 @@ export default {
       let mesh = new THREE.Mesh(geometry, this.MAT_BUILDING);
       this.scene.add(mesh);
       this.buildingMeshes.push(mesh); // Track the building mesh
-      // console.log('Building added:', mesh);
     },
     genShape(points, center) {
       let shape = new THREE.Shape();
@@ -294,13 +289,13 @@ export default {
 <style>
 #space {
   display: flex;
-  height: 100%;
+  height: calc(100% - 50px); /* Account for header height */
+  margin-top: 50px; /* Account for header height */
 }
 
 #cont {
   position: relative;
   height: 100%;
-  width: calc(100% - 200px); 
-  margin-left: 200px;
+  width: calc(100% - 200px);
 }
 </style>
