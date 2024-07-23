@@ -1,15 +1,18 @@
 <template>
   <div id="app">
+    <AppHeader />
     <Space />
   </div>
 </template>
 
 <script>
+import AppHeader from './components/AppHeader.vue';
 import Space from './components/space.vue';
 
 export default {
   name: 'App',
   components: {
+    AppHeader,
     Space
   }
 };
