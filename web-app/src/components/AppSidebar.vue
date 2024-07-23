@@ -21,9 +21,9 @@
     </form>
 
     <div class="weather-data" v-if="typeof weather.main !== 'undefined'">
-      <div class="location"> {{ weather.name }}, {{ weather.sys.country }} </div>
-      <div class="temp"> {{ Math.round(weather.main.temp) }} °C</div>
-      <div class="weather"> {{ weather.weather[0].main }} </div>
+      <div class="location">{{ weather.name }}, {{ weather.sys.country }}</div>
+      <div class="temp">{{ Math.round(weather.main.temp) }} °C</div>
+      <div class="weather">{{ weather.weather[0].main }}</div>
       <div class="wind">
         <div class="wind-speed">Wind Speed: {{ weather.wind.speed }} m/s</div>
         <div class="wind-direction">Wind Direction: {{ windDirection(weather.wind.deg) }}</div>
@@ -31,6 +31,7 @@
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
