@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="space">
     <AppSidebar @update-coordinates="handleUpdateCoordinates" />
     <div id="cont"></div>
   </div>
@@ -12,7 +12,7 @@ import { getDistance, getRhumbLineBearing } from 'geolib';
 import AppSidebar from './AppSidebar.vue';
 
 export default {
-  name: 'ThreeJSMap',
+  name: 'SpaceMap',
   components: {
     AppSidebar,
   },
@@ -57,7 +57,7 @@ export default {
 
       // Init Camera
       this.camera = new THREE.PerspectiveCamera(25, window.innerWidth / window.innerHeight, 1, 100);
-      this.camera.position.set(8, 4, 0);
+      this.camera.position.set(8, 20, 25);
 
       // Init group
       this.iR = new THREE.Group();
@@ -290,15 +290,16 @@ export default {
 };
 </script>
 
-<style scoped>
-* {
-  margin: 0;
-  padding: 0;
+<style>
+#space {
+  display: flex;
+  height: 100%;
 }
 
 #cont {
-  position: absolute;
+  position: relative;
   height: 100%;
-  width: calc(100% - 200px); /* Adjust for sidebar width */
+  width: calc(100% - 200px); 
+  margin-left: 200px;
 }
 </style>

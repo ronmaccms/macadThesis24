@@ -3,3 +3,33 @@ body {
   margin: 0;
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar {
+  background-color: #f4f4f4;
+  padding: 10px;
+  width: 200px;
+  height: 100vh; /* Ensure the sidebar fills the height */
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+form > div {
+  margin-bottom: 10px;
+}
+
+button {
+  align-self: flex-start;
+}
