@@ -14,7 +14,8 @@
     "geotiff": "^2.1.3",
     "mapbox-gl": "^3.5.2",
     "three": "^0.166.1",
-    "vue": "^2.6.14"
+    "vue": "^2.6.14",
+    "cesium": "^1.119.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
