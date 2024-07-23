@@ -1,16 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simulation of Wind Flow Around Buildings Using Physics-Informed Neural Networks</title>
-</head>
-<body>
-
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="./web-app/src/assets/logo.jpg" alt="Logo" width="150">
+    <img src="./doc/img/logo.jpg" alt="Logo" width="150">
   <h3 align="center">Simulation of Wind Flow Around Buildings Using Physics-Informed Neural Networks</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
     <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
