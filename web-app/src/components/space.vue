@@ -1,6 +1,6 @@
 <template>
   <div id="space">
-    <AppSidebar @update-coordinates="handleUpdateCoordinates" />
+    <AppSidebar @update-coordinates="handleUpdateCoordinates" :weather="weather" />
     <div id="cont"></div>
   </div>
 </template>
@@ -30,12 +30,14 @@ export default {
       nodes: {},
       ways: {},
       buildingMeshes: [],
+      weather: {}, // Add weather data
     };
   },
   mounted() {
     this.awake();
     window.addEventListener('resize', this.onWindowResize, false);
     this.onWindowResize();
+    this.fetchWeatherData(this.latitude, this.longitude); // Fetch initial weather data
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.onWindowResize, false);
@@ -278,10 +280,20 @@ export default {
         this.longitude = parseFloat(longitude);
         this.radius = parseInt(radius);
         this.getGeoJson(); // Refresh the buildings based on the new coordinates and radius
+        this.fetchWeatherData(this.latitude, this.longitude); // Fetch weather data based on new coordinates
       } else {
         console.error('Invalid coordinates or radius received');
       }
-    }
+    },
+    async fetchWeatherData(latitude, longitude) {
+      try {
+        const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=4470f6319555f06d113186032c495792`);
+        const data = await response.json();
+        this.weather = data;
+      } catch (error) {
+        console.error('Failed to fetch weather data:', error);
+      }
+    },
   }
 };
 </script>
