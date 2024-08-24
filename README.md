@@ -2,7 +2,7 @@
 <br />
 <div align="center">
     <img src="./web-app/src/assets/logo.jpg" alt="Logo" width="150">
-  <h3 align="center">Simulation of Wind Flow Around Buildings Using Physics-Informed Neural Networks</h3>
+  <h3 align="center">Urban Wind Flow Modeling with Physics-Informed Neural Networks (PINNs)</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
     <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
     ·
@@ -16,18 +16,16 @@
 
 <h3>Overview</h3>
 
-<p>This research project aims to develop a web application for simulating wind flow around buildings using Physics-Informed Neural Networks (PINNs). By leveraging data from Ladybug Tools, NOAA, and OpenWeatherMap, this project integrates real-time wind data and 3D building models to optimize building designs for enhanced pedestrian comfort and energy efficiency.</p>
-
-<p>The project also integrates <strong>Three.js</strong> for rendering 3D models of buildings and <strong>Geolib</strong> for geographic calculations, which are utilized in the <code>space.vue</code> component.</p>
+<p>This research project, titled "Urban Wind Flow Modeling with PINNs," focuses on developing a web-based platform that simulates wind flow in urban environments using real-time data and advanced neural networks. By leveraging data from NOAA, OpenWeatherMap, and OpenStreetMap, the project integrates real-time wind data and 3D building models to optimize urban design for pedestrian comfort and energy efficiency.</p>
 
 <h3>Objectives</h3>
 
 <p>The primary objective of this research is to design and implement a web-based platform that utilizes PINNs to simulate wind flow and assess pedestrian comfort in urban environments. The platform will:</p>
 <ul>
-  <li>Collect and preprocess data from various sources, including historical wind data from NOAA, real-time wind conditions from OpenWeatherMap, and 3D building models from OpenStreetMap.</li>
+  <li>Collect and preprocess data from various sources, including historical wind data from NOAA, real-time wind conditions from OpenWeatherMap, and 3D building models from OpenStreetMap using the Overpass API.</li>
   <li>Develop and train a PINN model using DeepXDE to simulate wind flow.</li>
   <li>Integrate the trained model into a Vue.js application for real-time user interaction and visualization.</li>
-  <li>Provide insights and visualizations to architects and urban planners to enhance urban design and pedestrian comfort.</li>
+  <li>Provide insights and visualizations to urban planners and architects to enhance urban design and pedestrian comfort.</li>
   <li>Utilize Three.js and Geolib for rendering and geographic calculations respectively, as implemented in the <code>space.vue</code> component.</li>
 </ul>
 
@@ -43,59 +41,50 @@
 
 <h3>Methodology</h3>
 
-<p>The development process includes the following stages:</p>
+<p>The development process is structured into several phases:</p>
 <ol>
-  <li><strong>Planning and Data Collection</strong>: Set up the project repository and collect synthetic and real-time wind data.</li>
-  <li><strong>PINN Model Development</strong>: Train and develop the PINN model using DeepXDE.</li>
-  <li><strong>Backend Development</strong>: Implement the backend using Flask or FastAPI to handle data and integrate the PINN model.</li>
-  <li><strong>Frontend Development</strong>: Develop the user interface using Vue.js for user input and visualization.</li>
-  <li><strong>System Integration and Testing</strong>: Connect the frontend and backend, conduct thorough testing, and fix bugs.</li>
-  <li><strong>Deployment and Documentation</strong>: Deploy the application on a cloud platform and document the project for future use.</li>
+  <li><strong>Planning and Data Collection</strong>: Establish the project repository and collect data from NOAA, OpenWeatherMap, and OpenStreetMap for model development.</li>
+  <li><strong>PINN Model Development</strong>: Utilize PyTorch for initial testing and develop the PINN model using NVIDIA’s Modulus framework.</li>
+  <li><strong>Backend Development</strong>: Implement the backend using Flask or FastAPI, creating API endpoints to manage data and run simulations.</li>
+  <li><strong>Frontend Development</strong>: Develop the user interface using Vue.js, with Three.js for 3D rendering and Geolib for geographic calculations.</li>
+  <li><strong>System Integration and Testing</strong>: Connect the frontend, backend, and PINN model, followed by rigorous testing to ensure accuracy and reliability.</li>
+  <li><strong>Deployment and Documentation</strong>: Deploy the application on a cloud platform and document the project for future reference.</li>
 </ol>
 
 <h3>Data Sources</h3>
 <ul>
   <li><strong>Historical Wind Data</strong>: NOAA historical wind speed and direction data.</li>
   <li><strong>Real-Time Wind Data</strong>: OpenWeatherMap wind conditions.</li>
-  <li><strong>3D Building Models</strong>: OpenStreetMap (OSM).</li>
-  <li><strong>Synthetic Data</strong>: Ladybug Tools.</li>
+  <li><strong>3D Building Models</strong>: OpenStreetMap (OSM) data using Overpass API.</li>
+  <li><strong>Synthetic Data</strong>: Ladybug Tools for additional modeling.</li>
 </ul>
 
-<h3>Project Scope</h3>
+<h3>Equations and Model Development</h3>
 
-<p>This project focuses on developing a comprehensive platform that integrates geospatial data with advanced simulations. The scope includes:</p>
-<ul>
-  <li>Implementing a user-friendly web application for simulating wind flow.</li>
-  <li>Providing real-time visualization and interaction capabilities.</li>
-  <li>Supporting urban planners and architects with actionable insights for better urban design.</li>
-</ul>
+<p>The Navier-Stokes equations are central to the simulation of wind flow in this project, integrating real-time data from OpenWeatherMap to refine the model’s accuracy. Challenges include the ongoing integration of this data into the neural network model to enhance the precision of simulations.</p>
 
-<h3>space.vue File Overview</h3>
+<h3>Frontend Development</h3>
 
-<p>The <code>space.vue</code> component is a key part of the frontend development. It integrates Three.js for rendering 3D models of buildings and provides a user interface for inputting geographic coordinates and simulation parameters. Here’s an overview of its functionality:</p>
-<ul>
-  <li><strong>Components Used</strong>: <code>AppSidebar</code> for user input and controls.</li>
-  <li><strong>Libraries</strong>: Three.js for 3D rendering, <code>geolib</code> for geographic calculations.</li>
-  <li><strong>Functions</strong>:</li>
-  <ul>
-    <li><code>awake()</code>: Initializes the Three.js scene, camera, lights, and renderer.</li>
-    <li><code>getGeoJson()</code>: Fetches building data from OpenStreetMap using Overpass API.</li>
-    <li><code>loadBuildings()</code>: Processes and renders buildings based on fetched data.</li>
-    <li><code>handleUpdateCoordinates()</code>: Updates coordinates and refreshes building data based on user input.</li>
-  </ul>
-</ul>
+<p>The frontend is developed using Vue.js, with Three.js handling the 3D rendering and Geolib managing geographic calculations. This interface allows users to input geographical data and run wind flow simulations, providing immediate visual feedback.</p>
+
+<h3>System Integration and Testing</h3>
+
+<p>The system integration phase involved connecting the backend, frontend, and PINN model. This phase included thorough testing to ensure the accuracy of the simulations and the reliability of the web platform.</p>
+
+<h3>Conclusion and Future Work</h3>
+
+<p>This open-source project serves as a collaborative tool for urban planners, offering insights into wind flow patterns. Moving forward, the aim is to expand the model’s capabilities, including incorporating additional environmental factors and improving the user interface for broader applications.</p>
 
 <h2>Setup Instructions</h2>
 
 <h3>Clone the Repository</h3>
+<pre><code>git clone https://github.com/your-repo-url.git</code></pre>
 
 <h3>Install Dependencies</h3>
-<pre><code>npm install
-</code></pre>
+<pre><code>npm install</code></pre>
 
 <h3>Run the Project</h3>
-<pre><code>npm run serve
-</code></pre>
+<pre><code>npm run serve</code></pre>
 
 <h2>Project Structure</h2>
 
