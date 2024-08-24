@@ -79,7 +79,7 @@
 <h2>Setup Instructions</h2>
 
 <h3>Clone the Repository</h3>
-<pre><code>git clone [https://github.com/your-repo-url.git](https://github.com/ronmaccms/macadThesis24.git)</code></pre>
+<pre><code>https://github.com/ronmaccms/macadThesis24.git</code></pre>
 
 <h3>Install Dependencies</h3>
 <pre><code>npm install</code></pre>
