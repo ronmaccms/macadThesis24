@@ -16,14 +16,15 @@
 
 <h3>Overview</h3>
 
-<p>This research project, titled "Urban Wind Flow Modeling with PINNs," focuses on developing a web-based platform that simulates wind flow in urban environments using real-time data and advanced neural networks. By leveraging data from NOAA, OpenWeatherMap, and OpenStreetMap, the project integrates real-time wind data and 3D building models to optimize urban design for pedestrian comfort and energy efficiency.</p>
+<p>Urban Wind Flow Modeling with PINNs focuses on developing a web-based platform that simulates wind flow in urban environments using real-time data and advanced neural networks. By leveraging data from NOAA, OpenWeatherMap, and OpenStreetMap, the project integrates real-time wind data and 3D building models to optimize urban design for pedestrian comfort and energy efficiency.</p>
 
 <h3>Objectives</h3>
 
-<p>The primary objective of this research is to design and implement a web-based platform that utilizes PINNs to simulate wind flow and assess pedestrian comfort in urban environments. The platform will:</p>
+<p>The primary objective of this research is to create an open-source, web-based platform that leverages Physics-Informed Neural Networks (PINNs) to simulate wind flow in urban environments. This platform is designed to be a collaborative tool, inviting contributions from urban planners, architects, and designers to enhance its functionality and adaptability. By providing real-time insights into wind flow patterns, the project aims to promote sustainable urban development, reducing energy consumption and improving pedestrian comfort. This initiative not only supports environmental sustainability but also fosters a community-driven approach to urban design innovation.</p>
+
 <ul>
   <li>Collect and preprocess data from various sources, including historical wind data from NOAA, real-time wind conditions from OpenWeatherMap, and 3D building models from OpenStreetMap using the Overpass API.</li>
-  <li>Develop and train a PINN model using DeepXDE to simulate wind flow.</li>
+  <li>Develop and train a PINN model using NVIDIA Modulus and PyTorch to simulate wind flow.</li>
   <li>Integrate the trained model into a Vue.js application for real-time user interaction and visualization.</li>
   <li>Provide insights and visualizations to urban planners and architects to enhance urban design and pedestrian comfort.</li>
   <li>Utilize Three.js and Geolib for rendering and geographic calculations respectively, as implemented in the <code>space.vue</code> component.</li>
