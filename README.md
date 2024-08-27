@@ -118,10 +118,8 @@ sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600</code
   </li>
   <li>
     <pre><code>sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
-sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu
-
-  <li><pre><code>sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
-sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"</code></pre></li>
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"</code></pre>
+  </li>
   <li><strong>Install CUDA Toolkit</strong>:
     <pre><code>sudo apt-get update
 sudo apt-get -y install cuda</code></pre>
@@ -193,3 +191,13 @@ sudo apt-get -y install cuda</code></pre>
 
 </body>
 </html>
+<style>
+  pre code {
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+    overflow-x: auto;
+  }
+</style>
+
+
