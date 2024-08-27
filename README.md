@@ -141,14 +141,14 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 </body>
-<style>
+<!-- <style>
   pre code {
     padding: 10px;
     margin: 5px 0;
     display: block;
     overflow-x: auto;
   }
-</style>
+</style> -->
 
 </html>
 
