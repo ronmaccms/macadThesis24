@@ -72,20 +72,99 @@
 
 <p>The system integration phase involved connecting the backend, frontend, and PINN model. This phase included thorough testing to ensure the accuracy of the simulations and the reliability of the web platform.</p>
 
-<h3>Conclusion and Future Work</h3>
+<h3>Learning and Development with NVIDIA Modulus Sym</h3>
 
-<p>This open-source project serves as a collaborative tool for urban planners, offering insights into wind flow patterns. Moving forward, the aim is to expand the model’s capabilities, including incorporating additional environmental factors and improving the user interface for broader applications.</p>
+<p>As part of the development process for this project, I am actively learning how to leverage NVIDIA’s <code>modulus.sym</code> for building Physics-Informed Neural Networks (PINNs). The training sessions required for developing accurate models often take up to 12 hours, and they are conducted on my GPU using a WSL (Windows Subsystem for Linux) environment. This setup allows me to fully utilize the computational power of my NVIDIA GPU while working in a Linux environment.</p>
 
-<h2>Setup Instructions</h2>
+<h3>Bootcamp Participation and Advanced Learning</h3>
 
-<h3>Clone the Repository</h3>
-<pre><code>https://github.com/ronmaccms/macadThesis24.git</code></pre>
+<p>To ensure I am well-equipped to handle the complexity of this project, I am participating in the PINNs Tech Bootcamp. This intensive training covers:</p>
+<ul>
+  <li><strong>Physics-Informed Neural Networks (PINNs)</strong>: Learning to embed physical laws into neural networks for improved simulation accuracy.</li>
+  <li><strong>I-PINNs</strong>: Tackling inverse problems using PINNs to fine-tune model parameters.</li>
+  <li><strong>DeepONets</strong>: Developing expertise in Deep Operator Networks, which are used for mapping functions to functions, ideal for complex simulations.</li>
+  <li><strong>NVIDIA Modulus Sym</strong>: Hands-on practice with this framework, focusing on its application in CFD (Computational Fluid Dynamics) and other applied sciences.</li>
+</ul>
 
-<h3>Install Dependencies</h3>
-<pre><code>npm install</code></pre>
+<h3>Example of Implementation</h3>
 
-<h3>Run the Project</h3>
-<pre><code>npm run serve</code></pre>
+<p>In my journey, one of the practical applications has been developing a 2D simulation in Section 3: Deep Neural Operator (DeepONet). This simulation integrates key equations such as the Navier-Stokes and Advection-Diffusion equations to model fluid dynamics. By utilizing <code>modulus.sym</code>, I have been able to develop neural networks that predict fluid velocity, pressure, and diffusivity, which are critical for simulating wind flow in urban environments.</p>
+
+<h3>Setting Up and Using WSL for CUDA-Enabled GPU Computing</h3>
+
+<p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU-accelerated computing. Below are the steps to replicate this setup:</p>
+
+<h3>Step 1: Install WSL and Ubuntu 20.04</h3>
+<ol>
+  <li><strong>Enable WSL</strong>: Open PowerShell as an Administrator and run:
+    <pre><code>wsl --install</code></pre>
+    This command installs WSL and the latest version of Ubuntu by default.
+  </li>
+  <li><strong>Install Ubuntu 20.04</strong>: If you need a specific version, such as Ubuntu 20.04, you can install it by running:
+    <pre><code>wsl --install -d Ubuntu-20.04</code></pre>
+  </li>
+  <li><strong>Set Up WSL</strong>: Once Ubuntu is installed, open it from your Start menu and follow the on-screen instructions to complete the setup.</li>
+</ol>
+
+<h3>Step 2: Install NVIDIA CUDA Toolkit</h3>
+<ol>
+  <li><strong>Update Package Lists</strong>:
+    <pre><code>sudo apt-get update
+sudo apt-get upgrade</code></pre>
+  </li>
+  <li><strong>Add NVIDIA Package Repositories</strong>:
+    <pre><code>wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600</code></pre>
+  </li>
+  <li>
+    <pre><code>sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu
+
+  <li><pre><code>sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/3bf863cc.pub
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/ /"</code></pre></li>
+  <li><strong>Install CUDA Toolkit</strong>:
+    <pre><code>sudo apt-get update
+sudo apt-get -y install cuda</code></pre>
+  </li>
+</ol>
+
+<h3>Step 3: Verify CUDA Installation</h3>
+<ol>
+  <li><strong>Check CUDA Version</strong>:
+    <pre><code>nvcc --version</code></pre>
+    This command should return the version of CUDA installed.
+  </li>
+  <li><strong>Test CUDA with a Simple Program</strong>:
+    <pre><code>nvidia-smi</code></pre>
+    This command provides information about your GPU, including its utilization and the processes using it.
+  </li>
+</ol>
+
+<h3>Step 4: Install NVIDIA Modulus and Other Dependencies</h3>
+<ol>
+  <li><strong>Create a New Conda Environment</strong>:
+    <pre><code>conda create -n modulus python=3.10</code></pre>
+  </li>
+  <li><strong>Activate the Environment</strong>:
+    <pre><code>conda activate modulus</code></pre>
+  </li>
+  <li><strong>Install PyTorch with CUDA Support</strong>:
+    <pre><code>pip install torch torchvision torchaudio</code></pre>
+  </li>
+  <li><strong>Install NVIDIA Modulus</strong>:
+    <pre><code>pip install nvidia-modulus</code></pre>
+  </li>
+  <li><strong>Install Additional Dependencies</strong>:
+    <pre><code>pip install -r requirements.txt</code></pre>
+    Ensure you have a `requirements.txt` file with all necessary Python packages.
+  </li>
+</ol>
+
+<h3>Running Your First Simulation</h3>
+<p>After setting up your environment, you can run your first PINN simulation by navigating to the project directory and executing the following command:</p>
+<pre><code>python3 your_simulation_script.py</code></pre>
+
+<p>This command will start the simulation, utilizing your NVIDIA GPU to accelerate the computations. Depending on the complexity of the model, training can take several hours.</p>
 
 <h2>Project Structure</h2>
 
