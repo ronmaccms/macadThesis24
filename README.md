@@ -84,6 +84,10 @@
 
 <p>As part of the development process for this project, I am actively learning how to leverage NVIDIA’s <code>modulus.sym</code> for building PINNs. The training sessions required for developing accurate models often take up to 12 hours, and they are conducted on my GPU using a WSL. This setup allows me to fully utilize the computational power of my NVIDIA GPU while working in a Linux environment.</p>
 
+<div align="center">
+    <img src="./data/images/2d-heat-sink-with-fins.png" alt="sink-heat" width="400">
+</div>
+
 <h3>Bootcamp Participation and Advanced Learning</h3>
 
 <p>I am testing several techniques:</p> 
@@ -106,7 +110,9 @@
 
 <p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU. Below are the steps to replicate this setup:</p>
 
-<img src="./data/images/gpu.png" alt="gpu" width="400">
+<div align="center">
+    <img src="./data/images/gpu.png" alt="gpu" width="400">
+</div>
 
 <h3>Step 1: Install WSL and Ubuntu 20.04</h3>
 <ol>
