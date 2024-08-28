@@ -1,13 +1,18 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="./web-app/src/assets/logo.jpg" alt="Logo" width="150">
+    <img src="./web-app/src/assets/logo.jpg" alt="Logo" width="400">
   <h3 align="center">Urban Wind Flow Modeling with PINNs</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
     <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
     ·
     <a href="mailto:andres.roncal@students.iaac.net">Request Feature</a>
   </p>
+</div>
+
+<!-- GIF Section -->
+<div align="center">
+  <img src="./data/images/librariesinstalling.gif" alt="Project-GIF" width="700">
 </div>
 
 <h2>About The Project</h2>
@@ -20,7 +25,7 @@
 
 <h3>Objectives</h3>
 
-<p>The projects aim is to create an open-source, web-based platform that leverages Physics-Informed Neural Networks to simulate wind flow in urban environments. Designed to be a collaborative tool, inviting contributions from urban planners, architects, and designers to enhance its functionality and adaptability. Tthe project aims to promote sustainable urban development, reducing energy consumption and improving pedestrian comfort. This initiative not only supports environmental sustainability but also fosters a community-driven approach to urban design innovation.</p>
+<p>The projects aim is to create an open-source, web-based platform that leverages Physics-Informed Neural Networks to simulate wind flow in urban environments. Designed to be a collaborative tool, inviting contributions from urban planners, architects, and designers to enhance its functionality and adaptability. The project aims to promote sustainable urban development, reducing energy consumption and improving pedestrian comfort. This initiative not only supports environmental sustainability but also fosters a community-driven approach to urban design innovation.</p>
 
 <ul>
   <li>Collect and preprocess data from various sources, including historical wind data from NOAA, real-time wind conditions from OpenWeatherMap, and 3D building models from OpenStreetMap using the Overpass API.</li>
@@ -62,6 +67,11 @@
 
 <p>The challenges include the ongoing integration of the OpenWeatherMap data and Navier-Stokes equations into the neural network model to enhance the precision of simulations.</p>
 
+<!-- GIF Section -->
+<div align="center">
+  <img src="./data/images/lala2.gif" alt="sim-gif" width="500">
+</div>
+
 <h3>Frontend Development</h3>
 
 <p>The frontend is developed using Vue.js, with Three.js handling the 3D rendering and Geolib managing geographic calculations. This interface allows users to input geographical data and run wind flow simulations, providing immediate visual feedback.</p>
@@ -72,7 +82,7 @@
 
 <h3>Learning and Development with NVIDIA Modulus Sym</h3>
 
-<p>As part of the development process for this project, I am actively learning how to leverage NVIDIA’s <code>modulus.sym</code> for building PINNs. The training sessions required for developing accurate models often take up to 12 hours, and they are conducted on my GPU using a wsl. This setup allows me to fully utilize the computational power of my NVIDIA GPU while working in a Linux environment.</p>
+<p>As part of the development process for this project, I am actively learning how to leverage NVIDIA’s <code>modulus.sym</code> for building PINNs. The training sessions required for developing accurate models often take up to 12 hours, and they are conducted on my GPU using a WSL. This setup allows me to fully utilize the computational power of my NVIDIA GPU while working in a Linux environment.</p>
 
 <h3>Bootcamp Participation and Advanced Learning</h3>
 
@@ -82,7 +92,7 @@
     </li> 
     <li><strong>Inverse PINNs (I-PINNs)</strong>: Tackling inverse problems to optimize and fine-tune model parameters based on observed data.
     </li> 
-    <li><strong>Deep Neural Operators (DeepONets)</strong>: Developing skills in mapping functions to functions,for solving complex simulations like fluid dynamics.
+    <li><strong>Deep Neural Operators (DeepONets)</strong>: Developing skills in mapping functions to functions, for solving complex simulations like fluid dynamics.
     </li> 
     <li><strong>NVIDIA Modulus</strong>: Applying these concepts using NVIDIA’s Modulus framework, specifically in Computational Fluid Dynamics (CFD) and structural analysis.
     </li> 
@@ -95,6 +105,8 @@
 <h3>Setting Up and Using WSL for CUDA-Enabled GPU Computing</h3>
 
 <p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU. Below are the steps to replicate this setup:</p>
+
+<img src="./data/images/pgu.png" alt="gpu" width="400">
 
 <h3>Step 1: Install WSL and Ubuntu 20.04</h3>
 <ol>
@@ -151,5 +163,3 @@
 </style> -->
 
 </html>
-
-
