@@ -20,9 +20,18 @@ from modulus.sym.node import Node
 
 from modulus.sym.eq.pdes.linear_elasticity import LinearElasticityPlaneStress
 
+from osm import fetch_building_footprints
+
 @modulus.sym.main(config_path="./", config_name="config.yml")
 
 def run(cfg: ModulusConfig) -> None:
+
+    # OSM
+    location_point = (40.748817, -73.985428)  # Times Square, NYC
+    radius = 100  # Radius in meters
+
+    multip = fetch_building_footprints(location_point, radius)
+    print(multip)
 
     E = 73.0 * 10**9
     nu = 0.33
