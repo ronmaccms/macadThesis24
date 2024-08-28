@@ -12,7 +12,7 @@
 
 <!-- GIF Section -->
 <div align="center">
-  <img src="./data/images/librariesinstalling.gif" alt="Project-GIF" width="700">
+  <img src="./data/images/librariesinstalling.gif" alt="Project-GIF" width="500">
 </div>
 
 <h2>About The Project</h2>
@@ -106,7 +106,7 @@
 
 <p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU. Below are the steps to replicate this setup:</p>
 
-<img src="./data/images/pgu.png" alt="gpu" width="400">
+<img src="./data/images/gpu.png" alt="gpu" width="400">
 
 <h3>Step 1: Install WSL and Ubuntu 20.04</h3>
 <ol>
