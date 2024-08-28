@@ -55,12 +55,3 @@ def fetch_building_footprints(location_point, radius=100, res=200):
     plt.show()
 
     return multip
-
-# Example usage
-if __name__ == "__main__":
-    # Define the location and area of interest
-    location_point = (40.748817, -73.985428)  # Example: Times Square, NYC
-    radius = 100  # Radius in meters
-
-    # Fetch and process building footprints
-    multip = fetch_building_footprints(location_point, radius)
