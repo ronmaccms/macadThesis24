@@ -12,7 +12,7 @@
 
 <!-- GIF Section -->
 <div align="center">
-  <img src="./web-app/src/assets/your-gif-file.gif" alt="Project GIF" width="300">
+  <img src="./data/images/librariesinstalling.gif" alt="Project GIF" width="300">
 </div>
 
 <h2>About The Project</h2>
