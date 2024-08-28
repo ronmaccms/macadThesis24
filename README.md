@@ -105,7 +105,7 @@
 </div>
 <br>
 <div align="center">
-    <img src="./data/images/Screenshot 2024-08-27 093741.png" alt="sink-heat-2" width="200">
+    <img src="./data/images/Screenshot 2024-08-27 093741.png" alt="sink-heat-2" width="400">
 </div>
 
 
