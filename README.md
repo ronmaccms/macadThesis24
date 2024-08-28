@@ -118,7 +118,7 @@
 <p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU. Below are the steps to replicate this setup:</p>
 
 <div align="center">
-    <img src="./data/images/" alt="gpu" width="500">
+    <img src="./data/images/gpu.png" alt="gpu" width="500">
 </div>
 
 <h3>Step 1: Install WSL and Ubuntu 20.04</h3>
