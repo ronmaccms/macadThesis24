@@ -154,7 +154,7 @@
 <h3>Student</h3>
 <p><strong>Andres Roncal</strong></p>
 <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/" target="_blank">
-    <img src="./web-app/src/assets/img/andres.png" alt="Andres Roncal" width="100">
+    <img src="./web-app/src/assets/img/andres-pic.jpg" alt="Andres" width="100">
 </a>
 
 <h3>Thesis Advisor</h3>
