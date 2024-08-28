@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="./web-app/src/assets/logo.jpg" alt="Logo" width="150">
+    <img src="./web-app/src/assets/logo.jpg" alt="Logo" width="400">
   <h3 align="center">Urban Wind Flow Modeling with PINNs</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
     <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
@@ -12,7 +12,7 @@
 
 <!-- GIF Section -->
 <div align="center">
-  <img src="./data/images/librariesinstalling.gif" alt="Project GIF" width="700">
+  <img src="./data/images/librariesinstalling.gif" alt="Project-GIF" width="700">
 </div>
 
 <h2>About The Project</h2>
@@ -67,6 +67,11 @@
 
 <p>The challenges include the ongoing integration of the OpenWeatherMap data and Navier-Stokes equations into the neural network model to enhance the precision of simulations.</p>
 
+<!-- GIF Section -->
+<div align="center">
+  <img src="./data/images/lala2.gif" alt="sim-gif" width="500">
+</div>
+
 <h3>Frontend Development</h3>
 
 <p>The frontend is developed using Vue.js, with Three.js handling the 3D rendering and Geolib managing geographic calculations. This interface allows users to input geographical data and run wind flow simulations, providing immediate visual feedback.</p>
@@ -100,6 +105,8 @@
 <h3>Setting Up and Using WSL for CUDA-Enabled GPU Computing</h3>
 
 <p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU. Below are the steps to replicate this setup:</p>
+
+<img src="./data/images/pgu.png" alt="gpu" width="400">
 
 <h3>Step 1: Install WSL and Ubuntu 20.04</h3>
 <ol>
