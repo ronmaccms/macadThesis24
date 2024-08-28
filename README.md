@@ -88,8 +88,6 @@
     <img src="./data/images/2d-heat-sink-with-fins.png" alt="sink-heat" width="500">
 </div>
 
-<h3>Bootcamp Participation and Advanced Learning</h3>
-
 <p>I am testing several techniques:</p> 
 <ul> 
     <li><strong>Physics-Informed Neural Networks (PINNs)</strong>: Learning how to integrate physical laws directly into neural networks for accurate simulation results.
@@ -101,6 +99,15 @@
     <li><strong>NVIDIA Modulus</strong>: Applying these concepts using NVIDIA’s Modulus framework, specifically in Computational Fluid Dynamics (CFD) and structural analysis.
     </li> 
 </ul>
+
+<div align="center">
+    <img src="./data/images/Screenshot 2024-08-27 092922.png" alt="sink-heat-2" width="500">
+</div>
+<br>
+<div align="center">
+    <img src="./data/images/Screenshot 2024-08-27 093741.png" alt="sink-heat-2" width="200">
+</div>
+
 
 <h3>Example of Implementation</h3>
 
