@@ -10,6 +10,11 @@
   </p>
 </div>
 
+<!-- GIF Section -->
+<div align="center">
+  <img src="./web-app/src/assets/your-gif-file.gif" alt="Project GIF" width="300">
+</div>
+
 <h2>About The Project</h2>
 
 <p>Project developed under the course IAAC: AI 2023-24 in <a href="https://iaac.net/">IAAC</a>.</p>
@@ -20,7 +25,7 @@
 
 <h3>Objectives</h3>
 
-<p>The projects aim is to create an open-source, web-based platform that leverages Physics-Informed Neural Networks to simulate wind flow in urban environments. Designed to be a collaborative tool, inviting contributions from urban planners, architects, and designers to enhance its functionality and adaptability. Tthe project aims to promote sustainable urban development, reducing energy consumption and improving pedestrian comfort. This initiative not only supports environmental sustainability but also fosters a community-driven approach to urban design innovation.</p>
+<p>The projects aim is to create an open-source, web-based platform that leverages Physics-Informed Neural Networks to simulate wind flow in urban environments. Designed to be a collaborative tool, inviting contributions from urban planners, architects, and designers to enhance its functionality and adaptability. The project aims to promote sustainable urban development, reducing energy consumption and improving pedestrian comfort. This initiative not only supports environmental sustainability but also fosters a community-driven approach to urban design innovation.</p>
 
 <ul>
   <li>Collect and preprocess data from various sources, including historical wind data from NOAA, real-time wind conditions from OpenWeatherMap, and 3D building models from OpenStreetMap using the Overpass API.</li>
@@ -72,7 +77,7 @@
 
 <h3>Learning and Development with NVIDIA Modulus Sym</h3>
 
-<p>As part of the development process for this project, I am actively learning how to leverage NVIDIA’s <code>modulus.sym</code> for building PINNs. The training sessions required for developing accurate models often take up to 12 hours, and they are conducted on my GPU using a wsl. This setup allows me to fully utilize the computational power of my NVIDIA GPU while working in a Linux environment.</p>
+<p>As part of the development process for this project, I am actively learning how to leverage NVIDIA’s <code>modulus.sym</code> for building PINNs. The training sessions required for developing accurate models often take up to 12 hours, and they are conducted on my GPU using a WSL. This setup allows me to fully utilize the computational power of my NVIDIA GPU while working in a Linux environment.</p>
 
 <h3>Bootcamp Participation and Advanced Learning</h3>
 
@@ -82,7 +87,7 @@
     </li> 
     <li><strong>Inverse PINNs (I-PINNs)</strong>: Tackling inverse problems to optimize and fine-tune model parameters based on observed data.
     </li> 
-    <li><strong>Deep Neural Operators (DeepONets)</strong>: Developing skills in mapping functions to functions,for solving complex simulations like fluid dynamics.
+    <li><strong>Deep Neural Operators (DeepONets)</strong>: Developing skills in mapping functions to functions, for solving complex simulations like fluid dynamics.
     </li> 
     <li><strong>NVIDIA Modulus</strong>: Applying these concepts using NVIDIA’s Modulus framework, specifically in Computational Fluid Dynamics (CFD) and structural analysis.
     </li> 
@@ -151,5 +156,3 @@
 </style> -->
 
 </html>
-
-
