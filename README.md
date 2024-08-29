@@ -4,12 +4,12 @@
     <img src="./web-app/src/assets/img/logo-b.png" alt="Logo" width="200">
   <h3 align="center">Urban Wind Flow Modeling with PINNs</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
-    <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
+    <a href="mailto:andres.roncal@students.iaac.net" target="_blank">Report Bug</a>
     ·
-    <a href="mailto:andres.roncal@students.iaac.net">Request Feature</a>
+    <a href="mailto:andres.roncal@students.iaac.net" target="_blank">Request Feature</a>
   </p>
   <!-- Add a link to the research paper -->
-  <p>
+  <p target="_blank">
     <a href="https://docs.google.com/document/d/1bncJg6RVQCD4ev0K-jJk0_dyS2iHdrlpaUodtdLf9TM/edit" target="_blank">
       View Research Paper
     </a>
