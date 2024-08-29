@@ -1,7 +1,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="./web-app/src/assets/logo.jpg" alt="Logo" width="200">
+    <img src="./web-app/src/assets/img/logo-n.png" alt="Logo" width="200">
   <h3 align="center">Urban Wind Flow Modeling with PINNs</h3>
   <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
     <a href="mailto:andres.roncal@students.iaac.net">Report Bug</a>
