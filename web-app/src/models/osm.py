@@ -52,51 +52,44 @@ def fetch_building_footprints(location_point, radius=100, res=200):
     multip = multip.simplify(tolerance=1.0)  # Increase tolerance to simplify further
 
     # Plot the minimum rotated rectangles for each geometry
-    for simrec in simrec_list:
-        x, y = simrec.exterior.xy
-        plt.plot(x, y, color='red')
+    # for simrec in simrec_list:
+    #     x, y = simrec.exterior.xy
+    #     plt.plot(x, y, color='red')
 
-    plt.title("Simplified Footprints and Their Minimum Rotated Rectangles")
-    plt.show()
+    # plt.title("Simplified Footprints and Their Minimum Rotated Rectangles")
+    # plt.show()
 
     return simrec_list
 
 # Function to extract corner points of rectangles as a list of tuples and plot them
 def plot_rectangle_points(simrec_list):
     """
-    Extracts the corner points of each rectangle in the list and plots them.
+    Plots the corner points of rectangles.
 
     Args:
-        simrec_list (list): List of minimum rotated rectangles (shapely.geometry.Polygon).
-
-    Returns:
-        rectangle_points (list): List of tuples representing the corner points of each rectangle.
+        simrec_list (list): List of minimum rotated rectangles (shapely.geometry.Polygon) 
+                            or list of lists of tuples representing the corner points.
     """
-    rectangle_points = []
-
     plt.figure()
-    for i, simrec in enumerate(simrec_list):
-        # Extract the exterior coordinates of the polygon
-        coords = list(simrec.exterior.coords)
-        # Convert to a list of tuples
-        rectangle_points.append(coords)
+    for i, rect_points in enumerate(simrec_list):  # Iterate over the list
+        if isinstance(rect_points, Polygon):
+            x, y = rect_points.exterior.xy  # Extract coordinates from Polygon
+        else:
+            x, y = zip(*rect_points)  # Unpack the list of tuples into x, y coordinates
 
-        # Plot the rectangle
-        x, y = simrec.exterior.xy
         plt.plot(x, y, color='red')
 
-        # Plot the corner points
-        for j, (px, py) in enumerate(coords):
+        for j, (px, py) in enumerate(zip(x, y)):  # Plot the points correctly
             plt.plot(px, py, 'bo')  # Plot the points in blue
-            plt.text(px, py, f'{i+1}-{j+1}', fontsize=8, ha='center')  # Label the points
+            plt.text(px, py, f'({px:.2f}, {py:.2f})', fontsize=8, ha='center')  # Label the points
 
     plt.title("Corner Points of Rectangles")
     plt.xlabel("X Coordinate")
     plt.ylabel("Y Coordinate")
     plt.show()
 
-    return rectangle_points
 
+# Function to extract corner points of rectangles as a list of tuples
 def extract_rectangle_points(simrec_list):
     """
     Extracts the corner points of each rectangle in the list.
