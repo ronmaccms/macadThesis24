@@ -8,6 +8,12 @@
     ·
     <a href="mailto:andres.roncal@students.iaac.net">Request Feature</a>
   </p>
+  <!-- Add a link to the research paper -->
+  <p>
+    <a href="./web-app/src/assets/doc/Urban-Wind-Flow-Modeling-with-PINNs_thesis-paper_AR.pdf" target="_blank">
+      View Research Paper
+    </a>
+  </p>
 </div>
 
 <!-- GIF Section -->
