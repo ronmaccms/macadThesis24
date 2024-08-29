@@ -34,24 +34,31 @@ from modulus.sym.key import Key
 from modulus.sym.node import Node
 from modulus.sym.geometry import Parameterization, Parameter
 
+from osm import fetch_and_simplify_building_footprints
+
 @modulus.sym.main(config_path="./", config_name="config.yml")
 
-
-
 def run(cfg: ModulusConfig) -> None :
+        
+        # OSM
+        location_point = (40.748817, -73.985428)  # Times Square, NYC
+        radius = 100  # Radius in meters
 
-        channel_length = (-2.5, 2.5)
-        channel_width = (-0.5, 0.5)
-        heat_sink_origin = (-1, -0.3)
-        nr_heat_sink_fins = 3
-        gap = 0.15 + 0.1
-        heat_sink_length = 1.0
-        heat_sink_fin_thickness = 0.1
-        inlet_vel = 1.5
-        heat_sink_temp = 350
-        base_temp = 293.498
-        nu = 0.01
-        diffusivity = 0.01/5
+        multip = fetch_and_simplify_building_footprints(location_point, radius)
+        print(multip)
+
+        # channel_length = (-2.5, 2.5)
+        # channel_width = (-0.5, 0.5)
+        # heat_sink_origin = (-1, -0.3)
+        # nr_heat_sink_fins = 3
+        # gap = 0.15 + 0.1
+        # heat_sink_length = 1.0
+        # heat_sink_fin_thickness = 0.1
+        # inlet_vel = 1.5
+        # heat_sink_temp = 350
+        # base_temp = 293.498
+        # nu = 0.01
+        # diffusivity = 0.01/5
 
         x, y = Symbol("x"), Symbol("y")
 
