@@ -1,0 +1,1 @@
+# this folder has the training code and geometry extraction codes for oms polygons and trains the PINN Nvidia model. 
