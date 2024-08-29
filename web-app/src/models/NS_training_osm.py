@@ -48,12 +48,16 @@ def run(cfg: ModulusConfig) -> None :
         radius = 100  # Radius in meters
 
         simrec_list  = fetch_building_footprints(location_point, radius)
-
         rectangle_points_list = extract_rectangle_points(simrec_list)
-        for i, rect_points in enumerate(rectangle_points_list):
-            print(f"Rectangle {i+1} corner points: {rect_points}")
 
+        for i, rect_points in enumerate(rectangle_points_list):
+            # print(f"Rectangle {i+1} corner points: {rect_points}")
+            rect_points.pop()
+            print(f"4 corners for Rectangle {i+1}: {rect_points}")              
+
+        # print("RECTANGLE POINTS!!! ", simrec_list)
         plot_rectangle_points(simrec_list)
+        plot_rectangle_points(rectangle_points_list)
 
         # channel_length = (-2.5, 2.5)
         # channel_width = (-0.5, 0.5)
