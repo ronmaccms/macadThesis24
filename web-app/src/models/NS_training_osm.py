@@ -33,8 +33,9 @@ from modulus.sym.domain.validator import PointwiseValidator
 from modulus.sym.key import Key
 from modulus.sym.node import Node
 from modulus.sym.geometry import Parameterization, Parameter
+from modulus.sym.geometry.primitives_2d import Polygon
 
-from osm import fetch_and_simplify_building_footprints
+from osm import fetch_building_footprints
 
 @modulus.sym.main(config_path="./", config_name="config.yml")
 
@@ -44,8 +45,9 @@ def run(cfg: ModulusConfig) -> None :
         location_point = (40.748817, -73.985428)  # Times Square, NYC
         radius = 100  # Radius in meters
 
-        multip = fetch_and_simplify_building_footprints(location_point, radius)
-        print(multip)
+        multip = fetch_building_footprints(location_point, radius)
+        # print(multip)
+
 
         # channel_length = (-2.5, 2.5)
         # channel_width = (-0.5, 0.5)
