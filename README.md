@@ -10,7 +10,7 @@
   </p>
   <!-- Add a link to the research paper -->
   <p>
-    <a href="https://github.com/ronmaccms/macadThesis24/blob/main/web-app/src/assets/doc/thesis-paper-wip/Urban-Wind-Flow-Modeling-with-PINNs_thesis-paper_AR.pdf" target="_blank">
+    <a href="https://docs.google.com/document/d/1bncJg6RVQCD4ev0K-jJk0_dyS2iHdrlpaUodtdLf9TM/edit" target="_blank">
       View Research Paper
     </a>
   </p>
