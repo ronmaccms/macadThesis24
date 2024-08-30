@@ -8,7 +8,7 @@
 <p>PINNs represent an innovative approach in computational modeling by embedding partial differential equations (PDEs) directly into the neural network’s training process. This ensures that the model adheres to established physical laws, such as the Navier-Stokes equations, leading to highly accurate simulations of complex systems like urban wind flow.</p>
 
 <div align="center">
-    <img src="./web-app/src/assets/doc/data/images/navier-stokes.png" alt="Navier-Stokes Equations" width="500">
+    <img src="web-app/src/assets/doc/data/images/navier-stokes.png" alt="Navier-Stokes Equations" width="500">
 </div>
 
 <p>In this project, the Navier-Stokes equations are used to model how air flows through urban landscapes, predicting phenomena like wind acceleration around corners and vortex formation behind buildings.</p>
@@ -19,7 +19,7 @@
 <p>Integrating data from NOAA, OpenWeatherMap, and OpenStreetMap into the PINN model allows for the dynamic adaptation of simulations to real-time environmental conditions. This ensures that the model remains responsive and accurate, providing valuable insights for urban planners.</p>
 
 <div align="center">
-    <img src="./web-app/src/assets/doc/data/images/2d-heat-sink-with-fins.png" alt="Wind Simulation" width="600">
+    <img src="web-app/src/assets/doc/data/images/2d-heat-sink-with-fins.png" alt="Wind Simulation" width="600">
 </div>
 
 <h3>Git and WSL Cheat Sheet</h3>
