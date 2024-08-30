@@ -1,6 +1,6 @@
 <!-- PROJECT LOGO -->
 <div align="center" style="background-color: #f39c12; color: white; padding: 10px; font-size: 20px; font-weight: bold;">
-  WIP Version - Work in Progress
+  WIP
 </div>
 <br />
 <div align="center">
