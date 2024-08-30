@@ -93,8 +93,6 @@ git push origin main</code></pre></li>
 <p>This command will start the simulation, utilizing your NVIDIA GPU to accelerate the computations. Depending on the complexity of the model, training can take several hours.</p>
 
 <h3>Contributor</h3>
-<p><strong>Andres</strong></p>
-    <img src="https://github.com/ronmaccms/macadThesis24/blob/main/web-app/src/assets/img/andres-pic.jpg" alt="Andres" width="100">
-</a>
+<p>Andres</p>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
