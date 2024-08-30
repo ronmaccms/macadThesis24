@@ -19,7 +19,7 @@
 <p>Integrating data from NOAA, OpenWeatherMap, and OpenStreetMap into the PINN model allows for the dynamic adaptation of simulations to real-time environmental conditions. This ensures that the model remains responsive and accurate, providing valuable insights for urban planners.</p>
 
 <div align="center">
-    <img src="web-app/src/assets/doc/data/images/2d-heat-sink-with-fins.png" alt="Wind Simulation" width="600">
+    <img src="https://github.com/ronmaccms/macadThesis24/blob/main/web-app/src/assets/doc/data/images/2d-heat-sink-with-fins.png" alt="Wind Simulation" width="600">
 </div>
 
 <h3>Git and WSL Cheat Sheet</h3>
