@@ -94,7 +94,7 @@ git push origin main</code></pre></li>
 
 <h3>Contributor</h3>
 <p><strong>Andres</strong></p>
-    <img src="./web-app/src/assets/img/andres-pic.jpg" alt="Andres" width="100">
+    <img src="https://github.com/ronmaccms/macadThesis24/blob/main/web-app/src/assets/img/andres-pic.jpg" alt="Andres" width="100">
 </a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
