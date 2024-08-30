@@ -8,7 +8,7 @@
 <p>PINNs represent an innovative approach in computational modeling by embedding partial differential equations (PDEs) directly into the neural network’s training process. This ensures that the model adheres to established physical laws, such as the Navier-Stokes equations, leading to highly accurate simulations of complex systems like urban wind flow.</p>
 
 <div align="center">
-    <img src="web-app/src/assets/doc/data/images/navier-stokes.png" alt="Navier-Stokes Equations" width="500">
+    <img src="https://github.com/ronmaccms/macadThesis24/blob/main/web-app/src/assets/doc/data/images/navier-stokes.png" alt="Navier-Stokes Equations" width="500">
 </div>
 
 <p>In this project, the Navier-Stokes equations are used to model how air flows through urban landscapes, predicting phenomena like wind acceleration around corners and vortex formation behind buildings.</p>
