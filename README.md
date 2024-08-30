@@ -160,7 +160,7 @@
 
 <h2>Team & Contacts</h2>
 
-<h3>Student</h3>
+<h3>Contributor</h3>
 <p><strong>Andres Roncal</strong></p>
 <a href="https://www.linkedin.com/in/andres-roncal-1b148a132/" target="_blank">
     <img src="./web-app/src/assets/img/andres-pic.jpg" alt="Andres" width="100">
