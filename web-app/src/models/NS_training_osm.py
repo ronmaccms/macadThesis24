@@ -68,21 +68,23 @@ def run(cfg: ModulusConfig) -> None :
         # channel_length, channel_width = update_channel_dimensions(rectangle_points_list)
         min_x, max_x, min_y, max_y = calculate_min_max_coordinates(rectangle_points_list)
 
-        # channel_length = (-2.5, 2.5)
-        # channel_width = (-0.5, 0.5)
-        channel_length = (min_x, max_x)
-        channel_width = (min_y, max_y)
+        # Calculated based on channel dimensions
+        heat_sink_origin = (min_x + 0.1 * (max_x - min_x), min_y + 0.1 * (max_y - min_y))
+        nr_heat_sink_fins = len(simrec_list)
+        heat_sink_length = 0.2 * (max_x - min_x)  # For example, 20% of the channel's length
+        heat_sink_fin_thickness = 0.05 * (max_y - min_y)  # For example, 5% of the channel's width
+        gap = 0.1 * (max_y - min_y)  # 10% of the channel's width
 
-        heat_sink_origin = (-1, -0.3)
-        nr_heat_sink_fins = 3
-        gap = 0.15 + 0.1
-        heat_sink_length = 1.0
-        heat_sink_fin_thickness = 0.1
+        # other parameters
         inlet_vel = 1.5
         heat_sink_temp = 350
         base_temp = 293.498
         nu = 0.01
         diffusivity = 0.01/5
+
+        # Use the calculated channel length and width
+        channel_length = (min_x, max_x)
+        channel_width = (min_y, max_y)
 
         # Plot the original rectangles using simrec_list
         plot_rectangle_points(simrec_list)
