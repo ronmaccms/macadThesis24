@@ -1,4 +1,3 @@
-<!-- PROJECT LOGO -->
 <h2>About The Folder</h2>
 
 <h3>Learning and Development with NVIDIA Modulus Sym</h3>
@@ -41,7 +40,7 @@
 <p>Integrating data from NOAA, OpenWeatherMap, and OpenStreetMap into the PINN model allows for the dynamic adaptation of simulations to real-time environmental conditions. This ensures that the model remains responsive and accurate, providing valuable insights for urban planners.</p>
 
 <div align="center">
-    <img src="./web-app/src/assets/doc/data/images/wind-simulation.png" alt="Wind Simulation" width="600">
+    <img src="./web-app/src/assets/doc/data/images/2d-heat-sink-with-fins.png" alt="Wind Simulation" width="600">
 </div>
 
 <h3>Git and WSL Cheat Sheet</h3>
@@ -115,7 +114,7 @@ git push origin main</code></pre></li>
 <p>This command will start the simulation, utilizing your NVIDIA GPU to accelerate the computations. Depending on the complexity of the model, training can take several hours.</p>
 
 <h3>Contributor</h3>
-<p><strong>Andres Roncal</strong></p>
+<p><strong>Andres</strong></p>
     <img src="./web-app/src/assets/img/andres-pic.jpg" alt="Andres" width="100">
 </a>
 
