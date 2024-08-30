@@ -1,4 +1,7 @@
 <!-- PROJECT LOGO -->
+<div align="center" style="background-color: #f39c12; color: white; padding: 10px; font-size: 20px; font-weight: bold;">
+  WIP Version - Work in Progress
+</div>
 <br />
 <div align="center">
     <img src="./web-app/src/assets/img/logo-b.png" alt="Logo" width="200">
