@@ -21,7 +21,7 @@
 
 <!-- GIF Section -->
 <div align="center">
-  <img src="./data/images/librariesinstalling.gif" alt="Project-GIF" width="500">
+  <img src="./web-app/src/assets/doc/data/images/librariesinstalling.gif" alt="Project-GIF" width="500">
 </div>
 
 <h2>About The Project</h2>
@@ -78,7 +78,7 @@
 
 <!-- GIF Section -->
 <div align="center">
-  <img src="./data/images/lala2.gif" alt="sim-gif" width="600">
+  <img src="./web-app/src/assets/doc/data/images/lala2.gif" alt="sim-gif" width="600">
 </div>
 
 <h3>Frontend Development</h3>
@@ -94,7 +94,7 @@
 <p>As part of the development process for this project, I am actively learning how to leverage NVIDIA’s <code>modulus.sym</code> for building PINNs. The training sessions required for developing accurate models often take up to 12 hours, and they are conducted on my GPU using a WSL. This setup allows me to fully utilize the computational power of my NVIDIA GPU while working in a Linux environment.</p>
 
 <div align="center">
-    <img src="./data/images/2d-heat-sink-with-fins.png" alt="sink-heat" width="500">
+    <img src="./web-app/src/assets/doc/data/images/2d-heat-sink-with-fins.png" alt="sink-heat" width="500">
 </div>
 
 <p>I am testing several techniques:</p> 
@@ -110,11 +110,11 @@
 </ul>
 
 <div align="center">
-    <img src="./data/images/Screenshot 2024-08-27 092922.png" alt="sink-heat-2" width="500">
+    <img src="./web-app/src/assets/doc/data/images/Screenshot 2024-08-27 092922.png" alt="sink-heat-2" width="500">
 </div>
 <br>
 <div align="center">
-    <img src="./data/images/Screenshot 2024-08-27 093741.png" alt="sink-heat-2" width="400">
+    <img src="./web-app/src/assets/doc/data/images/Screenshot 2024-08-27 093741.png" alt="sink-heat-2" width="400">
 </div>
 
 
@@ -127,7 +127,7 @@
 <p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU. Below are the steps to replicate this setup:</p>
 
 <div align="center">
-    <img src="./data/images/gpu2.png" alt="gpu2" width="500">
+    <img src="./web-app/src/assets/doc/data/images/gpu2.png" alt="gpu2" width="500">
 </div>
 
 <h3>Step 1: Install WSL and Ubuntu 20.04</h3>
