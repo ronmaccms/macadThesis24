@@ -1,29 +1,4 @@
-<!-- PROJECT LOGO -->
-<div align="center" style="background-color: #f39c12; color: white; padding: 10px; font-size: 20px; font-weight: bold;">
-  Urban Wind Flow Modeling with PINNs
-</div>
-<br />
-<div align="center">
-    <img src="./web-app/src/assets/img/logo-b.png" alt="Logo" width="200">
-  <h3 align="center">Urban Wind Flow Modeling with PINNs</h3>
-  <p align="center" style="font-weight: bold;">IAAC: AI 2023-24<br>
-    <a href="mailto:andres.roncal@students.iaac.net" target="_blank">Report Bug</a>
-    ·
-    <a href="mailto:andres.roncal@students.iaac.net" target="_blank">Request Feature</a>
-  </p>
-  <p target="_blank">
-    <a href="https://docs.google.com/document/d/1bncJg6RVQCD4ev0K-jJk0_dyS2iHdrlpaUodtdLf9TM/edit" target="_blank">
-      View Research Paper
-    </a>
-  </p>
-</div>
-
-<!-- GIF Section -->
-<div align="center">
-  <img src="./web-app/src/assets/doc/data/images/librariesinstalling.gif" alt="Project-GIF" width="500">
-</div>
-
-<h2>About The Project</h2>
+<h2>About The Folder</h2>
 
 <p>This folder contains the training code and geometry extraction codes for OSM polygons and trains the PINN Nvidia model.</p>
 
