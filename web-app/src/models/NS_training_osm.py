@@ -48,7 +48,7 @@ from osm import (
         calculate_min_max_coordinates,
 )
 
-@modulus.sym.main(config_path="./", config_name="config.yml")
+@modulus.sym.main(config_path="./", config_name="config.yaml")
 
 def run(cfg: ModulusConfig) -> None :
         
