@@ -38,7 +38,7 @@ from modulus.sym.geometry.primitives_2d import Polygon
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon as ShapelyPolygon
 import matplotlib.patches as patches
-from osm import (
+from helpers import (
         fetch_building_footprints, 
         plot_rectangle_points, 
         extract_rectangle_points, 

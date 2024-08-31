@@ -18,15 +18,20 @@ ox.settings.requests_kwargs['verify'] = False
 def fetch_building_footprints(location_point, radius=100, res=200):
     """
     Fetches and processes building footprints within a specified radius from a location point.
-
+    
     Args:
         location_point (tuple): A tuple containing the latitude and longitude of the location point.
         radius (int, optional): Radius in meters for the area of interest. Default is 100 meters.
         res (int, optional): Resolution for the plot. Default is 200.
 
     Returns:
-        simrec_list (list): List of minimum rotated rectangles (shapely.geometry.Polygon)
+        simrec_list (list): List of minimum rotated rectangles (shapely.geometry.Polygon).
         minun_rectangle_all (Polygon): A single minimum rotated rectangle encompassing all building footprints.
+        
+    Purpose:
+        This function fetches building footprints around a specific location using OSMnx and processes
+        them into a format that can be used for further geometric and computational tasks. The function 
+        returns individual building outlines and a combined boundary for all footprints.
     """
 
     # Fetch building footprints within the specified radius
@@ -73,6 +78,11 @@ def plot_rectangle_points(simrec_list):
     Args:
         simrec_list (list): List of minimum rotated rectangles (shapely.geometry.Polygon) 
                             or list of lists of tuples representing the corner points.
+
+    Purpose:
+        This function is used to visually verify the rectangle points by plotting them. It
+        plots each rectangle and labels the corner points with their coordinates. This is 
+        useful for debugging and ensuring the geometric calculations are correct.
     """
     plt.figure()
     for i, rect_points in enumerate(simrec_list):  # Iterate over the list
@@ -92,9 +102,6 @@ def plot_rectangle_points(simrec_list):
     plt.ylabel("Y Coordinate")
     plt.show()
 
-# lalalal
-
-
 # Function to extract corner points of rectangles as a list of tuples
 def extract_rectangle_points(simrec_list):
     """
@@ -106,6 +113,11 @@ def extract_rectangle_points(simrec_list):
     Returns:
         rectangle_points_list (list of lists): List where each inner list contains tuples 
                                                representing the corner points of a rectangle.
+    
+    Purpose:
+        This function extracts the corner points from the rectangles (minimum rotated rectangles) 
+        generated from the building footprints. The output is a list of tuples representing these 
+        points, which can then be used in further geometric processing or analysis.
     """
     rectangle_points_list = []
 
@@ -127,6 +139,11 @@ def calculate_combined_boundary(rectangle_points_list, expansion_factor=0.05):
 
     Returns:
         boundary (tuple): Expanded boundary coordinates as (min_x, min_y, max_x, max_y).
+    
+    Purpose:
+        This function calculates the outer boundary that encompasses all the rectangles. It then
+        expands this boundary by a specified factor, which can be useful for ensuring that any
+        geometric calculations or simulations have some buffer around the area of interest.
     """
     all_x = []
     all_y = []
@@ -154,6 +171,22 @@ def calculate_combined_boundary(rectangle_points_list, expansion_factor=0.05):
     return expanded_min_x, expanded_min_y, expanded_max_x, expanded_max_y
 
 def calculate_combined_boundary(rectangle_points_list):
+    """
+    Calculates the combined boundary by uniting all rectangles and expanding the bounding box.
+
+    Args:
+        rectangle_points_list (list of lists): List where each inner list contains tuples 
+                                               representing the corner points of a rectangle.
+
+    Returns:
+        channel_length (tuple): Tuple representing the length of the channel.
+        channel_width (tuple): Tuple representing the width of the channel.
+    
+    Purpose:
+        This function unites all individual rectangles into a single polygon and calculates
+        the bounding box around it. The bounding box is then scaled to ensure the simulation
+        or geometric operations have an adequate area to work with.
+    """
     # Convert each rectangle to a Shapely Polygon
     polygons = [ShapelyPolygon(rect_points) for rect_points in rectangle_points_list]
     
@@ -185,6 +218,11 @@ def calculate_length_and_width(rect_points):
     Returns:
         length (float): The length of the rectangle (along the x-axis).
         width (float): The width of the rectangle (along the y-axis).
+    
+    Purpose:
+        This function calculates the basic geometric properties (length and width) of a rectangle
+        from its corner points. These dimensions are essential for determining the scale and size 
+        of features in the simulation.
     """
     x_coords = [point[0] for point in rect_points]
     y_coords = [point[1] for point in rect_points]
@@ -204,6 +242,11 @@ def update_channel_dimensions(rectangle_points_list):
     Returns:
         channel_length (tuple): Tuple representing the updated length of the channel.
         channel_width (tuple): Tuple representing the updated width of the channel.
+    
+    Purpose:
+        This function identifies the largest rectangle from the list and uses it to define
+        the overall dimensions of the channel. This is particularly useful for setting up
+        the domain for a simulation or analysis.
     """
     max_length = 0
     max_width = 0
@@ -220,8 +263,23 @@ def update_channel_dimensions(rectangle_points_list):
     
     return channel_length, channel_width
 
-# Define the necessary functions first
 def calculate_min_max_coordinates(rectangle_points_list):
+    """
+    Calculate the minimum and maximum coordinates for a list of rectangles.
+
+    Args:
+        rectangle_points_list (list of lists): List of lists containing corner points for each rectangle.
+
+    Returns:
+        min_x (float): Minimum x coordinate.
+        max_x (float): Maximum x coordinate.
+        min_y (float): Minimum y coordinate.
+        max_y (float): Maximum y coordinate.
+
+    Purpose:
+        This function computes the extreme coordinates (min and max) across all rectangles, 
+        which can be used for defining the boundaries of a simulation or geometric operation.
+    """
     all_x_coords = []
     all_y_coords = []
 
@@ -237,5 +295,3 @@ def calculate_min_max_coordinates(rectangle_points_list):
     max_y = max(all_y_coords)
 
     return min_x, max_x, min_y, max_y
-
-
