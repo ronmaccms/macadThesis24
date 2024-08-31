@@ -49,7 +49,6 @@ from osm import (
 )
 
 @modulus.sym.main(config_path="./", config_name="config.yaml")
-
 def run(cfg: ModulusConfig) -> None :
         
         location_point = (40.748817, -73.985428)  # Times Square, NYC
