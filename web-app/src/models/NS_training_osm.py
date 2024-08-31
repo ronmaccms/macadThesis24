@@ -75,11 +75,16 @@ def run(cfg: ModulusConfig) -> None :
         gap = 0.1 * (max_y - min_y)  # 10% of the channel's width
 
         # other parameters
-        inlet_vel = 1.5
-        heat_sink_temp = 350
+        # inlet_vel = 1.5
+        reference_length = 100  # Reference length in meters
+        inlet_vel = 1.5 * (channel_length[1] - channel_length[0]) / reference_length
+
+        reference_temp = 350
+        heat_sink_temp = reference_temp * ((channel_width[1] - channel_width[0]) / reference_length)
         base_temp = 293.498
-        nu = 0.01
-        diffusivity = 0.01/5
+
+        nu = 0.01 * ((channel_length[1] - channel_length[0]) / reference_length)
+        diffusivity = nu / 5 * ((channel_width[1] - channel_width[0]) / reference_length)
 
         # Use the calculated channel length and width
         channel_length = (min_x, max_x)
@@ -259,9 +264,9 @@ def run(cfg: ModulusConfig) -> None :
         )
         domain.add_monitor(force)
 
-        slv = Solver(cfg, domain)
+        # slv = Solver(cfg, domain)
 
-        slv.solve()
+        # slv.solve()
 
 if __name__ == "__main__":
     run()
