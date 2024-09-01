@@ -11,7 +11,7 @@ import modulus.sym
 from modulus.sym.hydra import to_absolute_path, instantiate_arch, ModulusConfig
 from modulus.sym.solver import Solver
 from modulus.sym.domain import Domain
-from modulus.sym.geometry.primitives_2d import Rectangle, Line, Channel2D
+from modulus.sym.geometry.primitives_2d import Rectangle, Line, Channel2D, Polygon
 from modulus.sym.utils.sympy.functions import parabola
 from modulus.sym.utils.io import csv_to_dict
 
@@ -33,7 +33,7 @@ from modulus.sym.domain.validator import PointwiseValidator
 from modulus.sym.key import Key
 from modulus.sym.node import Node
 from modulus.sym.geometry import Parameterization, Parameter
-from modulus.sym.geometry.primitives_2d import Polygon
+from modulus.sym.geometry.primitives_2d import Polygon as ModulusPolygon
 
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon as ShapelyPolygon
@@ -62,25 +62,25 @@ def run(cfg: ModulusConfig) -> None:
     # Extract rectangle points for all building footprints
     rectangle_points_list = extract_rectangle_points(simrec_list)
 
+    # Remove the last repeated point from each building’s points to get only 4 points per building
+    cleaned_rectangle_points_list = [points[:-1] for points in rectangle_points_list]
+
     # Plot all building footprints with corner points
-    plot_rectangle_points(rectangle_points_list, boundary_rectangle=None)
+    plot_rectangle_points(cleaned_rectangle_points_list, boundary_rectangle=None)
 
     # Calculate the minimum and maximum coordinates across all footprints
-    min_x, max_x, min_y, max_y = calculate_min_max_coordinates(rectangle_points_list)
+    min_x, max_x, min_y, max_y = calculate_min_max_coordinates(cleaned_rectangle_points_list)
     
     # Calculate the channel dimensions based on all building footprints
-    channel_length, channel_width = calculate_combined_boundary(rectangle_points_list)
+    channel_length, channel_width = calculate_combined_boundary(cleaned_rectangle_points_list)
 
     # Plot the combined minimum rotated rectangle around all building footprints
-    plot_rectangle_points(rectangle_points_list, boundary_rectangle=(min_x, min_y, max_x, max_y))
+    plot_rectangle_points(cleaned_rectangle_points_list, boundary_rectangle=(min_x, min_y, max_x, max_y))
 
     # Create the channel based on the calculated dimensions
     channel = Channel2D(
         (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
     )
-
-    # Plot to verify the building is within the channel
-    plot_building_in_channel(channel, simrec_list[0])  # Plot only the first building footprint
 
     # Set up the fin (building footprint) logic
     heat_sink_origin = (min_x + 0.1 * (max_x - min_x), min_y + 0.1 * (max_y - min_y))
@@ -99,15 +99,18 @@ def run(cfg: ModulusConfig) -> None:
     nu = 0.01 * ((channel_length[1] - channel_length[0]) / reference_length)
     diffusivity = nu / 5 * ((channel_width[1] - channel_width[0]) / reference_length)
 
-    # Geometry for the single building (fin)
-    heat_sink = Rectangle(
-        heat_sink_origin,
-        (
-            (heat_sink_origin[0] + heat_sink_length),
-            (heat_sink_origin[1] + heat_sink_fin_thickness),
-        ),
-    )
-    
+    # Test with only the first building footprint (after removing the last point)
+    test_building_points = cleaned_rectangle_points_list[0]
+
+    # Print the points being used to create the Polygon
+    print("Test Building Points:", test_building_points)
+
+    # Use the list of points to create the Polygon object for heat_sink
+    heat_sink = ModulusPolygon(test_building_points)
+
+    # Print the heat_sink object
+    print("Heat Sink Polygon:", heat_sink)
+
     # Create the channel minus the heat sink
     geo = channel - heat_sink
 
@@ -253,15 +256,9 @@ def run(cfg: ModulusConfig) -> None:
     )
     domain.add_monitor(force)
 
-    # Plot only the first building footprint (rect_points)
-    plot_rectangle_points([rectangle_points_list[0]], boundary_rectangle=minun_rectangle_all.bounds)
-
-    # Plot the channel with the selected building footprint inside
-    plot_building_in_channel(channel, ShapelyPolygon(rectangle_points_list[0]))
-
     # Solver initialization and solve
-    slv = Solver(cfg, domain)
-    slv.solve()
+    # slv = Solver(cfg, domain)
+    # slv.solve()
 
 if __name__ == "__main__":
     run()
