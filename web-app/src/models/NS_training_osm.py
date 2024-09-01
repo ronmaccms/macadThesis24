@@ -260,8 +260,8 @@ def run(cfg: ModulusConfig) -> None:
     plot_building_in_channel(channel, ShapelyPolygon(rectangle_points_list[0]))
 
     # Solver initialization and solve
-    # slv = Solver(cfg, domain)
-    # slv.solve()
+    slv = Solver(cfg, domain)
+    slv.solve()
 
 if __name__ == "__main__":
     run()
