@@ -256,9 +256,28 @@ def run(cfg: ModulusConfig) -> None:
     )
     domain.add_monitor(force)
 
+    ## CHECKS
+    # Print important parameters to verify they are correctly set
+    print(f"nu: {nu}, inlet_vel: {inlet_vel}, diffusivity: {diffusivity}")
+    print(f"Channel Length: {channel_length}, Channel Width: {channel_width}")
+    # Confirm boundary conditions and domain setup
+    print(f"Inlet parabola: {inlet_parabola}")
+    print(f"Domain Constraints: {domain.constraints}")
+
+    # Prints for debugging and verification
+    print(f"Test Building Points: {test_building_points}")
+    print("Heat Sink Polygon:", heat_sink)
+    print(f"nu: {nu}, inlet_vel: {inlet_vel}, diffusivity: {diffusivity}")
+    print(f"Channel Length: {channel_length}, Channel Width: {channel_width}")
+    print(f"Inlet parabola: {inlet_parabola}")
+    print(f"Domain Constraints: {domain.constraints}")
+
+
+
+
     # Solver initialization and solve
-    # slv = Solver(cfg, domain)
-    # slv.solve()
+    slv = Solver(cfg, domain)
+    slv.solve()
 
 if __name__ == "__main__":
     run()
