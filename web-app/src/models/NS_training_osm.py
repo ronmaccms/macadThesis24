@@ -50,32 +50,33 @@ from helpers import (
 
 @modulus.sym.main(config_path="./", config_name="config.yaml")
 def run(cfg: ModulusConfig) -> None:
-        
+    
+    # Fetch the building footprints
     location_point = (40.748817, -73.985428)  # Times Square, NYC
     radius = 100  # Radius in meters
-    simrec_list, minun_rectangle_all  = fetch_building_footprints(location_point, radius)
-    rectangle_points_list = extract_rectangle_points(simrec_list)
-    min_recall = [minun_rectangle_all]
-
-    # Print the corner points and remove the last point (closing point)
-    for i, rect_points in enumerate(rectangle_points_list):
-        # Remove the last item (closing point) from the list of corners
-        rect_points.pop()  # Remove last point
-        length, width = calculate_length_and_width(rect_points)
-        print(f"Rectangle {i+1}: Length = {length}, Width = {width}")
-
-    # Calculate channel length and width
-    min_x, max_x, min_y, max_y = calculate_min_max_coordinates(rectangle_points_list)
-    channel_length = (min_x, max_x)  # Assigning calculated values
-    channel_width = (min_y, max_y)  # Assigning calculated values
-
-    # Calculated based on channel dimensions
+    simrec_list, minun_rectangle_all = fetch_building_footprints(location_point, radius)
+    
+    # Extract rectangle points for the first building only
+    rectangle_points_list = extract_rectangle_points([simrec_list[0]])  # Use only the first building
+    min_recall = [minun_rectangle_all]  # Still keep the minimum rotated rectangle logic
+    
+    # Remove the last point (closing point) for the first building
+    rect_points = rectangle_points_list[0]
+    rect_points.pop()  # Remove last point
+    length, width = calculate_length_and_width(rect_points)
+    print(f"Single Building: Length = {length}, Width = {width}")
+    
+    # Calculate channel length and width based on this single building
+    min_x, max_x, min_y, max_y = calculate_min_max_coordinates([rect_points])
+    channel_length = (min_x, max_x)  # Assign calculated values
+    channel_width = (min_y, max_y)  # Assign calculated values
+    
+    # Set up the fin (building footprint) logic
     heat_sink_origin = (min_x + 0.1 * (max_x - min_x), min_y + 0.1 * (max_y - min_y))
-    nr_heat_sink_fins = len(simrec_list)
     heat_sink_length = 0.2 * (max_x - min_x)  # For example, 20% of the channel's length
     heat_sink_fin_thickness = 0.05 * (max_y - min_y)  # For example, 5% of the channel's width
     gap = 0.1 * (max_y - min_y)  # 10% of the channel's width
-
+    
     # other parameters
     reference_length = 100  # Reference length in meters
     inlet_vel = 1.5 * (channel_length[1] - channel_length[0]) / reference_length
@@ -87,8 +88,8 @@ def run(cfg: ModulusConfig) -> None:
     nu = 0.01 * ((channel_length[1] - channel_length[0]) / reference_length)
     diffusivity = nu / 5 * ((channel_width[1] - channel_width[0]) / reference_length)
 
-    # Plot the original rectangles using simrec_list
-    plot_rectangle_points(simrec_list)
+    # Plot the original single rectangle
+    plot_rectangle_points([simrec_list[0]])
     # Additionally, plot the combined minimum rotated rectangle
     plot_rectangle_points(min_recall)
 
@@ -98,6 +99,7 @@ def run(cfg: ModulusConfig) -> None:
         (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
     )
 
+    # Only one fin (building footprint)
     heat_sink = Rectangle(
         heat_sink_origin,
         (
@@ -105,19 +107,8 @@ def run(cfg: ModulusConfig) -> None:
             (heat_sink_origin[1] + heat_sink_fin_thickness),
         ),
     )
-
-    for i in range(1, nr_heat_sink_fins):
-        heat_sink_origin = (heat_sink_origin[0], heat_sink_origin[1] + gap)
-        fin = Rectangle(
-            heat_sink_origin,
-            (
-                heat_sink_origin[0] + heat_sink_length,
-                heat_sink_origin[1] + heat_sink_fin_thickness,
-            ),
-        )
-
-        heat_sink = heat_sink + fin 
-
+    
+    # Geometry for the single building (fin)
     geo = channel - heat_sink
 
     inlet = Line(
@@ -151,7 +142,7 @@ def run(cfg: ModulusConfig) -> None:
     
     flow_net = instantiate_arch(
         input_keys=[Key("x"), Key("y")],
-        output_keys=[Key("u"), Key("v"), Key("p")],
+        output_keys=[Key("u"), "v", "p"],
         cfg=cfg.arch.fully_connected,
     )
 
