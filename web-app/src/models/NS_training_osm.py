@@ -11,7 +11,7 @@ import modulus.sym
 from modulus.sym.hydra import to_absolute_path, instantiate_arch, ModulusConfig
 from modulus.sym.solver import Solver
 from modulus.sym.domain import Domain
-from modulus.sym.geometry.primitives_2d import Rectangle, Line, Channel2D, Polygon as ModulusPolygon
+from modulus.sym.geometry.primitives_2d import Rectangle, Line, Channel2D, Polygon
 from modulus.sym.utils.sympy.functions import parabola
 from modulus.sym.utils.io import csv_to_dict
 
@@ -78,6 +78,13 @@ def run(cfg: ModulusConfig) -> None:
         (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
     )
 
+    # Define parameters
+    nu = 0.01  # Viscosity
+    diffusivity = nu / 5  # Diffusivity
+    inlet_vel = 1.5  # Inlet velocity
+    heat_sink_temp = 350  # Temperature of the heat sink
+    base_temp = 293.498  # Base temperature
+    
     # Test with only the first building footprint (after removing the last point)
     test_building_points = cleaned_rectangle_points_list[0]
 
@@ -85,7 +92,7 @@ def run(cfg: ModulusConfig) -> None:
     print("Test Building Points:", test_building_points)
 
     # Use the list of points to create the Polygon object for heat_sink
-    heat_sink = ModulusPolygon(test_building_points)
+    heat_sink = Polygon(test_building_points)
 
     # Print the heat_sink object
     print("Heat Sink Polygon:", heat_sink)
@@ -137,18 +144,18 @@ def run(cfg: ModulusConfig) -> None:
     )
     
     ze = ZeroEquation(
-        nu=0.01, rho=1.0, dim=2, max_distance=(channel_width[1] - channel_width[0]) / 2
+        nu=nu, rho=1.0, dim=2, max_distance=(channel_width[1] - channel_width[0]) / 2
     )
 
     ns = NavierStokes(nu=ze.equations["nu"], rho=1.0, dim=2, time=False)
 
-    ade = AdvectionDiffusion(T="c", rho=1.0, D=0.002, dim=2, time=False)
+    ade = AdvectionDiffusion(T="c", rho=1.0, D=diffusivity, dim=2, time=False)
     gn_c = GradNormal("c", dim=2, time=False)
     normal_dot_vet = NormalDotVec(["u", "v"])
     
     flow_net = instantiate_arch(
         input_keys=[Key("x"), Key("y")],
-        output_keys=[Key("u"), "v", "p"],
+        output_keys=[Key("u"), Key("v"), "p"],
         cfg=cfg.arch.fully_connected,
     )
 
@@ -173,7 +180,7 @@ def run(cfg: ModulusConfig) -> None:
     # Add boundary conditions
     y = Symbol("y")  # Make sure y is defined
     inlet_parabola = parabola(
-        y, inter_1=channel_width[0], inter_2=channel_width[1], height=1.5
+        y, inter_1=channel_width[0], inter_2=channel_width[1], height=inlet_vel
     )
 
     inlet = PointwiseBoundaryConstraint(
@@ -195,7 +202,7 @@ def run(cfg: ModulusConfig) -> None:
     hs_wall = PointwiseBoundaryConstraint(
         nodes=nodes,
         geometry=heat_sink,
-        outvar={"u": 0, "v": 0, "c": (350 - 293.498) / 273.15},
+        outvar={"u": 0, "v": 0, "c": (heat_sink_temp - base_temp) / 273.15},
         batch_size=cfg.batch_size.hs_wall,
     )
     domain.add_constraint(hs_wall, "heat_sink_wall")
@@ -258,6 +265,13 @@ def run(cfg: ModulusConfig) -> None:
         nodes=nodes,
     )
     domain.add_monitor(force)
+
+    # Print important parameters to verify they are correctly set
+    print(f"nu: {nu}, inlet_vel: {inlet_vel}, diffusivity: {diffusivity}")
+    print(f"Channel Length: {channel_length}, Channel Width: {channel_width}")
+    # Confirm boundary conditions and domain setup
+    print(f"Inlet parabola: {inlet_parabola}")
+    print(f"Domain Constraints: {domain.constraints}")
 
     # Solver initialization and solve
     # slv = Solver(cfg, domain)
