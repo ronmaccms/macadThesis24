@@ -73,34 +73,22 @@ def run(cfg: ModulusConfig) -> None:
     # Plot the combined minimum rotated rectangle around all building footprints
     plot_rectangle_points(cleaned_rectangle_points_list, boundary_rectangle=(min_x, min_y, max_x, max_y))
 
-    # Create the channel based on the calculated dimensions
-    channel = Channel2D(
+    # Create Modulus Polygon objects for each building footprint using tuple lists
+    modulus_polygons = [Polygon(points) for points in cleaned_rectangle_points_list]
+
+    # Start with the full channel
+    geo = Channel2D(
         (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
     )
 
-    # Define parameters
-    nu = 0.01  # Viscosity
-    diffusivity = nu / 5  # Diffusivity
-    inlet_vel = 1.5  # Inlet velocity
-    heat_sink_temp = 350  # Temperature of the heat sink
-    base_temp = 293.498  # Base temperature
-    
-    # Test with only the first building footprint (after removing the last point)
-    test_building_points = cleaned_rectangle_points_list[0]
+    # Subtract each building footprint from the channel to create the final geometry
+    for poly in modulus_polygons:
+        geo = geo - poly
 
-    # Print the points being used to create the Polygon
-    print("Test Building Points:", test_building_points)
+    # Print to verify
+    print("Final Geometry Created.")
 
-    # Use the list of points to create the Polygon object for heat_sink
-    heat_sink = Polygon(test_building_points)
-
-    # Print the heat_sink object
-    print("Heat Sink Polygon:", heat_sink)
-
-    # Create the channel minus the heat sink
-    geo = channel - heat_sink
-
-    ## Plotting the channel and building footprint
+    ## Plotting the channel and combined building footprints
     fig, ax = plt.subplots(figsize=(7, 5))
     
     # Plot channel boundary
@@ -109,18 +97,19 @@ def run(cfg: ModulusConfig) -> None:
     patch = patches.Polygon(list(channel_polygon.exterior.coords), closed=True, fill=None, edgecolor='blue', linewidth=2)
     ax.add_patch(patch)
 
-    # Plot the building footprint
-    building_polygon = ShapelyPolygon(test_building_points)
-    patch = patches.Polygon(list(building_polygon.exterior.coords), closed=True, fill=None, edgecolor='red', linewidth=2)
-    ax.add_patch(patch)
+    # Plot each individual building footprint
+    for points in cleaned_rectangle_points_list:
+        building_polygon = ShapelyPolygon(points)
+        patch = patches.Polygon(list(building_polygon.exterior.coords), closed=True, fill=None, edgecolor='red', linewidth=2)
+        ax.add_patch(patch)
 
     # Set plot limits and labels
     ax.set_xlim([min_x - 10, max_x + 10])
     ax.set_ylim([min_y - 10, max_y + 10])
     ax.set_xlabel('X Coordinate')
     ax.set_ylabel('Y Coordinate')
-    ax.set_title('Building Footprint within Channel')
-    ax.legend(['Channel Boundary', 'Building Footprint'])
+    ax.set_title(f'{len(cleaned_rectangle_points_list)} Building Footprints within Channel')
+    ax.legend(['Channel Boundary', 'Building Footprints'])
 
     plt.show()
 
@@ -142,6 +131,12 @@ def run(cfg: ModulusConfig) -> None:
         1,
         parameterization=Parameterization({x_pos: channel_length}),
     )
+    
+    nu = 0.01  # Viscosity
+    diffusivity = nu / 5  # Diffusivity
+    inlet_vel = 1.5  # Inlet velocity
+    heat_sink_temp = 350  # Temperature of the heat sink
+    base_temp = 293.498  # Base temperature
     
     ze = ZeroEquation(
         nu=nu, rho=1.0, dim=2, max_distance=(channel_width[1] - channel_width[0]) / 2
@@ -201,7 +196,7 @@ def run(cfg: ModulusConfig) -> None:
 
     hs_wall = PointwiseBoundaryConstraint(
         nodes=nodes,
-        geometry=heat_sink,
+        geometry=geo,  # Now the full geometry including all subtracted polygons
         outvar={"u": 0, "v": 0, "c": (heat_sink_temp - base_temp) / 273.15},
         batch_size=cfg.batch_size.hs_wall,
     )
@@ -256,7 +251,7 @@ def run(cfg: ModulusConfig) -> None:
 
     # Add monitors
     force = PointwiseMonitor(
-        heat_sink.sample_boundary(100),
+        geo.sample_boundary(100),
         output_names=["p"],
         metrics={
             "force_x": lambda var: torch.sum(var["normal_x"] * var["area"] * var["p"]),
