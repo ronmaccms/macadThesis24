@@ -117,30 +117,34 @@ def run(cfg: ModulusConfig) -> None:
     # Print to verify
     print("Final Geometry Created.")
 
-    ## Plotting the channel and combined building footprints
+    # Plot the combined geometry with heat sink boundary
     fig, ax = plt.subplots(figsize=(7, 5))
-    
-    # Plot channel boundary
+
+    # Plot the channel boundary
     channel_polygon = ShapelyPolygon([(channel_length[0], channel_width[0]), (channel_length[0], channel_width[1]),
-                                      (channel_length[1], channel_width[1]), (channel_length[1], channel_width[0])])
+                                    (channel_length[1], channel_width[1]), (channel_length[1], channel_width[0])])
     patch = patches.Polygon(list(channel_polygon.exterior.coords), closed=True, fill=None, edgecolor='blue', linewidth=2)
     ax.add_patch(patch)
 
-    # Plot each individual building footprint
+    # Plot each building footprint
     for points in cleaned_rectangle_points_list:
         building_polygon = ShapelyPolygon(points)
         patch = patches.Polygon(list(building_polygon.exterior.coords), closed=True, fill=None, edgecolor='red', linewidth=2)
         ax.add_patch(patch)
+
+    # Highlight the heat sink wall if possible
+    heat_sink_polygon = ShapelyPolygon([...])  # Define the coordinates of the heat sink wall if available
+    patch = patches.Polygon(list(heat_sink_polygon.exterior.coords), closed=True, fill=None, edgecolor='green', linewidth=2)
+    ax.add_patch(patch)
 
     # Set plot limits and labels
     ax.set_xlim([min_x - 10, max_x + 10])
     ax.set_ylim([min_y - 10, max_y + 10])
     ax.set_xlabel('X Coordinate')
     ax.set_ylabel('Y Coordinate')
-    ax.set_title(f'{len(cleaned_rectangle_points_list)} Building Footprints within Channel')
-    ax.legend(['Channel Boundary', 'Building Footprints'])
-
+    ax.set_title(f'Geometry with Heat Sink Wall Highlighted')
     plt.show()
+
 
     # Define the inlet and outlet
     inlet_line = Line(
@@ -166,6 +170,9 @@ def run(cfg: ModulusConfig) -> None:
     inlet_vel = 1.5  # Inlet velocity
     heat_sink_temp = 350  # Temperature of the heat sink
     base_temp = 293.498  # Base temperature
+    temp_diff = (heat_sink_temp - base_temp) / 273.15
+    print(f"Temperature difference applied at heat sink wall: {temp_diff}")
+
     
     ze = ZeroEquation(
         nu=nu, rho=1.0, dim=2, max_distance=(channel_width[1] - channel_width[0]) / 2
@@ -226,7 +233,8 @@ def run(cfg: ModulusConfig) -> None:
     hs_wall = PointwiseBoundaryConstraint(
         nodes=nodes,
         geometry=geo,  # Now the full geometry including all subtracted polygons
-        outvar={"u": 0, "v": 0, "c": (heat_sink_temp - base_temp) / 273.15},
+        outvar={"u": 0, "v": 0, "c": temp_diff},
+        # outvar={"u": 0, "v": 0, "c": (heat_sink_temp - base_temp) / 273.15},
         batch_size=cfg.batch_size.hs_wall,
     )
     domain.add_constraint(hs_wall, "heat_sink_wall")
@@ -289,6 +297,11 @@ def run(cfg: ModulusConfig) -> None:
         nodes=nodes,
     )
     domain.add_monitor(force)
+
+    print("Checking heat sink wall constraint:")
+    print(f"Boundary geometry: {geo.bounds}")
+    print(f"Applied boundary condition: u=0, v=0, c={temp_diff}")
+
 
     # Print important parameters to verify they are correctly set
     print(f"nu: {nu}, inlet_vel: {inlet_vel}, diffusivity: {diffusivity}")
