@@ -14,18 +14,18 @@ scheduler:
   decay_steps: 3000
   
 training:
-  rec_validation_freq: 1000
+  rec_validation_freq: 500  # Validate more frequently
   rec_inference_freq: 1000
   rec_monitor_freq: 1000
   rec_constraint_freq: 2000
   max_steps: 3000
-  
+
 batch_size:
   inlet: 64
   outlet: 64
   hs_wall: 500
-  channel_wall: 1500 #2500
-  interior_flow: 3000 #4800
-  interior_heat: 3000 #4800
+  channel_wall: 1500
+  interior_flow: 6000  # Increase this value
+  interior_heat: 6000  # Increase this value
   integral_continuity: 128
   num_integral_continuity: 4

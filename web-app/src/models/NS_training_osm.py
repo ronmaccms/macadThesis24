@@ -58,8 +58,15 @@ def run(cfg: ModulusConfig) -> None:
     # Extract rectangle points for all building footprints
     rectangle_points_list = extract_rectangle_points(simrec_list)
 
+    # Scale the geometry if necessary (modify the scaling factor as needed)
+    scaling_factor = 10  # Example scaling factor
+    cleaned_rectangle_points_list = [
+        [(x * scaling_factor, y * scaling_factor) for x, y in points]
+        for points in rectangle_points_list
+    ]
+
     # Remove the last repeated point from each building’s points to get only 4 points per building
-    cleaned_rectangle_points_list = [points[:-1] for points in rectangle_points_list]
+    cleaned_rectangle_points_list = [points[:-1] for points in cleaned_rectangle_points_list]
 
     # Plot all building footprints with corner points
     plot_rectangle_points(cleaned_rectangle_points_list, boundary_rectangle=None)
@@ -77,13 +84,35 @@ def run(cfg: ModulusConfig) -> None:
     modulus_polygons = [Polygon(points) for points in cleaned_rectangle_points_list]
 
     # Start with the full channel
-    geo = Channel2D(
+    channel = Channel2D(
         (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
     )
 
     # Subtract each building footprint from the channel to create the final geometry
-    for poly in modulus_polygons:
+    geo = channel
+    for i, poly in enumerate(modulus_polygons):
         geo = geo - poly
+        print(f"Subtracted geometry {i+1}")
+        
+        # Debug plot to verify subtraction
+        fig, ax = plt.subplots(figsize=(7, 5))
+        # Plot the channel boundary after subtraction
+        channel_polygon = ShapelyPolygon([(channel_length[0], channel_width[0]), (channel_length[0], channel_width[1]),
+                                          (channel_length[1], channel_width[1]), (channel_length[1], channel_width[0])])
+        patch = patches.Polygon(list(channel_polygon.exterior.coords), closed=True, fill=None, edgecolor='blue', linewidth=2)
+        ax.add_patch(patch)
+
+        # Plot the subtracted polygon
+        building_polygon = ShapelyPolygon(cleaned_rectangle_points_list[i])
+        patch = patches.Polygon(list(building_polygon.exterior.coords), closed=True, fill=None, edgecolor='red', linewidth=2)
+        ax.add_patch(patch)
+
+        ax.set_xlim([min_x - 10, max_x + 10])
+        ax.set_ylim([min_y - 10, max_y + 10])
+        ax.set_xlabel('X Coordinate')
+        ax.set_ylabel('Y Coordinate')
+        ax.set_title(f'Debug Plot: Geometry {i+1} Subtraction')
+        plt.show()
 
     # Print to verify
     print("Final Geometry Created.")
@@ -204,7 +233,7 @@ def run(cfg: ModulusConfig) -> None:
 
     channel_wall = PointwiseBoundaryConstraint(
         nodes=nodes,
-        geometry=channel,
+        geometry=channel,  # Use the original channel for this boundary condition
         outvar={"u": 0, "v": 0, "normal_gradient_c": 0},
         batch_size=cfg.batch_size.channel_wall,
     )
@@ -214,7 +243,7 @@ def run(cfg: ModulusConfig) -> None:
         nodes=nodes,
         geometry=geo,
         outvar={"continuity": 0, "momentum_x": 0, "momentum_y": 0},
-        batch_size=cfg.batch_size.interior_flow,
+        batch_size=cfg.batch_size.interior_flow,  # Increase this value if needed
         compute_sdf_derivatives=True,
         lambda_weighting={
             "continuity": Symbol("sdf"),
@@ -228,7 +257,7 @@ def run(cfg: ModulusConfig) -> None:
         nodes=nodes,
         geometry=geo,
         outvar={"advection_diffusion_c": 0},
-        batch_size=cfg.batch_size.interior_heat,
+        batch_size=cfg.batch_size.interior_heat,  # Increase this value if needed
         lambda_weighting={"advection_diffusion_c": 1},
     )
     domain.add_constraint(interior_heat, "interior_heat")
@@ -269,8 +298,8 @@ def run(cfg: ModulusConfig) -> None:
     print(f"Domain Constraints: {domain.constraints}")
 
     # Solver initialization and solve
-    # slv = Solver(cfg, domain)
-    # slv.solve()
+    slv = Solver(cfg, domain)
+    slv.solve()
 
 if __name__ == "__main__":
     run()
