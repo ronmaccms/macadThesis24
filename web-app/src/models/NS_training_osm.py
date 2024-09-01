@@ -11,7 +11,7 @@ import modulus.sym
 from modulus.sym.hydra import to_absolute_path, instantiate_arch, ModulusConfig
 from modulus.sym.solver import Solver
 from modulus.sym.domain import Domain
-from modulus.sym.geometry.primitives_2d import Rectangle, Line, Channel2D, Polygon
+from modulus.sym.geometry.primitives_2d import Rectangle, Line, Channel2D, Polygon as ModulusPolygon
 from modulus.sym.utils.sympy.functions import parabola
 from modulus.sym.utils.io import csv_to_dict
 
@@ -33,7 +33,6 @@ from modulus.sym.domain.validator import PointwiseValidator
 from modulus.sym.key import Key
 from modulus.sym.node import Node
 from modulus.sym.geometry import Parameterization, Parameter
-from modulus.sym.geometry.primitives_2d import Polygon as ModulusPolygon
 
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon as ShapelyPolygon
@@ -45,9 +44,6 @@ from helpers import (
     extract_rectangle_points, 
     plot_rectangle_points, 
     calculate_min_max_coordinates,
-    calculate_length_and_width,
-    update_channel_dimensions,
-    plot_building_in_channel,
     calculate_combined_boundary  # Use this version without the expansion_factor argument
 )
 
@@ -82,23 +78,6 @@ def run(cfg: ModulusConfig) -> None:
         (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
     )
 
-    # Set up the fin (building footprint) logic
-    heat_sink_origin = (min_x + 0.1 * (max_x - min_x), min_y + 0.1 * (max_y - min_y))
-    heat_sink_length = 0.2 * (max_x - min_x)  # For example, 20% of the channel's length
-    heat_sink_fin_thickness = 0.05 * (max_y - min_y)  # For example, 5% of the channel's width
-    gap = 0.1 * (max_y - min_y)  # 10% of the channel's width
-    
-    # Other parameters
-    reference_length = 100  # Reference length in meters
-    inlet_vel = 1.5 * (channel_length[1] - channel_length[0]) / reference_length
-
-    reference_temp = 350
-    heat_sink_temp = reference_temp * ((channel_width[1] - channel_width[0]) / reference_length)
-    base_temp = 293.498
-
-    nu = 0.01 * ((channel_length[1] - channel_length[0]) / reference_length)
-    diffusivity = nu / 5 * ((channel_width[1] - channel_width[0]) / reference_length)
-
     # Test with only the first building footprint (after removing the last point)
     test_building_points = cleaned_rectangle_points_list[0]
 
@@ -113,6 +92,30 @@ def run(cfg: ModulusConfig) -> None:
 
     # Create the channel minus the heat sink
     geo = channel - heat_sink
+
+    ## Plotting the channel and building footprint
+    fig, ax = plt.subplots(figsize=(7, 5))
+    
+    # Plot channel boundary
+    channel_polygon = ShapelyPolygon([(channel_length[0], channel_width[0]), (channel_length[0], channel_width[1]),
+                                      (channel_length[1], channel_width[1]), (channel_length[1], channel_width[0])])
+    patch = patches.Polygon(list(channel_polygon.exterior.coords), closed=True, fill=None, edgecolor='blue', linewidth=2)
+    ax.add_patch(patch)
+
+    # Plot the building footprint
+    building_polygon = ShapelyPolygon(test_building_points)
+    patch = patches.Polygon(list(building_polygon.exterior.coords), closed=True, fill=None, edgecolor='red', linewidth=2)
+    ax.add_patch(patch)
+
+    # Set plot limits and labels
+    ax.set_xlim([min_x - 10, max_x + 10])
+    ax.set_ylim([min_y - 10, max_y + 10])
+    ax.set_xlabel('X Coordinate')
+    ax.set_ylabel('Y Coordinate')
+    ax.set_title('Building Footprint within Channel')
+    ax.legend(['Channel Boundary', 'Building Footprint'])
+
+    plt.show()
 
     # Define the inlet and outlet
     inlet_line = Line(
@@ -134,12 +137,12 @@ def run(cfg: ModulusConfig) -> None:
     )
     
     ze = ZeroEquation(
-        nu=nu, rho=1.0, dim=2, max_distance=(channel_width[1] - channel_width[0]) / 2
+        nu=0.01, rho=1.0, dim=2, max_distance=(channel_width[1] - channel_width[0]) / 2
     )
 
     ns = NavierStokes(nu=ze.equations["nu"], rho=1.0, dim=2, time=False)
 
-    ade = AdvectionDiffusion(T="c", rho=1.0, D=diffusivity, dim=2, time=False)
+    ade = AdvectionDiffusion(T="c", rho=1.0, D=0.002, dim=2, time=False)
     gn_c = GradNormal("c", dim=2, time=False)
     normal_dot_vet = NormalDotVec(["u", "v"])
     
@@ -170,7 +173,7 @@ def run(cfg: ModulusConfig) -> None:
     # Add boundary conditions
     y = Symbol("y")  # Make sure y is defined
     inlet_parabola = parabola(
-        y, inter_1=channel_width[0], inter_2=channel_width[1], height=inlet_vel
+        y, inter_1=channel_width[0], inter_2=channel_width[1], height=1.5
     )
 
     inlet = PointwiseBoundaryConstraint(
@@ -192,7 +195,7 @@ def run(cfg: ModulusConfig) -> None:
     hs_wall = PointwiseBoundaryConstraint(
         nodes=nodes,
         geometry=heat_sink,
-        outvar={"u": 0, "v": 0, "c": (heat_sink_temp - base_temp) / 273.15},
+        outvar={"u": 0, "v": 0, "c": (350 - 293.498) / 273.15},
         batch_size=cfg.batch_size.hs_wall,
     )
     domain.add_constraint(hs_wall, "heat_sink_wall")
@@ -256,28 +259,9 @@ def run(cfg: ModulusConfig) -> None:
     )
     domain.add_monitor(force)
 
-    ## CHECKS
-    # Print important parameters to verify they are correctly set
-    print(f"nu: {nu}, inlet_vel: {inlet_vel}, diffusivity: {diffusivity}")
-    print(f"Channel Length: {channel_length}, Channel Width: {channel_width}")
-    # Confirm boundary conditions and domain setup
-    print(f"Inlet parabola: {inlet_parabola}")
-    print(f"Domain Constraints: {domain.constraints}")
-
-    # Prints for debugging and verification
-    print(f"Test Building Points: {test_building_points}")
-    print("Heat Sink Polygon:", heat_sink)
-    print(f"nu: {nu}, inlet_vel: {inlet_vel}, diffusivity: {diffusivity}")
-    print(f"Channel Length: {channel_length}, Channel Width: {channel_width}")
-    print(f"Inlet parabola: {inlet_parabola}")
-    print(f"Domain Constraints: {domain.constraints}")
-
-
-
-
     # Solver initialization and solve
-    slv = Solver(cfg, domain)
-    slv.solve()
+    # slv = Solver(cfg, domain)
+    # slv.solve()
 
 if __name__ == "__main__":
     run()
