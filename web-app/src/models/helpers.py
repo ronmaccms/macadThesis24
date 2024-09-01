@@ -309,8 +309,17 @@ def calculate_min_max_coordinates(rectangle_points_list):
 
 # Function to calculate the length and width of a rectangle
 def calculate_length_and_width(rect_points):
-    # (Function implementation)
-    pass
+    if not rect_points or len(rect_points) < 4:  # Check if rect_points is valid
+        print("Error: rect_points is invalid.")
+        return None, None  # Return None, None if input is invalid
+
+    x_coords = [point[0] for point in rect_points]
+    y_coords = [point[1] for point in rect_points]
+    
+    length = max(x_coords) - min(x_coords)
+    width = max(y_coords) - min(y_coords)
+    
+    return length, width
 
 # New Function to plot the channel and buildings
 def plot_channel_and_buildings(channel, buildings):
@@ -340,4 +349,128 @@ def plot_channel_and_buildings(channel, buildings):
     plt.xlabel("X Coordinate")
     plt.ylabel("Y Coordinate")
     plt.legend()
+    plt.show()
+
+# Function to plot the building footprint within the channel to verify its position
+def plot_building_in_channel(channel, building, building_name="Building Footprint"):
+    fig, ax = plt.subplots()
+
+    # Attempt to extract bounds safely
+    try:
+        min_x = channel.bounds.bound_ranges.get('x', (0, 0))[0]
+        max_x = channel.bounds.bound_ranges.get('x', (0, 0))[1]
+        min_y = channel.bounds.bound_ranges.get('y', (0, 0))[0]
+        max_y = channel.bounds.bound_ranges.get('y', (0, 0))[1]
+    except AttributeError:
+        # Fallback if bounds aren't correctly formatted
+        print("Warning: Channel bounds are not correctly formatted.")
+        min_x, max_x, min_y, max_y = 0, 1, 0, 1  # Default/fallback values
+
+    # Define the channel boundary points manually using the extracted bounds
+    channel_boundary = [
+        (min_x, min_y),  # lower-left
+        (min_x, max_y),  # upper-left
+        (max_x, max_y),  # upper-right
+        (max_x, min_y),  # lower-right
+        (min_x, min_y)   # close the loop
+    ]
+
+    # Unzip the boundary points into x and y coordinates
+    channel_x, channel_y = zip(*channel_boundary)
+    ax.plot(channel_x, channel_y, color='blue', label='Channel Boundary')
+    
+    # Plot the building footprint
+    building_x, building_y = building.exterior.xy
+    ax.plot(building_x, building_y, color='red', label=building_name)
+    
+    # Add labels and legend
+    ax.set_title("Building Footprint within Channel")
+    ax.set_xlabel("X Coordinate")
+    ax.set_ylabel("Y Coordinate")
+    ax.legend()
+    
+    plt.show()
+
+# Function to extract corner points of rectangles as a list of tuples and plot them
+def plot_rectangle_points(simrec_list, boundary_rectangle=None):
+    plt.figure()
+    for i, rect_points in enumerate(simrec_list):  # Iterate over the list
+        if isinstance(rect_points, ShapelyPolygon):
+            x, y = rect_points.exterior.xy  # Extract coordinates from Polygon
+        else:
+            x, y = zip(*rect_points)  # Unpack the list of tuples into x, y coordinates
+
+        plt.plot(x, y, color='red')
+
+        for j, (px, py) in enumerate(zip(x, y)):  # Plot the points correctly
+            plt.plot(px, py, 'bo')  # Plot the points in blue
+            plt.text(px, py, f'({px:.2f}, {py:.2f})', fontsize=7, ha='center')  # Label the points
+
+    # Plot the boundary rectangle if provided
+    if boundary_rectangle:
+        min_x, min_y, max_x, max_y = boundary_rectangle
+        boundary_x = [min_x, max_x, max_x, min_x, min_x]
+        boundary_y = [min_y, min_y, max_y, max_y, min_y]
+        plt.plot(boundary_x, boundary_y, color='green', linestyle='--')
+        for px, py in zip(boundary_x, boundary_y):
+            plt.plot(px, py, 'go')  # Plot the boundary points in green
+
+    plt.title("Corner Points of Rectangles and Bounding Rectangle")
+    plt.xlabel("X Coordinate")
+    plt.ylabel("Y Coordinate")
+    plt.show()
+
+def calculate_maximum_bounds(rectangle_points_list):
+    all_x = []
+    all_y = []
+
+    for rect_points in rectangle_points_list:
+        x_coords, y_coords = zip(*rect_points)
+        all_x.extend(x_coords)
+        all_y.extend(y_coords)
+
+    # Calculate the minimum and maximum x and y coordinates
+    min_x, max_x = min(all_x), max(all_x)
+    min_y, max_y = min(all_y), max(all_y)
+
+    # Use the diagonal or maximum span as the channel size
+    channel_length = max_x - min_x
+    channel_width = max_y - min_y
+
+    return (min_x, max_x), (min_y, max_y), channel_length, channel_width
+
+# Function to plot the channel and a single building with scaling
+def plot_single_building_in_channel(channel_bounds, building, building_name="Building Footprint"):
+    fig, ax = plt.subplots()
+
+    # Extract the bounds for the channel
+    min_x, max_x, min_y, max_y = channel_bounds
+    
+    # Define the channel boundary points manually using the extracted bounds
+    channel_boundary = [
+        (min_x, min_y),  # lower-left
+        (min_x, max_y),  # upper-left
+        (max_x, max_y),  # upper-right
+        (max_x, min_y),  # lower-right
+        (min_x, min_y)   # close the loop
+    ]
+
+    # Unzip the boundary points into x and y coordinates
+    channel_x, channel_y = zip(*channel_boundary)
+    ax.plot(channel_x, channel_y, color='green', linestyle='--', label='Channel Boundary')
+    
+    # Plot the building footprint
+    building_x, building_y = building.exterior.xy
+    ax.plot(building_x, building_y, color='blue', label=building_name)
+    
+    # Add labels for points
+    for (x, y) in zip(building_x, building_y):
+        ax.text(x, y, f'({x:.2f}, {y:.2f})', fontsize=8, ha='center')
+
+    # Add labels and legend
+    ax.set_title("Single Building Footprint within Scaled Channel")
+    ax.set_xlabel("X Coordinate")
+    ax.set_ylabel("Y Coordinate")
+    ax.legend()
+
     plt.show()

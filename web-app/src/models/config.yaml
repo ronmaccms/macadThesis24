@@ -11,7 +11,7 @@ jit: false
 
 scheduler:
   decay_rate: 0.95
-  decay_steps: 5000
+  decay_steps: 3000
   
 training:
   rec_validation_freq: 1000

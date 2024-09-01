@@ -38,15 +38,17 @@ from modulus.sym.geometry.primitives_2d import Polygon
 import matplotlib.pyplot as plt
 from shapely.geometry import Polygon as ShapelyPolygon
 import matplotlib.patches as patches
+
+# Import helper functions
 from helpers import (
-        fetch_building_footprints, 
-        plot_rectangle_points, 
-        extract_rectangle_points, 
-        calculate_combined_boundary, 
-        calculate_length_and_width, 
-        update_channel_dimensions,
-        calculate_min_max_coordinates,
-        plot_channel_and_buildings,
+    fetch_building_footprints, 
+    extract_rectangle_points, 
+    plot_rectangle_points, 
+    calculate_min_max_coordinates,
+    calculate_length_and_width,
+    update_channel_dimensions,
+    plot_building_in_channel,
+    calculate_combined_boundary  # Use this version without the expansion_factor argument
 )
 
 @modulus.sym.main(config_path="./", config_name="config.yaml")
@@ -57,25 +59,34 @@ def run(cfg: ModulusConfig) -> None:
     radius = 100  # Radius in meters
     simrec_list, minun_rectangle_all = fetch_building_footprints(location_point, radius)
     
-    # Extract rectangle points for the first building only
-    rectangle_points_list = extract_rectangle_points([simrec_list[0]])  # Use only the first building
-    min_recall = [minun_rectangle_all]  # Still keep the minimum rotated rectangle logic
+    # Extract rectangle points for all building footprints
+    rectangle_points_list = extract_rectangle_points(simrec_list)
+
+    # Plot all building footprints with corner points
+    plot_rectangle_points(rectangle_points_list, boundary_rectangle=None)
+
+    # Calculate the minimum and maximum coordinates across all footprints
+    min_x, max_x, min_y, max_y = calculate_min_max_coordinates(rectangle_points_list)
     
-    # Remove the last point (closing point) for the first building
-    rect_points = rectangle_points_list[0]
-    rect_points.pop()  # Remove last point
-    length, width = calculate_length_and_width(rect_points)
-    print(f"Single Building: Length = {length}, Width = {width}")
-    
-    # Calculate channel length and width based on this single building
-    min_x, max_x, min_y, max_y = calculate_min_max_coordinates([rect_points])
-    channel_length = (min_x, max_x)  # Assign calculated values
-    channel_width = (min_y, max_y)  # Assign calculated values
-    
+    # Calculate the channel dimensions based on all building footprints
+    channel_length, channel_width = calculate_combined_boundary(rectangle_points_list)
+
+    # Plot the combined minimum rotated rectangle around all building footprints
+    plot_rectangle_points(rectangle_points_list, boundary_rectangle=(min_x, min_y, max_x, max_y))
+
+    # Create the channel based on the calculated dimensions
+    channel = Channel2D(
+        (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
+    )
+
+    # Plot to verify the building is within the channel
+    plot_building_in_channel(channel, simrec_list[0])  # Plot only the first building footprint
+
     # Set up the fin (building footprint) logic
     heat_sink_origin = (min_x + 0.1 * (max_x - min_x), min_y + 0.1 * (max_y - min_y))
     heat_sink_length = 0.2 * (max_x - min_x)  # For example, 20% of the channel's length
     heat_sink_fin_thickness = 0.05 * (max_y - min_y)  # For example, 5% of the channel's width
+    gap = 0.1 * (max_y - min_y)  # 10% of the channel's width
     
     # Other parameters
     reference_length = 100  # Reference length in meters
@@ -88,18 +99,7 @@ def run(cfg: ModulusConfig) -> None:
     nu = 0.01 * ((channel_length[1] - channel_length[0]) / reference_length)
     diffusivity = nu / 5 * ((channel_width[1] - channel_width[0]) / reference_length)
 
-    # Plot the original single rectangle
-    plot_rectangle_points([simrec_list[0]])
-
-    # Plot the combined minimum rotated rectangle
-    plot_rectangle_points(min_recall)
-
-    # Create the channel based on the new dimensions
-    channel = Channel2D(
-        (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
-    )
-
-    # Only one fin (building footprint)
+    # Geometry for the single building (fin)
     heat_sink = Rectangle(
         heat_sink_origin,
         (
@@ -108,17 +108,15 @@ def run(cfg: ModulusConfig) -> None:
         ),
     )
     
-    # Plot the building(s) inside the channel
-    plot_channel_and_buildings(channel, [heat_sink])
-
-    # Geometry for the single building (fin)
+    # Create the channel minus the heat sink
     geo = channel - heat_sink
 
-    inlet = Line(
+    # Define the inlet and outlet
+    inlet_line = Line(
         (channel_length[0], channel_width[0]),
         (channel_length[0], channel_width[1]), -1
     )
-    outlet = Line(
+    outlet_line = Line(
         (channel_length[1], channel_width[0]),
         (channel_length[1], channel_width[1]), 1
     )
@@ -140,12 +138,11 @@ def run(cfg: ModulusConfig) -> None:
 
     ade = AdvectionDiffusion(T="c", rho=1.0, D=diffusivity, dim=2, time=False)
     gn_c = GradNormal("c", dim=2, time=False)
-    # When we calculate the surface, we also need to calculate the dot product of the surface as it solves
     normal_dot_vet = NormalDotVec(["u", "v"])
     
     flow_net = instantiate_arch(
         input_keys=[Key("x"), Key("y")],
-        output_keys=[Key("u"), Key("v"), Key("p")],
+        output_keys=[Key("u"), "v", "p"],
         cfg=cfg.arch.fully_connected,
     )
 
@@ -168,13 +165,14 @@ def run(cfg: ModulusConfig) -> None:
     domain = Domain()
 
     # Add boundary conditions
+    y = Symbol("y")  # Make sure y is defined
     inlet_parabola = parabola(
         y, inter_1=channel_width[0], inter_2=channel_width[1], height=inlet_vel
     )
 
     inlet = PointwiseBoundaryConstraint(
         nodes=nodes,
-        geometry=inlet,
+        geometry=inlet_line,
         outvar={"u": inlet_parabola, "v": 0, "c": 0},
         batch_size=cfg.batch_size.inlet,
     )
@@ -182,7 +180,7 @@ def run(cfg: ModulusConfig) -> None:
 
     outlet = PointwiseBoundaryConstraint(
         nodes=nodes,
-        geometry=outlet,
+        geometry=outlet_line,
         outvar={"p": 0},
         batch_size=cfg.batch_size.outlet,
     )
@@ -255,8 +253,15 @@ def run(cfg: ModulusConfig) -> None:
     )
     domain.add_monitor(force)
 
-    slv = Solver(cfg, domain)
-    slv.solve()
+    # Plot only the first building footprint (rect_points)
+    plot_rectangle_points([rectangle_points_list[0]], boundary_rectangle=minun_rectangle_all.bounds)
+
+    # Plot the channel with the selected building footprint inside
+    plot_building_in_channel(channel, ShapelyPolygon(rectangle_points_list[0]))
+
+    # Solver initialization and solve
+    # slv = Solver(cfg, domain)
+    # slv.solve()
 
 if __name__ == "__main__":
     run()
