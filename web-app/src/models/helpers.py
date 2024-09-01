@@ -71,13 +71,14 @@ def fetch_building_footprints(location_point, radius=100, res=200):
     return simrec_list, minun_rectangle_all
 
 # Function to extract corner points of rectangles as a list of tuples and plot them
-def plot_rectangle_points(simrec_list):
+def plot_rectangle_points(simrec_list, boundary_rectangle=None):
     """
-    Plots the corner points of rectangles.
+    Plots the corner points of rectangles and optionally a boundary rectangle.
 
     Args:
         simrec_list (list): List of minimum rotated rectangles (shapely.geometry.Polygon) 
                             or list of lists of tuples representing the corner points.
+        boundary_rectangle (tuple): Optional boundary rectangle as (min_x, min_y, max_x, max_y).
 
     Purpose:
         This function is used to visually verify the rectangle points by plotting them. It
@@ -97,10 +98,20 @@ def plot_rectangle_points(simrec_list):
             plt.plot(px, py, 'bo')  # Plot the points in blue
             plt.text(px, py, f'({px:.2f}, {py:.2f})', fontsize=7, ha='center')  # Label the points
 
-    plt.title("Corner Points of Rectangles")
+    # Plot the boundary rectangle if provided
+    if boundary_rectangle:
+        min_x, min_y, max_x, max_y = boundary_rectangle
+        boundary_x = [min_x, max_x, max_x, min_x, min_x]
+        boundary_y = [min_y, min_y, max_y, max_y, min_y]
+        plt.plot(boundary_x, boundary_y, color='green', linestyle='--')
+        for px, py in zip(boundary_x, boundary_y):
+            plt.plot(px, py, 'go')  # Plot the boundary points in green
+
+    plt.title("Corner Points of Rectangles and Bounding Rectangle")
     plt.xlabel("X Coordinate")
     plt.ylabel("Y Coordinate")
     plt.show()
+
 
 # Function to extract corner points of rectangles as a list of tuples
 def extract_rectangle_points(simrec_list):
@@ -295,3 +306,38 @@ def calculate_min_max_coordinates(rectangle_points_list):
     max_y = max(all_y_coords)
 
     return min_x, max_x, min_y, max_y
+
+# Function to calculate the length and width of a rectangle
+def calculate_length_and_width(rect_points):
+    # (Function implementation)
+    pass
+
+# New Function to plot the channel and buildings
+def plot_channel_and_buildings(channel, buildings):
+    """
+    Plot the channel with the building footprints inside.
+
+    Args:
+        channel (Channel2D): The simulation channel.
+        buildings (list): List of building polygons to plot inside the channel.
+    
+    Purpose:
+        This function creates a visual representation of the simulation channel
+        with the selected buildings inside it to verify the setup.
+    """
+    plt.figure()
+    
+    # Plot the channel boundaries
+    channel_x, channel_y = zip(*[(pt.x, pt.y) for pt in channel.boundary.exterior.coords])
+    plt.plot(channel_x, channel_y, color='blue', label='Channel')
+
+    # Plot each building inside the channel
+    for building in buildings:
+        building_x, building_y = building.exterior.xy
+        plt.plot(building_x, building_y, color='red', label='Building Footprint')
+
+    plt.title("Channel with Building(s) Inside")
+    plt.xlabel("X Coordinate")
+    plt.ylabel("Y Coordinate")
+    plt.legend()
+    plt.show()

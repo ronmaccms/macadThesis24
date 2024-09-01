@@ -46,6 +46,7 @@ from helpers import (
         calculate_length_and_width, 
         update_channel_dimensions,
         calculate_min_max_coordinates,
+        plot_channel_and_buildings,
 )
 
 @modulus.sym.main(config_path="./", config_name="config.yaml")
@@ -75,9 +76,8 @@ def run(cfg: ModulusConfig) -> None:
     heat_sink_origin = (min_x + 0.1 * (max_x - min_x), min_y + 0.1 * (max_y - min_y))
     heat_sink_length = 0.2 * (max_x - min_x)  # For example, 20% of the channel's length
     heat_sink_fin_thickness = 0.05 * (max_y - min_y)  # For example, 5% of the channel's width
-    gap = 0.1 * (max_y - min_y)  # 10% of the channel's width
     
-    # other parameters
+    # Other parameters
     reference_length = 100  # Reference length in meters
     inlet_vel = 1.5 * (channel_length[1] - channel_length[0]) / reference_length
 
@@ -90,11 +90,11 @@ def run(cfg: ModulusConfig) -> None:
 
     # Plot the original single rectangle
     plot_rectangle_points([simrec_list[0]])
-    # Additionally, plot the combined minimum rotated rectangle
+
+    # Plot the combined minimum rotated rectangle
     plot_rectangle_points(min_recall)
 
-    x, y = Symbol("x"), Symbol("y")
-
+    # Create the channel based on the new dimensions
     channel = Channel2D(
         (channel_length[0], channel_width[0]), (channel_length[1], channel_width[1])
     )
@@ -108,6 +108,9 @@ def run(cfg: ModulusConfig) -> None:
         ),
     )
     
+    # Plot the building(s) inside the channel
+    plot_channel_and_buildings(channel, [heat_sink])
+
     # Geometry for the single building (fin)
     geo = channel - heat_sink
 
@@ -142,7 +145,7 @@ def run(cfg: ModulusConfig) -> None:
     
     flow_net = instantiate_arch(
         input_keys=[Key("x"), Key("y")],
-        output_keys=[Key("u"), "v", "p"],
+        output_keys=[Key("u"), Key("v"), Key("p")],
         cfg=cfg.arch.fully_connected,
     )
 
