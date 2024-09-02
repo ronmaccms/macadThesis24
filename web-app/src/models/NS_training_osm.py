@@ -117,6 +117,19 @@ def run(cfg: ModulusConfig) -> None:
     # Print to verify
     print("Final Geometry Created.")
 
+    # Parametrically define the heat sink wall polygon
+    heat_sink_x_start = channel_length[1] - 0.1 * (channel_length[1] - channel_length[0])  # 10% from the end of the channel
+    heat_sink_x_end = channel_length[1]  # At the end of the channel
+    heat_sink_y_start = channel_width[0]  # Full height of the channel
+    heat_sink_y_end = channel_width[1]
+
+    heat_sink_polygon = ShapelyPolygon([
+        (heat_sink_x_start, heat_sink_y_start),
+        (heat_sink_x_end, heat_sink_y_start),
+        (heat_sink_x_end, heat_sink_y_end),
+        (heat_sink_x_start, heat_sink_y_end)
+    ])
+
     # Plot the combined geometry with heat sink boundary
     fig, ax = plt.subplots(figsize=(7, 5))
 
@@ -132,8 +145,7 @@ def run(cfg: ModulusConfig) -> None:
         patch = patches.Polygon(list(building_polygon.exterior.coords), closed=True, fill=None, edgecolor='red', linewidth=2)
         ax.add_patch(patch)
 
-    # Highlight the heat sink wall if possible
-    heat_sink_polygon = ShapelyPolygon([...])  # Define the coordinates of the heat sink wall if available
+    # Highlight the heat sink wall
     patch = patches.Polygon(list(heat_sink_polygon.exterior.coords), closed=True, fill=None, edgecolor='green', linewidth=2)
     ax.add_patch(patch)
 
@@ -144,7 +156,6 @@ def run(cfg: ModulusConfig) -> None:
     ax.set_ylabel('Y Coordinate')
     ax.set_title(f'Geometry with Heat Sink Wall Highlighted')
     plt.show()
-
 
     # Define the inlet and outlet
     inlet_line = Line(
