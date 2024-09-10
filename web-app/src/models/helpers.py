@@ -474,3 +474,33 @@ def plot_single_building_in_channel(channel_bounds, building, building_name="Bui
     ax.legend()
 
     plt.show()
+
+# Function to calculate centroid of the points
+def calculate_centroid(points):
+    # Extract x and y coordinates from the first tuple in each tuple
+    x_coords = [p[0][0] for p in points]  # Extract the x-coordinate from (x, y)
+    y_coords = [p[0][1] for p in points]  # Extract the y-coordinate from (x, y)
+    
+    # Calculate the centroid for x and y
+    centroid_x = sum(x_coords) / len(x_coords)
+    centroid_y = sum(y_coords) / len(y_coords)
+
+    return (centroid_x, centroid_y)
+
+# Function to translate points to fit within the channel
+def translate_points(points, old_centroid, new_centroid):
+    translated_points = []
+    
+    # Loop through each point, which is a tuple of tuples
+    for point in points:
+        # Unpack the x and y from the first tuple of the point
+        x, y = point[0]  # Assuming point[0] is (x, y)
+        
+        # Translate the x and y coordinates
+        translated_x = x + (new_centroid[0] - old_centroid[0])
+        translated_y = y + (new_centroid[1] - old_centroid[1])
+        
+        # Append the translated point (as a tuple) to the list
+        translated_points.append(((translated_x, translated_y), *point[1:]))  # Keep other tuple parts if any
+
+    return translated_points

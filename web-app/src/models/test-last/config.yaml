@@ -1,0 +1,31 @@
+defaults:
+  - modulus_default
+  - arch:
+      - fully_connected
+  - optimizer: adam
+  - scheduler: tf_exponential_lr # exponential learing rate
+  - loss: sum
+  - _self_ # take all the defaults from the modulus itsels for other parameters. 
+
+jit: false
+
+scheduler: 
+  decay_rate: 0.95
+  decay_steps: 5000
+
+training:
+  rec_validation_freq: 1000
+  rec_inference_freq: 1000
+  rec_monitor_freq: 1000
+  rec_constraint_freq: 2000
+  max_setps: 300 #500 000 - about 2 days
+
+batch_size:
+  inlet: 64 # this number needs to be increased according to the wall use this set up as ratio
+  outlet: 64
+  hs_wall: 500 #
+  channel_wall: 1500  #2500
+  interior_flow: 3000 #4800
+  interior_heat: 3000 # 4800
+  integral_continuity: 128
+  num_integral_continuity: 4
