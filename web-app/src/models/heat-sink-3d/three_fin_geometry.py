@@ -135,15 +135,29 @@ class ThreeFin(object):
                 channel_origin[1] + channel_dim[1],
                 channel_origin[2] + channel_dim[2],
             ),
+            -1,
             parameterization = pr,
         )
-        
+
         self.outlet = Plane(
-            (channel_origin[0] + channel_dim[0], channel_origin[1], channel_origin[2])
+            (channel_origin[0] + channel_dim[0],channel_origin[1], channel_origin[2]),
             (
-                channel_origin[0],
+                channel_origin[0] + channel_dim[0],
                 channel_origin[1] + channel_dim[1],
                 channel_origin[2] + channel_dim[2],
             ),
+            1,
             parameterization = pr,
         )
+        
+        self.integral_plane = Plane(
+            (x_pos, channel_origin[1], channel_origin[2]),
+            (
+                x_pos,
+                channel_origin[1] + channel_dim[1],
+                channel_origin[2] + channel_dim[2],
+            ),
+            1,
+        )
+
+
