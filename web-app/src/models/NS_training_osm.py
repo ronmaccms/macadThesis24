@@ -246,7 +246,7 @@ def run(cfg: ModulusConfig) -> None :
 
     # add monitors
     force = PointwiseMonitor(
-        heat_sink.sample_boundary(100),
+        combined_heat_sink.sample_boundary(100),
         output_names=["p"],
         metrics={
             "force_x": lambda var: torch.sum(var["normal_x"] * var["area"] * var["p"]),
