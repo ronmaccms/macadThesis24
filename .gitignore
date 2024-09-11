@@ -18,3 +18,5 @@ cuda-repo-ubuntu2404-12-6-local_12.6.1-560.35.03-1_amd64.deb
 *.bak
 *.swp
 *.swo
+web-app/src/models/FNO/datasets/Darcy_241/piececonst_r241_N1024_smooth1.hdf5
+web-app/src/models/FNO/datasets/Darcy_241_N1024_smooth2.hdf5
