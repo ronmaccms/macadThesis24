@@ -1,6 +1,4 @@
-web-app/src/models/FNO/datasets/Darcy_241/piececonst_r241_N1024_smooth1.hdf5
 web-app/src/models/FNO/datasets/Darcy_241/piececonst_r241_N1024_smooth2.hdf5
-web-app/src/models/FNO/datasets/Darcy_241/piececonst_r241_N1024_smooth1.hdf5
-web-app/src/models/FNO/datasets/Darcy_241/piececonst_r241_N1024_smooth2.hdf5
-web-app/src/models/FNO/datasets/Darcy_241/piececonst_r241_N1024_smooth1.hdf5
-web-app/src/models/FNO/datasets/Darcy_241/piececonst_r241_N1024_smooth2.hdf5
+./outputs/darcy_flow_problem-FNO/events.out.tfevents.1726059264.NY1M342.273392.0
+./outputs/darcy_flow_problem-FNO/fno.0.pth
+./outputs/darcy_flow_problem-FNO/optim_checkpoint.0.pth
