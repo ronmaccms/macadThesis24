@@ -1,3 +1,4 @@
+
 import os
 import warnings
 
@@ -7,8 +8,10 @@ import itertools
 import numpy as np
 
 import modulus.sym
-from modulus.sym.hydra import to_absolute_path, instantiate_arch, ModulusConfig
+from modulus.sym.hydra.config import ModulusConfig
+from modulus.sym.hydra import to_absolute_path, instantiate_arch
 from modulus.sym.utils.io import csv_to_dict
+from modulus.sym.solver import Solver
 from modulus.sym.domain import Domain
 from modulus.sym.geometry.primitives_3d import Box, Channel, Plane
 from modulus.sym.models.fully_connected import FullyConnectedArch
@@ -31,25 +34,27 @@ from modulus.sym.eq.pdes.advection_diffusion import AdvectionDiffusion
 from three_fin_geometry import *
 
 @modulus.sym.main(config_path="./", config_name="config_thermal.yaml")
+
 def run(cfg: ModulusConfig) -> None:
-    ad = AdvectionDiffusion(T="theta_f", rho=1.0, D=0.02, dim=3, time=False)
-    dif = Diffusion(T="theta_s", D=0.0625, dim=3, time=False)
-    dif_interface = DiffusionInterface("theta_f", "theta_s", 1.0, 5.0, dim=3, time=False)
+    ad = AdvectionDiffusion(T = "theta_f", rho=1.0, D=0.02, dim = 3, time=False)
+    dif = Diffusion(T = "theta_s", D = 0.0625, dim = 3, time= False)
+    dif_interface = DiffusionInterface("theta_f","theta_s", 1.0,5.0, dim=3, time= False)
     f_grad = GradNormal("theta_f", dim=3, time=False)
     s_grad = GradNormal("theta_s", dim=3, time=False)
-
+    
     input_keys = [Key("x"), Key("y"), Key("z")]
     flow_net = FullyConnectedArch(
         input_keys = input_keys, output_keys = [Key("u"), Key("v"), Key("w"), Key("p")],
     )
-
+    
     thermal_f_net = FullyConnectedArch(
-        input_keys=input_keys, output_keys = [Key("theta_f")]
+        input_keys= input_keys, output_keys= [Key("theta_f")]
     )
+    
     thermal_s_net = FullyConnectedArch(
-        input_keys=input_keys, output_keys = [Key("theta_s")]
+        input_keys= input_keys, output_keys= [Key("theta_s")]
     )
-
+    
     thermal_nodes = (
         ad.make_nodes()
         + dif.make_nodes()
@@ -60,14 +65,14 @@ def run(cfg: ModulusConfig) -> None:
         + [thermal_f_net.make_node(name= "thermal_f_network")]
         + [thermal_s_net.make_node(name= "thermal_s_network")]
     )
-
+    
     geo = ThreeFin()
-
-    inlet_t = 293.15 / 273.15 - 1
-    grad_t = 360 / 273.15
-
+    
+    inlet_t = 293.15/ 273.15 - 1
+    grad_t = 360/ 273.15
+    
     thermal_domain = Domain()
-
+    
     constraint_inlet = PointwiseBoundaryConstraint(
         nodes = thermal_nodes,
         geometry = geo.inlet,
@@ -89,7 +94,7 @@ def run(cfg: ModulusConfig) -> None:
         parameterization = geo.pr,
     )
     thermal_domain.add_constraint(constraint_outlet, "outlet")
-
+    
     def wall_criteria(invar, params):
         sdf = geo.three_fin.sdf(invar, params)
         return np.less(sdf["sdf"], -1e-5)
@@ -161,7 +166,8 @@ def run(cfg: ModulusConfig) -> None:
         criteria = And (x > -1.1, x < 0.5),
     )
     thermal_domain.add_constraint(hr_flow_interior, "hr_flow_interior")
-        
+    
+    
     solid_interior = PointwiseInteriorConstraint(
         nodes= thermal_nodes,
         geometry = geo.three_fin,
@@ -170,10 +176,14 @@ def run(cfg: ModulusConfig) -> None:
         lambda_weighting = {"diffusion_theta_s": 100.0},
     )
     thermal_domain.add_constraint(solid_interior, "solid_interior")
-        
+    
+    
+    
     thermal_slv = Solver(cfg, thermal_domain)
     
     thermal_slv.solve()
+    
+    
     
 if __name__ == "__main__":
     run()
