@@ -130,10 +130,6 @@
   <li><strong>NVIDIA DeepONets</strong>: Further developed models to include 3D bracket stress analysis, multi-domain calculations, and geometric optimization using PINNs.</li>
 </ul>
 
-<div align="center">
-  <img src="./path-to-your-uploaded-image.png" alt="Current Research Diagram" width="1000">
-</div>
-
 <h3>Setting Up and Using WSL for CUDA-Enabled GPU Computing</h3>
 
 <p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU. Below are the steps to replicate this setup:</p>
