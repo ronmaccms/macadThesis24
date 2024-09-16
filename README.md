@@ -26,59 +26,55 @@
 
 <h2>About The Project</h2>
 
-<p>This project was developed as part of the IAAC: AI 2023-24 course, focusing on creating an open-source, web-based platform to simulate urban wind flow using Physics-Informed Neural Networks (PINNs). The simulation utilizes real-time and historical data, integrating models with neural network computations to visualize pedestrian comfort and promote sustainable urban planning.</p>
+<p>Project developed under the course IAAC: AI 2023-24 in <a href="https://iaac.net/">IAAC</a>.</p>
 
 <h3>Overview</h3>
 
-<p>The project integrates real-time wind data from OpenWeatherMap and 3D building models from OpenStreetMap to simulate urban wind patterns using PINNs. The process includes setting up a backend for data processing, developing and training a PINN model using NVIDIA Modulus, and designing a Vue.js-based frontend for real-time interaction and visualization.</p>
+<p>Urban Wind Flow Modeling with PINNs focuses on developing a web-based platform that simulates wind flow in urban environments using real-time data and neural networks. By using data from NOAA, OpenWeatherMap, and OpenStreetMap, the project integrates real-time wind data and 3D building models to visualize pedestrian wind comfort and cfd simulations.</p>
 
 <h3>Objectives</h3>
 
-<p>This project aims to provide an accessible tool for urban planners, architects, and researchers to simulate urban wind flow and make data-driven decisions in urban design:</p>
+<p>The projects aim is to create an open-source, web-based platform that leverages Physics-Informed Neural Networks to simulate wind flow in urban environments. Designed to be a collaborative tool, inviting contributions from urban planners, architects, and designers to enhance its functionality and adaptability. The project aims to promote sustainable urban development, reducing energy consumption and improving pedestrian comfort. This initiative not only supports environmental sustainability but also fosters a community-driven approach to urban design innovation.</p>
+
 <ul>
-  <li>Collect and preprocess data from various sources, including NOAA, OpenWeatherMap, and OpenStreetMap.</li>
-  <li>Develop and train a Physics-Informed Neural Network (PINN) model using NVIDIA Modulus and PyTorch to simulate wind flow.</li>
-  <li>Integrate the trained model into a Vue.js application for real-time interaction and visualization of results.</li>
-  <li>Provide insights into enhancing pedestrian comfort and sustainable urban design by utilizing data-driven simulations.</li>
-  <li>Foster a collaborative and open-source approach, inviting community contributions to enhance the platform's capabilities.</li>
+  <li>Collect and preprocess data from various sources, including historical wind data from NOAA, real-time wind conditions from OpenWeatherMap, and 3D building models from OpenStreetMap using the Overpass API.</li>
+  <li>Develop and train a PINN model using NVIDIA Modulus and PyTorch to simulate wind flow.</li>
+  <li>Integrate the trained model into a Vue.js application for real-time user interaction and visualization.</li>
+  <li>Provide insights and visualizations to urban planners and architects to enhance urban design and pedestrian comfort.</li>
+  <li>Utilize Three.js and Geolib for rendering and geographic calculations respectively, as implemented in the <code>space.vue</code> component.</li>
 </ul>
 
 <h3>Significance</h3>
 
-<p>The project's significance lies in its ability to reduce reliance on mechanical cooling systems and improve outdoor conditions, thereby promoting sustainability in urban environments. By providing an accurate and real-time analysis of urban wind flow, it supports efforts to design energy-efficient cities and improve the quality of urban life.</p>
-
-<h3>Project Timeline</h3>
-
-<ol>
-  <li><strong>Setup and Requirements</strong>: Set up WSL (Windows Subsystem for Linux) to access GPU resources efficiently. Defined the project's scope, focusing on integrating real-time data sources like NOAA and OpenWeatherMap, while selecting a technology stack that includes Vue.js, Flask/FastAPI, TensorFlow, PyTorch, and NVIDIA Modulus for PINN simulations.</li>
-  <li><strong>Planning and Research</strong>: Conducted extensive research on Physics-Informed Neural Networks (PINNs) and fluid dynamics. Experimented with NVIDIA Modulus, PyTorch, and DeepXDE to explore modeling approaches. Organized the GitHub repository to track progress, ensuring a well-structured codebase for future development.</li>
-  <li><strong>Repository and UI Development</strong>: Created a clear folder hierarchy in the repository to store documentation, code, and data. Utilized GitHub's issue tracking and timeline features for managing project milestones. Developed the initial API using Flask/FastAPI for handling real-time weather and geometry data.</li>
-  <li><strong>Model Integration and Testing</strong>: Focused on integrating complex simulations using NVIDIA Modulus and PINNs. Conducted multiple tests, including attempts to fit OpenStreetMap building polygons into the heat sink model. Worked on configuring domain constraints to accurately represent urban environments in the simulations. Although initial tests were not fully successful, this phase deepened the understanding of adapting PINNs for real-world applications.</li>
-  <li><strong>Learning and Bootcamps</strong>: Engaged in a series of tutorials and bootcamps to acquire certification in PINN simulations. Explored advanced techniques such as Inverse PINNs (I-PINNs) and Deep Neural Operators (DeepONets) using NVIDIA Modulus, significantly enhancing the knowledge required for complex fluid dynamics simulations.</li>
-  <li><strong>Current Status and Future Steps</strong>: Successfully integrated both front-end and back-end components, facilitating real-time wind simulations and 3D visualizations. The next steps involve refining the pedestrian wind assessment model, incorporating additional environmental factors like temperature and humidity, and exploring further optimizations for computational efficiency.</li>
-</ol>
+<p>By reducing reliance on mechanical cooling systems and improving outdoor conditions, this project aims to:</p>
+<ul>
+  <li>Enhance the sustainability of urban environments.</li>
+  <li>Reduce energy consumption and operational costs.</li>
+</ul>
 
 <h3>Methodology</h3>
 
+<p>Phases:</p>
 <ol>
-  <li><strong>Planning</strong>: Set up the repository, outlined the project's scope, and identified necessary data sources (NOAA, OpenWeatherMap, OpenStreetMap). Decided on the technology stack (Vue.js, Flask/FastAPI, NVIDIA Modulus, PyTorch).</li>
-  <li><strong>PINN Model Development</strong>: Developed a Physics-Informed Neural Network model using NVIDIA Modulus. Integrated the OpenStreetMap building polygons into the model by extracting edge points and simplifying building blocks into solids. Attempted different domain constraints to align footprints within the simulation space.</li>
-  <li><strong>Backend Development</strong>: Built the backend using Flask/FastAPI to handle data processing and run simulations. Developed API endpoints to fetch real-time weather data and integrate building geometry data from OpenStreetMap.</li>
-  <li><strong>Frontend Development</strong>: Developed the UI using Vue.js. Utilized Three.js for 3D rendering of urban geometries and Geolib for geographical calculations. Implemented user controls for inputting geographical data and visualizing simulation results.</li>
-  <li><strong>Testing and Integration</strong>: Connected the frontend, backend, and PINN model, conducting multiple tests to ensure reliable wind flow simulations. Encountered challenges in integrating OpenStreetMap data accurately within the PINN model, leading to additional learning phases.</li>
-  <li><strong>Deployment</strong>: Prepared the application for cloud deployment. Documented the project's codebase, methodologies, and best practices to facilitate future development and community collaboration.</li>
+  <li><strong>Planning</strong>: Set repository and collect data from NOAA, OpenWeatherMap, and OpenStreetMap for model development.</li>
+  <li><strong>PINN Model Development</strong>: Utilize PyTorch for initial testing and develop the PINN model using NVIDIA’s Modulus framework.</li>
+  <li><strong>Backend Development</strong>: Implement the backend using Flask or FastAPI, creating API endpoints to manage data and run simulations.</li>
+  <li><strong>Frontend Development</strong>: Develop the user interface using Vue.js, with Three.js for 3D rendering and Geolib for geographic calculations.</li>
+  <li><strong>System Integration and Testing</strong>: Connect the frontend, backend, and PINN model, followed by rigorous testing to ensure accuracy and reliability.</li>
+  <li><strong>Deployment and Documentation</strong>: Deploy the application on a cloud platform and document the project for future reference.</li>
 </ol>
 
 <h3>Data Sources</h3>
-
 <ul>
-  <li><strong>Real-Time Wind Data</strong>: Acquired from OpenWeatherMap API for current atmospheric conditions.</li>
-  <li><strong>3D Building Models</strong>: Extracted from OpenStreetMap using the Overpass API to simulate the urban geometry accurately.</li>
+<!--   <li><strong>Historical Wind Data</strong>: NOAA historical wind speed and direction data.</li> -->
+  <li><strong>Real-Time Wind Data</strong>: OpenWeatherMap wind conditions.</li>
+  <li><strong>3D Building Models</strong>: OpenStreetMap (OSM) data using Overpass API.</li>
+<!--   <li><strong>Synthetic Data</strong>: Ladybug Tools for additional modeling.</li> -->
 </ul>
 
 <h3>Equations and Models</h3>
 
-<p>Integrated Navier-Stokes and Advection-Diffusion equations within the neural network model using NVIDIA Modulus. Challenges included extracting and simplifying building footprints into polygons, moving them to appropriate coordinates, and setting up the simulation domain to interact correctly with the building geometries.</p>
+<p>The challenges include the ongoing integration of the OpenWeatherMap data and Navier-Stokes equations into the neural network model to enhance the precision of simulations.</p>
 
 <!-- GIF Section -->
 <div align="center">
@@ -87,41 +83,79 @@
 
 <h3>Frontend Development</h3>
 
-<p>The frontend interface, developed using Vue.js, Three.js, and Geolib, allows users to input geographical coordinates, run wind flow simulations, and visualize real-time results. The interface also provides additional environmental layers, such as temperature and humidity, to support a comprehensive analysis of urban wind patterns.</p>
+<p>The frontend is developed using Vue.js, with Three.js handling the 3D rendering and Geolib managing geographic calculations. This interface allows users to input geographical data and run wind flow simulations, providing immediate visual feedback.</p>
 
 <h3>System Integration</h3>
 
-<p>Successfully integrated the backend (Flask/FastAPI), frontend (Vue.js, Three.js), and PINN model components. Developed a helper file for definitions and configurations. Although integrating OpenStreetMap building footprints into the simulation presented challenges, these were addressed through iterative model testing and learning phases.</p>
+<p>The system integration phase involved connecting the backend, frontend, and PINN model.</p>
 
-<h3>Learning and Development with NVIDIA Modulus</h3>
+<h3>Learning and Development with NVIDIA Modulus Sym</h3>
 
-<p>Throughout the project, various PINN tutorials and NVIDIA Modulus bootcamps were completed to gain a deeper understanding of fluid dynamics modeling. These learning activities included:</p>
-<ul>
-  <li><strong>Physics-Informed Neural Networks (PINNs)</strong>: Integrated physical laws into neural networks for simulation accuracy.</li>
-  <li><strong>Inverse PINNs (I-PINNs)</strong>: Tackled inverse problems to optimize model parameters based on real-world data.</li>
-  <li><strong>Deep Neural Operators (DeepONets)</strong>: Explored advanced simulations using neural operators to solve complex fluid dynamics problems.</li>
-</ul>
+<p>As part of the development process for this project, I am actively learning how to leverage NVIDIA’s <code>modulus.sym</code> for building PINNs. The training sessions required for developing accurate models often take up to 12 hours, and they are conducted on my GPU using a WSL. This setup allows me to fully utilize the computational power of my NVIDIA GPU while working in a Linux environment.</p>
 
 <div align="center">
     <img src="./web-app/src/assets/doc/data/images/2d-heat-sink-with-fins.png" alt="sink-heat" width="500">
 </div>
 
-<h3>Current Status and Next Steps</h3>
-
-<p>The platform currently supports real-time wind simulations and 3D visualizations. Upcoming steps include:</p>
-<ul>
-  <li>Refining the pedestrian wind assessment model.</li>
-  <li>Incorporating additional environmental factors such as temperature and humidity.</li>
-  <li>Enhancing computational efficiency and accuracy for large-scale simulations.</li>
+<p>I am testing several techniques:</p> 
+<ul> 
+    <li><strong>Physics-Informed Neural Networks (PINNs)</strong>: Learning how to integrate physical laws directly into neural networks for accurate simulation results.
+    </li> 
+    <li><strong>Inverse PINNs (I-PINNs)</strong>: Tackling inverse problems to optimize and fine-tune model parameters based on observed data.
+    </li> 
+    <li><strong>Deep Neural Operators (DeepONets)</strong>: Developing skills in mapping functions to functions, for solving complex simulations like fluid dynamics.
+    </li> 
+    <li><strong>NVIDIA Modulus</strong>: Applying these concepts using NVIDIA’s Modulus framework, specifically in Computational Fluid Dynamics (CFD) and structural analysis.
+    </li> 
 </ul>
+
+<div align="center">
+    <img src="./web-app/src/assets/doc/data/images/Screenshot 2024-08-27 092922.png" alt="sink-heat-2" width="500">
+</div>
+<br>
+<div align="center">
+    <img src="./web-app/src/assets/doc/data/images/Screenshot 2024-08-27 093741.png" alt="sink-heat-2" width="400">
+</div>
+
+
+<h3>Example of Implementation</h3>
+
+<p>2D simulation in Section 3: Deep Neural Operator (DeepONet). This simulation integrates key equations such as the Navier-Stokes and Advection-Diffusion equations to model fluid dynamics. By utilizing <code>modulus.sym</code>, I have been able to develop neural networks that predict fluid velocity, pressure, and diffusivity, for simulating wind flow in urban environments.</p>
+
+<h3>Setting Up and Using WSL for CUDA-Enabled GPU Computing</h3>
+
+<p>To fully utilize the NVIDIA GPU on my system, I have set up a WSL environment with Ubuntu 20.04, which allows me to run Linux-based software while taking advantage of CUDA for GPU. Below are the steps to replicate this setup:</p>
+
+<div align="center">
+    <img src="./web-app/src/assets/doc/data/images/gpu2.png" alt="gpu2" width="500">
+</div>
+
+<h3>Step 1: Install WSL and Ubuntu 20.04</h3>
+<ol>
+  <li><strong>Enable WSL</strong>: Open PowerShell as an Administrator and run:
+  </li>
+  <li><strong>Install Ubuntu 20.04</strong>: If you need a specific version, such as Ubuntu 20.04
+  </li>
+  <li><strong>Set Up WSL</strong>: Once Ubuntu is installed, open it from your Start menu and follow the on-screen instructions to complete the setup.</li>
+</ol>
+
+<h3>Step 2: Install NVIDIA CUDA Toolkit</h3>
+
+<h3>Step 4: Install NVIDIA Modulus and Other Dependencies</h3>
+
+<h3>Running Your First Simulation</h3>
+<p>After setting up your environment, you can run your first PINN simulation by navigating to the project directory and executing the following command:</p>
+<pre><code>python3 your_simulation_script.py</code></pre>
+
+<p>This command will start the simulation, utilizing your NVIDIA GPU to accelerate the computations. Depending on the complexity of the model, training can take several hours.</p>
 
 <h2>Project Structure</h2>
 
 <ul>
-  <li><code>src/</code>: Source files for the Vue.js frontend and simulation scripts.</li>
-  <li><code>public/</code>: Public assets, including images, logos, and GIFs.</li>
-  <li><code>package.json</code>: Project dependencies and configurations.</li>
-  <li><code>README.md</code>: Documentation outlining project objectives, methods, and instructions.</li>
+  <li><code>src/</code>: Source files</li>
+  <li><code>public/</code>: Public assets</li>
+  <li><code>package.json</code>: Project configuration and dependencies</li>
+  <li><code>README.md</code>: Project instructions and information</li>
 </ul>
 
 <h2>Team & Contacts</h2>
@@ -140,4 +174,15 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+</body>
+<!-- <style>
+  pre code {
+    padding: 10px;
+    margin: 5px 0;
+    display: block;
+    overflow-x: auto;
+  }
+</style> -->
+
 </html>
+# Force update
