@@ -30,7 +30,7 @@
 
 <h3>Overview</h3>
 
-<p>The project centers on researching and deploying neural networks on the web as an open-source platform for the community. This study specifically explores Physics-Informed Neural Networks (PINNs) and Computational Fluid Dynamics (CFD) to analyze pedestrian wind comfort. It aims to integrate these neural network models into a web application using Three.js and other tools. By utilizing data from OpenWeatherMap, and OpenStreetMap, the project aims to support real-time simulations and visualizations of wind flow in urban environments.</p>
+<p>This study specifically explores Physics-Informed Neural Networks (PINNs) and Computational Fluid Dynamics (CFD) to analyze pedestrian wind comfort. It aims to integrate these neural network models into a web application using Three.js and other tools. By utilizing data from OpenWeatherMap, and OpenStreetMap, the project aims to support real-time simulations and visualizations of wind flow in urban environments.</p>
 
 <h3>Objectives</h3>
 
