@@ -1,3 +1,4 @@
+<a id="readme-top"></a>
 <!-- PROJECT LOGO -->
 <div align="center" style="background-color: #f39c12; color: white; padding: 10px; font-size: 20px; font-weight: bold;">
   WIP
@@ -163,4 +164,6 @@
     <img src="./web-app/src/assets/img/davidProfilePic.png" alt="David Andres Leon" width="100">
 </a>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">
+  (<a href="#readme-top">back to top</a>)
+</p>
