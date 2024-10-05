@@ -1,3 +1,4 @@
+<a id="readme-top"></a>
 <h2>About The Folder</h2>
 
 <h3>Learning and Development with NVIDIA Modulus Sym</h3>
@@ -122,7 +123,43 @@ if __name__ == "__main__":
 ```
 <p>In the Python script, Hydra is used to load the configuration file. The Solver is initialized with the parameters from the YAML configuration, making it easy to manage hyperparameters for various experiments.</p>
 
-<h3>Git and WSL Cheat Sheet</h3> <h4>Essential Git Commands</h4> <p>Below are some essential Git commands for managing your repository:</p> <ul> <li><strong>Checking for the 10 largest files in your commit:</strong> <pre><code>du -ah . | sort -rh | head -n 10</code></pre></li> <li><strong>Removing a file from your Git commit:</strong> <pre><code>git rm --cached "File Path"</code></pre></li> <li><strong>Adding a file to .gitignore:</strong> <pre><code>echo "filename" >> .gitignore</code></pre></li> <li><strong>Committing and pushing changes:</strong> <pre><code>git add .gitignore git commit -m "Add large CUDA file to .gitignore" git push origin main</code></pre></li> <li><strong>Creating and managing branches:</strong> <ul> <li>To create a new branch: <pre><code>git checkout -b new-branch-name</code></pre></li> <li>To switch to an existing branch: <pre><code>git checkout branch-name</code></pre></li> <li>To delete a branch: <pre><code>git branch -d branch-name</code></pre></li> <li>To push a new branch to the remote repository: <pre><code>git push origin new-branch-name</code></pre></li> </ul> </li> </ul> <h4>Checking NVIDIA GPU Status</h4> <p>To check if your system has an NVIDIA GPU and ensure that it’s correctly configured for CUDA:</p> <ul> <li>Run the following command in your terminal: <pre><code>nvidia-smi</code></pre></li> <li>If you see your GPU details listed, your system is set up correctly.</li> </ul> <h4>Installing CUDA on Ubuntu 20.04</h4> <p>If you need to install CUDA, follow these steps:</p> <ul> <li><strong>Install CUDA Toolkit:</strong> <pre><code>sudo apt-get install -y cuda</code></pre></li> <li><strong>Verify CUDA installation:</strong> <pre><code>nvcc --version</code></pre></li> </ul> <h4>Setting Up WSL</h4> <p>To set up WSL with Ubuntu 20.04 on your system:</p> <ol> <li><strong>Enable WSL:</strong> Open PowerShell as an Administrator and run: <pre><code>wsl --install</code></pre></li> <li><strong>Install Ubuntu 20.04:</strong> <pre><code>wsl --install -d Ubuntu-20.04</code></pre></li> <li><strong>Set Up WSL:</strong> Open Ubuntu from your Start menu and follow the on-screen instructions to complete the setup.</li> </ol> <h3>Running Your First Simulation</h3> <p>After setting up your environment, you can run your first PINN simulation by navigating to the project directory and executing the following command:</p> <pre><code>python3 your_simulation_script.py</code></pre> <p>This command will start the simulation, utilizing your NVIDIA GPU to accelerate the computations. Depending on the complexity of the model, training can take several hours.</p> <h3>Contributor</h3> <p>Andres</p> <p align="right">(<a href="#readme-top">back to top</a>)</p>
+<h3>Git and WSL Cheat Sheet</h3> 
+<h4>Essential Git Commands</h4> 
+<p>Below are some essential Git commands for managing your repository:</p> 
+<ul> 
+    <li><strong>Checking for the 10 largest files in your commit:</strong> <pre><code>du -ah . | sort -rh | head -n 10</code></pre></li> <li><strong>Removing a file from your Git commit:</strong> <pre><code>git rm --cached "File Path"</code></pre></li> 
+    <li><strong>Adding a file to .gitignore:</strong> <pre><code>echo "filename" >> .gitignore</code></pre></li> <li><strong>Committing and pushing changes:</strong> <pre><code>git add .gitignore git commit -m "Add large CUDA file to .gitignore" git push origin main</code></pre></li> <li><strong>Creating and managing branches:</strong> 
+    <ul> 
+        <li>To create a new branch: <pre><code>git checkout -b new-branch-name</code></pre></li> <li>To switch to an existing branch: <pre><code>git checkout branch-name</code></pre></li> 
+        <li>To delete a branch: <pre><code>git branch -d branch-name</code></pre></li> 
+        <li>To push a new branch to the remote repository: <pre><code>git push origin new-branch-name</code></pre></li> 
+    </ul> 
+    </li> 
+</ul> 
+<h4>Checking NVIDIA GPU Status</h4> 
+<p>To check if your system has an NVIDIA GPU and ensure that it’s correctly configured for CUDA:</p> 
+<ul> 
+    <li>Run the following command in your terminal: <pre><code>nvidia-smi</code></pre></li> 
+    <li>If you see your GPU details listed, your system is set up correctly.</li> 
+</ul> 
+<h4>Installing CUDA on Ubuntu 20.04</h4> 
+<p>If you need to install CUDA, follow these steps:</p> 
+<ul> 
+    <li><strong>Install CUDA Toolkit:</strong> <pre><code>sudo apt-get install -y cuda</code></pre></li> 
+    <li><strong>Verify CUDA installation:</strong> <pre><code>nvcc --version</code></pre></li> 
+</ul> <h4>Setting Up WSL</h4> <p>To set up WSL with Ubuntu 20.04 on your system:</p> 
+<ol> 
+    <li><strong>Enable WSL:</strong> Open PowerShell as an Administrator and run: <pre><code>wsl --install</code></pre></li> 
+    <li><strong>Install Ubuntu 20.04:</strong> <pre><code>wsl --install -d Ubuntu-20.04</code></pre></li> 
+    <li><strong>Set Up WSL:</strong> Open Ubuntu from your Start menu and follow the on-screen instructions to complete the setup.</li> 
+</ol> 
+<h3>Running Your First Simulation</h3> 
+<p>After setting up your environment, you can run your first PINN simulation by navigating to the project directory and executing the following command:</p> 
+<pre><code>python3 your_simulation_script.py</code></pre> 
+<p>This command will start the simulation, utilizing your NVIDIA GPU to accelerate the computations. Depending on the complexity of the model, training can take several hours.</p> 
+<h3>Contributor</h3> 
+<p>Andres</p> 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
