@@ -64,77 +64,65 @@
 
 ---
 
-<h3>Git and WSL Cheat Sheet</h3>
+<h3>Solver in Modulus Sym</h3>
+<p>The <strong>Solver</strong> is the core engine of Modulus Sym, responsible for managing the optimization loop and ensuring that the model is trained efficiently. The Solver takes in the <strong>Domain</strong>, which contains all the <strong>Constraints</strong>, <strong>Inferencers</strong>, <strong>Validators</strong>, and <strong>Monitors</strong>, and handles the training process by executing them in the correct order.</p>
 
-<h4>Essential Git Commands</h4>
-<p>Below are some essential Git commands for managing your repository:</p>
-
-<ul>
-  <li><strong>Checking for the 10 largest files in your commit:</strong>
-  <pre><code>du -ah . | sort -rh | head -n 10</code></pre></li>
-
-  <li><strong>Removing a file from your Git commit:</strong>
-  <pre><code>git rm --cached "File Path"</code></pre></li>
-
-  <li><strong>Adding a file to .gitignore:</strong>
-  <pre><code>echo "filename" >> .gitignore</code></pre></li>
-
-  <li><strong>Committing and pushing changes:</strong>
-  <pre><code>git add .gitignore
-git commit -m "Add large CUDA file to .gitignore"
-git push origin main</code></pre></li>
-
-  <li><strong>Creating and managing branches:</strong>
-  <ul>
-    <li>To create a new branch:
-    <pre><code>git checkout -b new-branch-name</code></pre></li>
-    <li>To switch to an existing branch:
-    <pre><code>git checkout branch-name</code></pre></li>
-    <li>To delete a branch:
-    <pre><code>git branch -d branch-name</code></pre></li>
-    <li>To push a new branch to the remote repository:
-    <pre><code>git push origin new-branch-name</code></pre></li>
-  </ul>
-  </li>
-</ul>
-
-<h4>Checking NVIDIA GPU Status</h4>
-<p>To check if your system has an NVIDIA GPU and ensure that it’s correctly configured for CUDA:</p>
+<h4>Key Aspects of the Solver:</h4>
 
 <ul>
-  <li>Run the following command in your terminal:
-  <pre><code>nvidia-smi</code></pre></li>
-  <li>If you see your GPU details listed, your system is set up correctly.</li>
+    <li><strong>Optimization Loop:</strong> The Solver computes the global loss based on all the Constraints in the Domain and optimizes the neural network by updating the trainable models (Nodes) accordingly.</li>
+    <li><strong>Training Management:</strong> The Solver manages the interaction between the Constraints, Validators, Inferencers, and Monitors. It ensures that each component works together seamlessly to achieve the training objectives.</li>
 </ul>
 
-<h4>Installing CUDA on Ubuntu 20.04</h4>
-<p>If you need to install CUDA, follow these steps:</p>
+<h4>Example Code Snippet for Solver:</h4>
 
-<ul>
-  <li><strong>Install CUDA Toolkit:</strong>
-  <pre><code>sudo apt-get install -y cuda</code></pre></li>
-  <li><strong>Verify CUDA installation:</strong>
-  <pre><code>nvcc --version</code></pre></li>
-</ul>
+```python
+from modulus.sym.solver import Solver
+from modulus.sym.domain import Domain
 
-<h4>Setting Up WSL</h4>
-<p>To set up WSL with Ubuntu 20.04 on your system:</p>
+# Create a domain with predefined constraints and nodes
+domain = Domain()
 
-<ol>
-  <li><strong>Enable WSL:</strong> Open PowerShell as an Administrator and run:
-  <pre><code>wsl --install</code></pre></li>
-  <li><strong>Install Ubuntu 20.04:</strong> 
-  <pre><code>wsl --install -d Ubuntu-20.04</code></pre></li>
-  <li><strong>Set Up WSL:</strong> Open Ubuntu from your Start menu and follow the on-screen instructions to complete the setup.</li>
-</ol>
+# Define the solver
+solver = Solver(domain)
 
-<h3>Running Your First Simulation</h3>
-<p>After setting up your environment, you can run your first PINN simulation by navigating to the project directory and executing the following command:</p>
-<pre><code>python3 your_simulation_script.py</code></pre>
+# Start the optimization loop
+solver.train()
+```
+<p>In the example above, the Solver initializes the optimization process by taking the defined Domain, which contains all the Constraints (like Navier-Stokes equation, boundary conditions), and running the optimization loop until the global loss is minimized.</p>
 
-<p>This command will start the simulation, utilizing your NVIDIA GPU to accelerate the computations. Depending on the complexity of the model, training can take several hours.</p>
+<h3>Hydra in Modulus Sym</h3> <p><strong>Hydra</strong> is a configuration management package integrated into Modulus Sym that allows users to easily set and modify <strong>hyperparameters</strong> (parameters such as learning rate, batch size, and model architecture) using YAML configuration files. Hydra simplifies the process of managing and tuning these parameters across different runs.</p> <h4>Key Features of Hydra:</h4> <ul> <li><strong>Centralized Configuration:</strong> All hyperparameters are managed through YAML files, making it easy to tweak settings without modifying the code.</li> <li><strong>Parameter Flexibility:</strong> Hydra allows you to create different configurations for different models or experiments and switch between them easily.</li> <li><strong>Reproducibility:</strong> By saving configurations in YAML files, Hydra ensures that your experiments are reproducible, as the configuration can be shared or re-used without confusion.</li> </ul> <h4>Example Hydra Configuration File (config.yaml):</h4>
 
-<h3>Contributor</h3>
-<p>Andres</p>
+```
+model:
+  layers: 4
+  units_per_layer: 64
+  activation: relu
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+training:
+  learning_rate: 0.001
+  batch_size: 32
+  epochs: 1000
+```
+
+<p>In this configuration file, we define a model with 4 layers, 64 units per layer, and a ReLU activation function. The training process uses a learning rate of 0.001 and a batch size of 32 for 1000 epochs. Hydra allows you to easily change these settings without needing to touch the core Python code.</p> <h4>Using Hydra with Modulus Sym:</h4>
+
+```
+import hydra
+from omegaconf import DictConfig
+from modulus.sym.solver import Solver
+
+@hydra.main(config_path="config.yaml")
+def main(cfg: DictConfig):
+    solver = Solver(cfg)  # Load parameters from the Hydra configuration
+    solver.train()
+
+if __name__ == "__main__":
+    main()
+```
+<p>In the Python script, Hydra is used to load the configuration file. The Solver is initialized with the parameters from the YAML configuration, making it easy to manage hyperparameters for various experiments.</p>
+
+<h3>Git and WSL Cheat Sheet</h3> <h4>Essential Git Commands</h4> <p>Below are some essential Git commands for managing your repository:</p> <ul> <li><strong>Checking for the 10 largest files in your commit:</strong> <pre><code>du -ah . | sort -rh | head -n 10</code></pre></li> <li><strong>Removing a file from your Git commit:</strong> <pre><code>git rm --cached "File Path"</code></pre></li> <li><strong>Adding a file to .gitignore:</strong> <pre><code>echo "filename" >> .gitignore</code></pre></li> <li><strong>Committing and pushing changes:</strong> <pre><code>git add .gitignore git commit -m "Add large CUDA file to .gitignore" git push origin main</code></pre></li> <li><strong>Creating and managing branches:</strong> <ul> <li>To create a new branch: <pre><code>git checkout -b new-branch-name</code></pre></li> <li>To switch to an existing branch: <pre><code>git checkout branch-name</code></pre></li> <li>To delete a branch: <pre><code>git branch -d branch-name</code></pre></li> <li>To push a new branch to the remote repository: <pre><code>git push origin new-branch-name</code></pre></li> </ul> </li> </ul> <h4>Checking NVIDIA GPU Status</h4> <p>To check if your system has an NVIDIA GPU and ensure that it’s correctly configured for CUDA:</p> <ul> <li>Run the following command in your terminal: <pre><code>nvidia-smi</code></pre></li> <li>If you see your GPU details listed, your system is set up correctly.</li> </ul> <h4>Installing CUDA on Ubuntu 20.04</h4> <p>If you need to install CUDA, follow these steps:</p> <ul> <li><strong>Install CUDA Toolkit:</strong> <pre><code>sudo apt-get install -y cuda</code></pre></li> <li><strong>Verify CUDA installation:</strong> <pre><code>nvcc --version</code></pre></li> </ul> <h4>Setting Up WSL</h4> <p>To set up WSL with Ubuntu 20.04 on your system:</p> <ol> <li><strong>Enable WSL:</strong> Open PowerShell as an Administrator and run: <pre><code>wsl --install</code></pre></li> <li><strong>Install Ubuntu 20.04:</strong> <pre><code>wsl --install -d Ubuntu-20.04</code></pre></li> <li><strong>Set Up WSL:</strong> Open Ubuntu from your Start menu and follow the on-screen instructions to complete the setup.</li> </ol> <h3>Running Your First Simulation</h3> <p>After setting up your environment, you can run your first PINN simulation by navigating to the project directory and executing the following command:</p> <pre><code>python3 your_simulation_script.py</code></pre> <p>This command will start the simulation, utilizing your NVIDIA GPU to accelerate the computations. Depending on the complexity of the model, training can take several hours.</p> <h3>Contributor</h3> <p>Andres</p> <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
