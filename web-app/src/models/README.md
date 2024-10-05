@@ -11,8 +11,6 @@
     <img src="https://github.com/ronmaccms/macadThesis24/blob/main/web-app/src/assets/doc/data/images/navier-stokes.png" alt="Navier-Stokes Equations" width="500">
 </div>
 
-<p>In this project, the Navier-Stokes equations are used to model how air flows through urban landscapes, predicting phenomena like wind acceleration around corners and vortex formation behind buildings.</p>
-
 <h4>Boundary and Initial Conditions</h4>
 <p>The PINNs are configured with boundary conditions derived from real-time data. These conditions control the entry, exit, and flow of wind through the simulated urban landscape.</p>
 
@@ -21,6 +19,50 @@
 <div align="center">
     <img src="https://github.com/ronmaccms/macadThesis24/blob/main/web-app/src/assets/doc/data/images/2d-heat-sink-with-fins.png" alt="Wind Simulation" width="600">
 </div>
+
+<h3>Understanding Modulus Sym Nodes</h3>
+
+<p>In Modulus Sym, <strong>Nodes</strong> play a critical role in defining the components that will be executed during the forward pass of the training process. Here's a breakdown of how Nodes function and what they can represent:</p>
+
+<h4>Key Aspects of Modulus Sym Nodes:</h4>
+
+<ul>
+    <li><strong>Wrappers for <code>torch.nn.Module</code>:</strong> A Node can wrap around PyTorch's <code>torch.nn.Module</code>, meaning that neural network architectures (like fully connected networks, CNNs, etc.) can be encapsulated as Nodes. This allows for greater flexibility and easy integration of deep learning models into the Modulus Sym framework.</li>
+    <li><strong>Input and Output Variables:</strong> Nodes specify their required input and output variables. This information is essential because it allows Modulus Sym to understand how different components are connected. For instance, the output of one Node can be fed as the input to another Node in a computational graph.</li>
+    <li><strong>Automatic Derivative Computation:</strong> Nodes in Modulus Sym automatically compute derivatives needed for physics-based simulations, such as the gradient of the output with respect to input variables. For example, if your model needs the gradient of velocity for Navier-Stokes, Modulus Sym ensures these derivatives are calculated.</li>
+</ul>
+
+<h4>Types of Nodes:</h4>
+
+<ul>
+    <li><strong>Pre-built PyTorch Networks:</strong> Use existing architectures that are part of Modulus Sym.</li>
+    <li><strong>Custom PyTorch Networks:</strong> You can define and use your own custom neural networks by creating a <code>torch.nn.Module</code> and wrapping it in a Node.</li>
+    <li><strong>Feature Transformations:</strong> These could be any form of preprocessing or transformations applied to your features (inputs).</li>
+    <li><strong>Equations or Constraints:</strong> Nodes can also represent mathematical equations (like PDEs) that are part of the training process. This is useful in physics-informed neural networks (PINNs), where the loss function incorporates physics equations.</li>
+</ul>
+
+<h4>Example of Node Usage:</h4>
+<p>In a physics-informed simulation, let's say you're using the Navier-Stokes equation to model fluid dynamics. You might define nodes for:</p>
+
+<ul>
+    <li>A neural network that approximates the velocity and pressure of the fluid.</li>
+    <li>Nodes for calculating derivatives like gradients or divergence of the velocity field.</li>
+    <li>Nodes for applying boundary conditions or initial conditions.</li>
+</ul>
+
+<h4>Benefits:</h4>
+
+<ul>
+    <li><strong>Graph-based Execution:</strong> The input/output relationships between nodes allow Modulus Sym to build a computational graph, streamlining the training process and allowing for more efficient derivative computations.</li>
+    <li><strong>Flexibility:</strong> Since nodes can represent anything from equations to neural networks, you can easily integrate various components in your model without manual configuration of gradients or dependencies.</li>
+</ul>
+
+<h4>Automatic Derivative Calculation:</h4>
+<p>One of the significant advantages of using Nodes is that Modulus Sym can automatically compute derivatives required for physics-based simulations. For example, in a fluid dynamics simulation using the Navier-Stokes equation, Modulus Sym will automatically calculate derivatives of the velocity field (e.g., gradients) as needed to ensure that the physics laws are satisfied.</p>
+
+<p>This automatic calculation is critical because it saves you from manually coding the complex math required for differential equations, especially in the case of higher-order derivatives.</p>
+
+---
 
 <h3>Git and WSL Cheat Sheet</h3>
 
