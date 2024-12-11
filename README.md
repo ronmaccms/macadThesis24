@@ -158,12 +158,6 @@
     <img src="./web-app/src/assets/img/andres-pic.jpg" alt="Andres" width="100">
 </a>
 
-<h3>Thesis Advisor</h3>
-<p><strong>David Andres Leon</strong></p>
-<a href="https://es.linkedin.com/in/davidandresleon" target="_blank">
-    <img src="./web-app/src/assets/img/davidProfilePic.png" alt="David Andres Leon" width="100">
-</a>
-
 <p align="right">
   (<a href="#readme-top">back to top</a>)
 </p>
